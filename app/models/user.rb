@@ -18,12 +18,12 @@ class User < ApplicationRecord
 
   # Add to a devise method, require admin approval of new users. 
   def active_for_authentication?
-    super && user.role != :pending
+    super && (self.role != "pending")
   end
 
   # Modify the devise flash message for unapproved users. 
   def inactive_message 
-    if self.role == :pending 
+    if self.role == "pending" 
       :not_approved 
     else 
       super # Use whatever other message 
