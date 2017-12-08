@@ -6,3 +6,7 @@
 <p>Account created: <%= @user.created_at %></p>
 <p>Last signed in: <%= @user.current_sign_in_at %></p>
 <p>Number of times signed in: <%= @user.sign_in_count %></p>
+<p>
+  <%= link_to("Edit User", edit_user_path(@user.id)) if current_user.admin? %>
+  <%= link_to "Back to userlist", users_path %> 
+</p>

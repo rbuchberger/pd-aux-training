@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 	before_action :get_user, except: :index
+	before_action :isadmin?, except: [:index, :show]
+	before_action :istrainer?, only: [:index, :show]
+	
 	def index
 		@users = User.all
 	end
@@ -26,6 +29,14 @@ class UsersController < ApplicationController
 	
 	def get_user
 		@user = User.find(params[:id])
+	end
+	
+	def isadmin?
+		redirect_to root_path	unless current_user.admin?
+	end
+		
+	def istrainer?
+		redirect_to root_path	unless current_user.trainer? || current_user.admin?
 	end
 		
 	def user_params
