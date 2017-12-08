@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'pages#home'
+  # Routes for users to register and edit their logins & profiles
+  devise_for :users
+  scope '/admin' do
+    resources :users, except: [:new, :create]
+  end
+  
 end

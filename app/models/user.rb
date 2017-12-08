@@ -1,7 +1,7 @@
 class User < ApplicationRecord
  
     # Enumerate roles for rails convenience; they're stored in the database as integers. 
-    enum role: {pending: 0, deputy: 1, trainer: 2, admin: 3}
+    enum role: [:pending, :deputy, :trainer, :admin]
     after_initialize :set_default_role, :if => :new_record? 
 
     # Set default role to pending for new users. 
@@ -18,12 +18,12 @@ class User < ApplicationRecord
 
   # Add to a devise method, require admin approval of new users. 
   def active_for_authentication?
-    super && (self.role != "pending")
+    super && !self.pending?
   end
 
   # Modify the devise flash message for unapproved users. 
   def inactive_message 
-    if self.role == "pending" 
+    if self.pending? 
       :not_approved 
     else 
       super # Use whatever other message 

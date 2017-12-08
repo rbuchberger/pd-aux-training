@@ -1,0 +1,38 @@
+<h2>Editing <%= @user.last_name %>'s profile.</h2>
+
+<%= form_with(model: @user, html: { method: :put }) do |f| %>
+  
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :badge_number %><br />
+    <%= f.text_field :badge_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :role %><br />
+    <%= f.select :role, [['Pending',:pending],['Deputy',:deputy],['Trainer',:trainer],['Administrator',:admin]] %> 
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+
+<%= button_to "Delete user", user_path, data: { confirm: "Are you sure?" }, method: :delete %>
+
+<%= link_to "Back", users_path %>
