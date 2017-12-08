@@ -4,25 +4,22 @@ class UsersController < ApplicationController
 		@users = User.all
 	end
 	
+	def show
+		
+	end
+	
 	def edit 
 		
 	end
 	
 	def update
-		# When updating users, if you change the password devise will fail to validate.
-		# This statement strips a changed password, to prevent that. 
-		if params[:user][:password].blank?
-		  params[:user].delete(:password)
-		  params[:user].delete(:password_confirmation)
-		end
-		
-		@user.save
-		redirect_to index
+		@user.update!(user_params)
+		redirect_to users_path
 	end
 	
 	def destroy
 		@user.destroy!
-		redirect_to index
+		redirect_to users_path
 	end
 	
 	private
@@ -31,4 +28,14 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 	end
 		
+	def user_params
+		params.require(:user).permit(:first_name, :last_name, :badge_number, :role, :email)
+
+		# When updating users, if you change the password devise will fail to validate.
+		# This statement strips it, to prevent that. Except it breaks the update form, so that needs fixed. 
+		# if params[:user][:password].blank?
+		#   params[:user].delete(:password)
+		#   params[:user].delete(:password_confirmation)
+		# end
+	end
 end

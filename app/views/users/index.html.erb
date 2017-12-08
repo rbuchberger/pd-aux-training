@@ -1,18 +1,22 @@
 <table>
     <tr>
+        <th></th>
+        <th></th>
         <th>Name</th>
         <th>Badge Number</th>
         <th>Email</th>
         <th>Role</th>
+        <th>Last signed in</th>
     </tr>
     <% @users.each do |u| %>
    <tr> 
+       <td><%= link_to "Show", user_path(u.id) %></td>
+       <td><%= link_to "Edit", edit_user_path(u.id) %></td>
        <td><%= "#{u.first_name} #{u.last_name}" %></td>
        <td><%= u.badge_number %></td>
        <td><%= u.email %></td>
        <td><%= u.role %></td>
-       <td><%= link_to "Show", user_path(u.id) %></td>
-       <td><%= link_to "Edit", edit_user_path(u.id) %></td>
+       <td><%= u.current_sign_in_at %></td>
    </tr>
 <% end %>
 </table>

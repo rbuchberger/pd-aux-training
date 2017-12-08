@@ -1,0 +1,8 @@
+<h1><%= "#{@user.first_name} #{@user.last_name}" %> </h1>
+<h2><%= @user.role.capitalize %></h2>
+
+<p>Badge number: <%= @user.badge_number %> </p>
+<p>Email address: <%= @user.email %> </p>
+<p>Account created: <%= @user.created_at %></p>
+<p>Last signed in: <%= @user.current_sign_in_at %></p>
+<p>Number of times signed in: <%= @user.sign_in_count %></p>
