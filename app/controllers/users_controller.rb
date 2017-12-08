@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	before_action :get_user, except: :index
-	before_action :isadmin?, except: [:index, :show]
-	before_action :istrainer?, only: [:index, :show]
+	before_action :isadmin?, except: [:index, :show, :approve, :reject]
+	before_action :istrainer?, only: [:index, :show, :approve, :reject]
 	
 	def index
 		@users = User.all
@@ -25,6 +25,22 @@ class UsersController < ApplicationController
 		redirect_to users_path
 	end
 	
+	# Custom action allowing trainers to approve pending users
+	def approve
+		if @user.pending?
+			@user.role = :deputy
+			@user.save!
+			redirect_to user_path
+		end
+	end
+	# Custom action allowing trainers to reject pending users. 
+	def reject
+		if @user.pending?
+			@user.destroy!
+			redirect_to users_path
+		end
+	end
+	
 	private
 	
 	def get_user
@@ -32,6 +48,7 @@ class UsersController < ApplicationController
 	end
 	
 	def isadmin?
+		# TODO: this and istrainer? break when a non-logged in user tries to access them. 
 		redirect_to root_path	unless current_user.admin?
 	end
 		
