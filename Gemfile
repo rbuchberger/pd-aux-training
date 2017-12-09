@@ -39,6 +39,9 @@ gem 'devise'
 # Twitter bootstrap for to make it pretty
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 
+# jQuery for javascript 
+gem 'jquery-rails'
+
 # Font awesome for logos and icons
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
 
