@@ -11,45 +11,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <%= link_to "Monroe County PD", root_path, class: "navbar-brand" %>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
-          <% if user_signed_in? %>
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <%= link_to "Training", '#', class: "nav-link" %>
-              </li>
-              <li class="nav-item active">
-                <%= link_to "Timecards", '#', class: "nav-link" %>
-              </li>
-              <% if user_signed_in? && (current_user.trainer? || current_user.admin?)  %>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Admin
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown"}>
-                  <%= link_to "Users", users_path, class: "dropdown-item" %>
-                  <%= link_to "Timecards", '#', class: "dropdown-item" %>
-                  <%= link_to "Training", '#', class: "dropdown-item" %>
-                </div>
-              <% end %>
-              </li>
-            </ul>
-          <% end %>
-        </div>
-        <div class="navbar-userinfo">
-          <% if user_signed_in? %>
-            <%= "#{current_user.first_name} #{current_user.last_name}, #{current_user.role.capitalize} " %>
-            <%= link_to "Log out", destroy_user_session_path, method: :delete %> 
-          <% else %>
-            Currently not signed in. 
-            <%= link_to "Sign in", new_user_session_path %>
-          <% end %>
-        </div>
-    </nav>
+    <div class="container-fluid">
+      <nav class="row navbar navbar-expand-lg navbar-dark bg-dark">
+        <%= link_to "Monroe County PD", root_path, class: "navbar-brand" %>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
+            <% if user_signed_in? %>
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <%= link_to "Training", '#', class: "nav-link disabled" %>
+                </li>
+                <li class="nav-item active">
+                  <%= link_to "Timecards", '#', class: "nav-link disabled" %>
+                </li>
+                <% if is_trainer_or_admin? %>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown"}>
+                    <%= link_to "Users", users_path, class: "dropdown-item" %>
+                    <%= link_to "Timecards", '#', class: "dropdown-item disabled" %>
+                    <%= link_to "Training", '#', class: "dropdown-item disabled" %>
+                  </div>
+                <% end %>
+                </li>
+              </ul>
+            <% end %>
+          </div>
+          <div id="navbar-userinfo">
+            <% if user_signed_in? %>
+              <div class="navbar-text">
+                <strong><%= "#{current_user.first_name} #{current_user.last_name}" %></strong>
+                <strong><%= "#{current_user.role.capitalize}" %></strong>
+              </div>
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %> 
+            <% else %>
+              <div class="navbar-text">
+                <strong>Currently not signed in.</strong>
+              </div> 
+              <%= link_to "Sign in", new_user_session_path, class: "btn btn-outline-success" %>
+            <% end %>
+          </div>
+      </nav>
+    </div>
+    <br>
     <div class="container flash-container">
-      <% flash.each do |type, msg| %>
-        <%= content_tag :div, msg, class: "alert alert-#{type}" %>
+      <% flash.each do |type, message| %>
+        <div class="alert <%= bootstrap_class_for(type) %>">
+          <%= message %>
+        </div>
       <% end %>
     </div>
     <div class="container">

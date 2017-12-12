@@ -16,8 +16,24 @@
  
 @import "bootstrap";
 
-.navbar {
-  color: white;
+#navbar-userinfo {
+  display: flex;
+  overflow: hidden;
+  .navbar-text{
+    order: 1;
+    padding: 0;
+    color: white;
+    strong {
+      padding: 0px 15px;
+      display: block;
+      text-align: center;
+      margin: 0;
+      line-height: normal;
+    }
+  }
+  .btn {
+    order: 2;
+  }
 }
 
 // Typography Styles
