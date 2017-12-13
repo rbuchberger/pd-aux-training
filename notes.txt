@@ -10,21 +10,16 @@ Some setup you must do manually if you haven't yet:
 
      In production, :host should be set to the actual host of your application.
 
-  2. Ensure you have defined root_url to *something* in your config/routes.rb.
-     For example:
 
-       root to: "home#index"
+Also to do: 
 
-  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
-     For example:
-
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-
-  4. You can copy Devise views (for customization) to your app by running:
-
-       rails g devise:views
-
-
-Also to do: config users to be lockable
+-config users to be lockable
 https://github.com/plataformatec/devise/wiki/How-To:-Add-:lockable-to-Users
+
+-Change link_to tags to button_to for post and destroy actions in the admin interface
+-Super trooper references should probably be removed before it goes live. 
+-Make sure it's not pinging the database for every single page load. Store userdata in session? 
+-Need to format devise error messages
+-Make sure the last admin can't delete their account. 
+-Account update (where users edit their own profile) isn't working. Probably need to whitelist some parameters. 
+-Shield icon keeps disappearing?

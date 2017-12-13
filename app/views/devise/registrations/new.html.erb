@@ -1,44 +1,49 @@
-<h2>Sign up</h2>
-
+<div class="row justify-content-center">
+  <div class= "col-md">
+    <h4 class="display-4 text-center m-5">Sign up</h4>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class= "col-md text-center">
+    <p>Your account will require manual approval before you can log in.</p>
+  </div>
+</div>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
+  <div class="row justify-content-center">
+    <div class="col-md-4 field form-group">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, autofocus: true,  class: "form-control", placeholder: "Rodney" %>
+    </div>
+    <div class="col-md-4 field form-group">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, class: "form-control", placeholder: "Farva" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
+  <div class="row justify-content-center">
+    <div class="col-md-4 field form-group">
+      <%= f.label :badge_number %>
+      <%= f.text_field :badge_number, class: "form-control", placeholder: "Don't call me Radio" %>
+    </div>
+    <div class="col-md-4 field form-group">
+      <%= f.label 'email Address' %>
+      <%= f.email_field :email, class: "form-control", placeholder: "ramrod69@gmail.com" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :badge_number %><br />
-    <%= f.text_field :badge_number %>
-  </div>
-
-  <div class="field">
-    <%= f.label 'email Address' %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
+<div class="row justify-content-center">
+  <div class="col-md-4 field form-group">
     <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder:  "#{@minimum_password_length} characters minimum" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  <div class="col-md-4 field form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirm" %>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+</div>
+<div class="row justify-content-center">
+  <div class="col-md-4 actions form-group">
+    <%= f.submit "Sign up", class: "btn btn-primary btn-lg btn-block" %>
   </div>
+</div>
 <% end %>
-
 <%= render "devise/shared/links" %>

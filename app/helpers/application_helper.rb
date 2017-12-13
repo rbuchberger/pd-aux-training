@@ -2,10 +2,10 @@ module ApplicationHelper
   
   # Hash of bootstrap message types vs rails message types. 
   BOOTSTRAP_FLASH_MSG = {
-    success: 'alert-success',
-    error: 'alert-error',
-    alert: 'alert-block',
-    notice: 'alert-info'
+    success: 'success',
+    error: 'warning',
+    alert: 'danger',
+    notice: 'info'
   }
   
   # Converts rails flash messages to names that bootstrap expects, for proper styling

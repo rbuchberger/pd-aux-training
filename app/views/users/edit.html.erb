@@ -1,37 +1,68 @@
-<h2>Editing <%= @user.first_name %>'s profile.</h2>
+<div class="row justify-content-center">
+  <div class= "col-md">
+    <h4 class="display-4 text-center m-5">Editing <%= @user.first_name %>'s profile.</h4>
+  </div>
+</div>
 
 <%= form_with(model: @user) do |f| %>
-  
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
+  <div class="row justify-content-center">
+    <div class="col-md-4 field form-group">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name,  class: "form-control" %>
+    </div>
+    <div class="col-md-4 field form-group">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name,  class: "form-control" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
+  <div class="row justify-content-center">
+    <div class="col-md-4 field form-group">
+      <%= f.label :badge_number %>
+      <%= f.text_field :badge_number,  class: "form-control" %>
+    </div>
+    <div class="col-md-4 field form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :badge_number %><br />
-    <%= f.text_field :badge_number %>
+  <div class="row justify-content-center">  
+    <div class="col-md-8 form-check form-check-inline text-center">
+      <label class="mx-4">  
+        <%= f.radio_button :role, :pending %>
+        Pending
+      </label>
+      <label class="mx-4">
+        <%= f.radio_button :role, :deputy %>
+        Deputy
+      </label>
+      <label class="mx-4">
+        <%= f.radio_button :role, :trainer %>
+        Trainer
+      </label>
+      <label class="mx-4">
+        <%= f.radio_button :role, :admin %>
+        Administrator
+      </label>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+  <div class="row justify-content-center">
+    <div class="col-md-8 actions form-group">
+      <%= f.submit "Update", class: "btn btn-primary btn-lg btn-block" %>
+    </div>
   </div>
-  
-  <div class="field">
-    <%= f.label :role %><br />
-    <%= f.select :role, [['Pending',:pending],['Deputy',:deputy],['Trainer',:trainer],['Administrator',:admin]] %> 
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+ 
 <% end %>
 <br><br>
-<%= button_to "Delete user", user_path, data: { confirm: "Are you sure?" }, method: :delete %>
 
-<%= link_to "Back", users_path %>
+<div class="row justify-content-center">
+  <div class="col-6 mt-5 jumbotron">
+      <h4 class="row display-4 justify-content-center">Account Deletion</h4>
+      <p class="row justify-content-center px-4">Warning: This cannot be undone. All of this person's training records and timecards will be irreversibly deleted.</p>
+      <div class="row justify-content-center">
+          <%= button_to "Delete user", user_path, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-lg btn-block" %>
+      </div>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <%= link_to "Back", :back, class: "m-5" %>
+</div>

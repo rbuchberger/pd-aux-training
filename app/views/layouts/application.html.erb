@@ -9,11 +9,17 @@
     <!-- Bootstrap required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Font Awesome CDN -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
   </head>
   <body>
     <div class="container-fluid">
       <nav class="row navbar navbar-expand-lg navbar-dark bg-dark">
-        <%= link_to "Monroe County PD", root_path, class: "navbar-brand" %>
+        
+        <%= link_to root_path, class: "navbar-brand" do %>
+          <i class="fas fa-shield-alt fa-lg"></i>
+          Monroe County
+        <% end %>
           <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
             <% if user_signed_in? %>
               <ul class="navbar-nav mr-auto">
@@ -26,38 +32,34 @@
                 <% if is_trainer_or_admin? %>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Admin
+                    Administration
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown"}>
                     <%= link_to "Users", users_path, class: "dropdown-item" %>
-                    <%= link_to "Timecards", '#', class: "dropdown-item disabled" %>
-                    <%= link_to "Training", '#', class: "dropdown-item disabled" %>
+                    <%= link_to "Timecards", '#', class: "dropdown-item", disabled: true %>
+                    <%= link_to "Training", '#', class: "dropdown-item", disabled: true %>
                   </div>
                 <% end %>
                 </li>
               </ul>
             <% end %>
           </div>
-          <div id="navbar-userinfo">
             <% if user_signed_in? %>
-              <div class="navbar-text">
-                <strong><%= "#{current_user.first_name} #{current_user.last_name}" %></strong>
-                <strong><%= "#{current_user.role.capitalize}" %></strong>
-              </div>
-              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %> 
+              <%= link_to edit_user_registration_path, class: "navbar-text p-2" do %>
+                  <%= "#{current_user.first_name} #{current_user.last_name}" %>,
+                  <%= "#{current_user.role.capitalize}" %>
+              <% end %>
+                <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger mx-1" %> 
             <% else %>
-              <div class="navbar-text">
-                <strong>Currently not signed in.</strong>
-              </div> 
-              <%= link_to "Sign in", new_user_session_path, class: "btn btn-outline-success" %>
+                <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-primary mx-1" %>
+                <%= link_to "Log in", new_user_session_path, class: "btn btn-outline-success mx-1" %>
             <% end %>
-          </div>
       </nav>
     </div>
     <br>
     <div class="container flash-container">
       <% flash.each do |type, message| %>
-        <div class="alert <%= bootstrap_class_for(type) %>">
+        <div class="alert alert-<%= bootstrap_class_for(type) %>">
           <%= message %>
         </div>
       <% end %>
