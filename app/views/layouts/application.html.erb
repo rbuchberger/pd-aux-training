@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PdAuxTraining</title>
+    <title>Monroe County</title>
     <%= csrf_meta_tags %>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -10,52 +10,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Font Awesome CDN -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
+    <script src="https://use.fontawesome.com/81c0a4bef2.js"></script>
   </head>
   <body>
-    <div class="container-fluid">
-      <nav class="row navbar navbar-expand-lg navbar-dark bg-dark">
-        
-        <%= link_to root_path, class: "navbar-brand" do %>
-          <i class="fas fa-shield-alt fa-lg"></i>
-          Monroe County
-        <% end %>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
-            <% if user_signed_in? %>
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <%= link_to "Training", '#', class: "nav-link disabled" %>
-                </li>
-                <li class="nav-item active">
-                  <%= link_to "Timecards", '#', class: "nav-link disabled" %>
-                </li>
-                <% if is_trainer_or_admin? %>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Administration
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown"}>
-                    <%= link_to "Users", users_path, class: "dropdown-item" %>
-                    <%= link_to "Timecards", '#', class: "dropdown-item", disabled: true %>
-                    <%= link_to "Training", '#', class: "dropdown-item", disabled: true %>
-                  </div>
-                <% end %>
-                </li>
-              </ul>
-            <% end %>
-          </div>
-            <% if user_signed_in? %>
-              <%= link_to edit_user_registration_path, class: "navbar-text p-2" do %>
-                  <%= "#{current_user.first_name} #{current_user.last_name}" %>,
-                  <%= "#{current_user.role.capitalize}" %>
-              <% end %>
-                <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger mx-1" %> 
-            <% else %>
-                <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-primary mx-1" %>
-                <%= link_to "Log in", new_user_session_path, class: "btn btn-outline-success mx-1" %>
-            <% end %>
-      </nav>
-    </div>
+    <%= render "/layouts/navbar" %>
     <br>
     <div class="container flash-container">
       <% flash.each do |type, message| %>

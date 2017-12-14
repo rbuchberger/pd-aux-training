@@ -1,18 +1,27 @@
 <div class="row justify-content-center">
-  <div class= "col-md">
-    <h1><%= "#{@user.first_name} #{@user.last_name}" %> </h1>
-    <h2><%= @user.role.capitalize %></h2>
+  <div class="col align-self-center col-md-8 card"> 
+    <h4 class="display-4 card-title text-center"><%= "#{@user.first_name} #{@user.last_name}" %> </h1>
+    <h4 class="card-subtitle text-center"><%= @user.role.capitalize %></h2>
+    <div class="card-body">
+      <p><strong>Badge number:</strong> <%= @user.badge_number %> </p>
+      <p><strong>Email address:</strong> <%= @user.email %> </p>
+      <p><strong>Account created:</strong> <%= @user.created_at %></p>
+      <p><strong>Last signed in:</strong> <%= @user.current_sign_in_at %></p>
+      <p><strong>Number of times signed in:</strong> <%= @user.sign_in_count %></p>
+      <% if is_trainer_or_admin? && @user.pending? %>
+        <div class="row justify-content-center my-3">
+          <div class="col">
+            <%= button_to("Approve", accept_user_path, method: :put, class: "btn btn-success btn-block") %>
+          </div>
+          <div class="col">
+            <%= button_to("Reject", reject_user_path, method: :delete, class: "btn btn-danger btn-block") if is_trainer_or_admin? && @user.pending?%>
+          </div>
+        </div>
+      <% end %>
+      <div class="row justify-content-center"
+        <p class="text-center"><%= link_to("Edit User", edit_user_path(@user.id), class: "") if current_user.admin? %></p>
+      </div>  
+    </div>
   </div>
 </div>
-<p>Badge number: <%= @user.badge_number %> </p>
-<p>Email address: <%= @user.email %> </p>
-<p>Account created: <%= @user.created_at %></p>
-<p>Last signed in: <%= @user.current_sign_in_at %></p>
-<p>Number of times signed in: <%= @user.sign_in_count %></p>
-<p>
-  <%= link_to("Edit User", edit_user_path(@user.id)) if current_user.admin? %>
-  <%= link_to "Back to userlist", users_path %> 
-</p>
-
-<p><%= link_to("Approve User", accept_user_path, method: :put) if ((current_user.trainer? || current_user.admin?) && @user.pending?)%></p>
-<p><%= link_to("Reject User", reject_user_path, method: :delete) if ((current_user.trainer? || current_user.admin?) && @user.pending?)%></p>
+<p class="text-center p-3"><%= link_to "Back to userlist", users_path %></p>

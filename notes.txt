@@ -16,10 +16,11 @@ Also to do:
 -config users to be lockable
 https://github.com/plataformatec/devise/wiki/How-To:-Add-:lockable-to-Users
 
--Change link_to tags to button_to for post and destroy actions in the admin interface
 -Super trooper references should probably be removed before it goes live. 
 -Make sure it's not pinging the database for every single page load. Store userdata in session? 
 -Need to format devise error messages
 -Make sure the last admin can't delete their account. 
--Account update (where users edit their own profile) isn't working. Probably need to whitelist some parameters. 
--Shield icon keeps disappearing?
+-validation for badge number
+-Some way to prevent bot spamming of the signup box
+-Validation/verification for users controller (don't assume everything succeeds)
+-Working close button on flash messages
