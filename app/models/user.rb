@@ -1,13 +1,15 @@
 class User < ApplicationRecord
- 
-    # Enumerate roles for rails convenience; they're stored in the database as integers. 
-    enum role: [:pending, :deputy, :trainer, :admin]
-    after_initialize :set_default_role, :if => :new_record? 
 
-    # Set default role to pending for new users. 
-    def set_default_role
-      self.role ||= :pending
-    end
+  has_many :timecards, dependent: :destroy
+  
+  # Enumerate roles for rails convenience; they're stored in the database as integers. 
+  enum role: [:pending, :deputy, :trainer, :admin]
+  after_initialize :set_default_role, :if => :new_record? 
+
+  # Set default role to pending for new users. 
+  def set_default_role
+    self.role ||= :pending
+  end
 
  
   # Include default devise modules. Others available are:
