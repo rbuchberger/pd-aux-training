@@ -10,6 +10,13 @@ Some setup you must do manually if you haven't yet:
 
      In production, :host should be set to the actual host of your application.
 
+-- "timecard" is one word, for the purposes of this application. Not TimeCard or time_card
+-- Time is looking to be more complicated than I thought. Database will save times in UTC, 
+  will convert to EST in the controller/view. Apparently this is done automatically by 
+  activerecord. App time zone is set to eastern time, cause that's
+  where everyone's at.  
+
+
 
 Also to do: 
 
@@ -24,5 +31,5 @@ https://github.com/plataformatec/devise/wiki/How-To:-Add-:lockable-to-Users
 -Some way to prevent bot spamming of the signup box
 -Validation/verification for users controller (don't assume everything succeeds)
 -Working close button on flash messages
-
+-Configure secrets.yml, make sure production encryption keys aren't on github!
 

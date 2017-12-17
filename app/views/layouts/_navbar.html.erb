@@ -11,19 +11,8 @@
       <% if user_signed_in? %>
         <div class="navbar-nav mr-auto">
           <%= link_to "Training", '#', class: "nav-item nav-link disabled" %>
-          <%= link_to "Timecards", '#', class: "nav-item nav-link disabled" %>
-          <% if is_trainer_or_admin? %>
-            <div class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Administration
-              </a>
-              <div class="dropdown-menu active" aria-labelledby="navbarDropdown"}>
-                <%= link_to "Users", users_path, class: "dropdown-item" %>
-                <%= link_to "Timecards", '#', class: "dropdown-item disabled" %>
-                <%= link_to "Training", '#', class: "dropdown-item disabled" %>
-              </div>
-            </div>
-          <% end %>
+          <%= link_to "Timecards", user_timecards_path(current_user), class: "nav-item nav-link" %>
+          <%= link_to "Administration", users_path, class: "nav-item nav-link" if is_trainer_or_admin? %>
         </div>
       <% end %>
       <% if user_signed_in? %>

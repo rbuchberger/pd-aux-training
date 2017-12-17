@@ -1,0 +1,7 @@
+<%= form_for @timecard, url: timecards_path, method: "POST" do |f| %>
+  <%= f.label :description %>
+  <%= f.text_field :description %><br>
+  <%= f.datetime_select :start %><br>
+  <%= f.datetime_select :end %><br>
+  <%= f.submit %><br>
+<% end %>
