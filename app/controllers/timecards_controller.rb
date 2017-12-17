@@ -7,7 +7,6 @@ class TimecardsController < ApplicationController
     @timecards = @user.timecards.all
     @totaltime= 0
     @timecards.each  {|t| @totaltime += t.timecard_length_hours}
-
   end
   
   def new
