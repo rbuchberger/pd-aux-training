@@ -13,8 +13,7 @@ Some setup you must do manually if you haven't yet:
 -- "timecard" is one word, for the purposes of this application. Not TimeCard or time_card
 -- Time is looking to be more complicated than I thought. Database will save times in UTC, 
   will convert to EST in the controller/view. Apparently this is done automatically by 
-  activerecord. App time zone is set to eastern time, cause that's
-  where everyone's at.  
+  activerecord. App time zone is set to eastern time, cause that's where everyone's at.  
 
 
 
@@ -33,3 +32,14 @@ https://github.com/plataformatec/devise/wiki/How-To:-Add-:lockable-to-Users
 -Working close button on flash messages
 -Configure secrets.yml, make sure production encryption keys aren't on github!
 
+Validations:
+-Timecards:
+ -No overlapping timecards
+ -Start has to come before end
+ -Reasonable length limit (No more than 16 hours?)
+ -Can't set times in the future? No more than a day in the future?
+
+-Users: 
+  -Reasonable length limits on names
+  -Email must be an email address. 
+  -Badge number must follow proper format (need to ask Dad what that is)

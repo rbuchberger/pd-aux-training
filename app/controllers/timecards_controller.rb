@@ -1,10 +1,13 @@
 class TimecardsController < ApplicationController
   before_action :get_user
-  before_action :get_timecard, only: [:show, :edit, :destroy]
+  before_action :get_timecard, only: [:show, :edit, :update, :destroy]
   before_action :can_edit?, except: [:index, :show]
 
   def index
     @timecards = @user.timecards.all
+    @totaltime= 0
+    @timecards.each  {|t| @totaltime += t.timecard_length_hours}
+
   end
   
   def new

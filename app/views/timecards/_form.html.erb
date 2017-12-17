@@ -1,0 +1,9 @@
+<%= form_for @timecard do |f| %>
+  <%= f.label :description %>
+  <%= f.text_field :description %><br>
+  <%= f.label :start %>
+  <%= f.datetime_select :start %><br>
+  <%= f.label :end %>
+  <%= f.datetime_select :end %><br>
+  <%= f.submit %><br>
+<% end %>

@@ -1,5 +1,29 @@
 <h1><%= "#{@user.first_name.capitalize} #{@user.last_name.capitalize}'s Timecards" %></h1>
-<% @timecards.each do |t| %>
-  <%= t.inspect %>
-  <%= t.length %>
-<% end %>
+<table class="table table-hover">
+  <tr>
+    <th></th>
+    <th></th>
+    <th scope="col">Date</th>
+    <th scope="col">Hours</th>
+    <th scope="col">Start Time</th>
+    <th scope="col">End Time</th>
+    <th scope="col">Date Entered</th>
+    <th scope="col">Description</th>
+  </tr>
+
+  <% @timecards.each do |t| %>
+    <tr>
+      <td><%= link_to "Show", timecard_path(t.id) %></td>
+      <td><%= link_to "Edit", edit_timecard_path(t.id) %></td>
+      <td><%= t.start.strftime("%A, %b %d") %></td>
+      <td><%= t.timecard_length_hours %></td>
+      <td><%= t.start.strftime("%I:%M %p") %></td>
+      <td><%= t.end.strftime("%I:%M %p") %></td>
+      <td><%= t.created_at.strftime("%A, %b %d") %></td>
+      <td><%= t.description %></td>
+    </tr>
+  <% end %>
+</table>
+
+<strong>Total Time: <%= @totaltime.round(1) %> hours</strong>
+
