@@ -32,6 +32,7 @@ https://github.com/plataformatec/devise/wiki/How-To:-Add-:lockable-to-Users
 -Configure secrets.yml, make sure production encryption keys aren't on github!
 -Add flash messages to everything
 -Set up tables to truncate long bits of text
+-Check for logged in on all controllers
 
 Validations:
 -Timecards:
@@ -51,3 +52,4 @@ Validations:
   -Moar bootstrap the index page
   -Index page needs a way of selecting a date range
   -Set up admin interface 
+  -Maybe change Timecard.end to Timecard.finish? "end" keeps turning purple, and it bothers me. 
