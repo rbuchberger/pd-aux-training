@@ -51,5 +51,6 @@ Validations:
   -Bootstrap the create & edit forms
   -Moar bootstrap the index page
   -Index page needs a way of selecting a date range
-  -Set up admin interface 
+  -Set up admin interface. Need a way to see all timecards in a given date range 
   -Maybe change Timecard.end to Timecard.finish? "end" keeps turning purple, and it bothers me. 
+  -Add "edit" button to the "show" page

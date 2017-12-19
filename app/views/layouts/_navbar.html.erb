@@ -11,7 +11,7 @@
       <% if user_signed_in? %>
         <div class="navbar-nav mr-auto">
           <%= link_to "Training", '#', class: "nav-item nav-link disabled" %>
-          <%= link_to "Timecards", user_timecards_path(current_user), class: "nav-item nav-link" %>
+          <%= link_to "Timecards", timecards_path, class: "nav-item nav-link" %>
           <%= link_to "Administration", users_path, class: "nav-item nav-link" if is_trainer_or_admin? %>
         </div>
       <% end %>

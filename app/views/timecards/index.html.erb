@@ -3,7 +3,6 @@
 <table class="table table-hover">
   <tr>
     <th></th>
-    <th></th>
     <th scope="col">Date</th>
     <th scope="col">Hours</th>
     <th scope="col">Start Time</th>
@@ -14,7 +13,6 @@
   <% @timecards.list.each do |t| %>
     <tr>
       <td><%= link_to "Show", timecard_path(t.id) %></td>
-      <td><%= link_to "Edit", edit_timecard_path(t.id) %></td>
       <td><%= t.start.strftime("%A, %b %d") %></td>
       <td><%= t.duration %></td>
       <td><%= t.start.strftime("%I:%M %p") %></td>

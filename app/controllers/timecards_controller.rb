@@ -51,7 +51,7 @@ class TimecardsController < ApplicationController
   end
 
   def get_timecard
-    @timecard = @user.timecards.find(params[:id])
+    @timecard = Timecard.find(params[:id])
   end
 
   def timecard_params
@@ -63,4 +63,5 @@ class TimecardsController < ApplicationController
     # Parameters for filtering list of timecards
     params.permit(:user, :start, :finish)
   end
+  
 end
