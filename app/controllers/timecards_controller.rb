@@ -4,7 +4,7 @@ class TimecardsController < ApplicationController
   before_action :can_edit?, except: [:index, :show]
 
   def index
-    @timecards = @user.timecards.all
+    @timecards = TimecardsPresenter::FilteredTimecards.new(@user.timecards.all)
   end
   
   def new
@@ -55,7 +55,12 @@ class TimecardsController < ApplicationController
   end
 
   def timecard_params
+    # Parameters for creating or editing a new timecard
     params.require(:timecard).permit(:start, :end, :description)
   end
   
+  def get_timecards_params
+    # Parameters for filtering list of timecards
+    params.permit(:user, :start, :finish)
+  end
 end

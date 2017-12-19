@@ -4,15 +4,20 @@
 module TimecardsPresenter
   
   class FilteredTimecards
-    # Initialize 0
-    def initialize(start, finish, user, alltimecards)
-      @timecards # = find everything in alltimecards that starts between start and finish.
+    
+    def initialize(alltimecards)
+      @timecards = alltimecards # = find everything in alltimecards that starts between start and finish.
       # If start and finish aren't specified, return all timecards. 
     end
     
-    def total_time
+    def total_duration
       time = 0
       @timecards.each { |t| time += t.duration } 
+      time.round(1)
+    end
+    
+    def list
+      @timecards  
     end
     
   end

@@ -4,5 +4,5 @@ class Timecard < ApplicationRecord
     def duration
      ((self.end - self.start) / 1.hour ).round(1)
     end
- 
+
 end
