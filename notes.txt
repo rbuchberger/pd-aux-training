@@ -45,6 +45,7 @@ Validations:
   -Reasonable length limits on names
   -Email must be an email address. 
   -Badge number must follow proper format (need to ask Dad what that is)
+  -Application level user logged in checking
   
 -Timecards to do:
   -Build the show page

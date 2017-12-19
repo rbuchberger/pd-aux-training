@@ -4,7 +4,7 @@ class TimecardsController < ApplicationController
   before_action :can_edit?, except: [:index, :show]
 
   def index
-    @timecards = TimecardsPresenter::FilteredTimecards.new(@user.timecards.all)
+    @timecards = TimecardsPresenter::FilteredTimecards.new(@user, params(:start), params(:finish))
   end
   
   def new
