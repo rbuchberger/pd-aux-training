@@ -1,9 +1,17 @@
 class TimecardsController < ApplicationController
+  # Get user also checks for admin/trainer "can see" priveliges. Is that the proper
+  # way? Shouldn't methods only do one thing, or can I use them to do several?
+  # I like it because it reduces redundant before_actions applied to the same 
+  # methods. 
   before_action :get_user
-  before_action :get_timecard, only: [:show, :edit, :update, :destroy]
   before_action :can_edit?, except: [:index, :show]
+  before_action :get_timecard, only: [:show, :edit, :update, :destroy]
 
   def index
+    # The logic for retrieving and filtering timecards has been placed in its own
+    # PORO class, located in app/presenters/timecards_presenter.rb
+    # I'm not sure if it's unnecessarily convoluted or good OO design. We'll see
+    # how big that class gets and maybe I'll put it back in the controller. 
     @timecards = TimecardsPresenter::FilteredTimecards.new(@user, params(:start), params(:finish))
   end
   
