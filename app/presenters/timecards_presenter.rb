@@ -6,16 +6,19 @@
 module TimecardsPresenter
   
   class FilteredTimecards
-    # Builder can accept a user, a start, and an end, but does not require any of them. If no arguments, will return 
-    # all timecards for the past month (but only to users with proper permissions)
-    def initialize(user = nil, start = 1.month.ago, finish = Time.zone.today)
-      @user = user
-      if @user 
-        @timecards = @user.timecards.all  #where("start >= :start AND start <= :finish", {start: start, finish: finish})
-      elsif current_user.admin? || current_user.trainer?
-        @timecards = Timecard.where("start >= :start AND start <= :finish", {start: start, finish: finish})
-      end
+    # Can accept a user, a start, and an end, but does not require any of them. 
+    # By default, will return the current user's timecards for the past 30 days. 
+    # A user_id of -1 will return all users. 
     
+    def initialize(o = {})
+      o.reverse_merge(start: 30.days.ago, end: Time.zone.today) 
+      if o[:user_id] ==  -1 # Returns all users when user id is set to -1
+        @timecards = Timecard.where("start >= :start AND start <= :finish", {start: start, finish: finish})
+      else 
+        @user = User.find(o[:user_id]) if o[:user_id] > 0
+        @user ||= current_user
+        @timecards = @user.timecards.all  #where("start >= :start AND start <= :finish", {start: start, finish: finish})
+      end
     end
     
     def total_duration
@@ -27,9 +30,6 @@ module TimecardsPresenter
     def list
       @timecards 
     end
-    
   end
-
-
   
 end

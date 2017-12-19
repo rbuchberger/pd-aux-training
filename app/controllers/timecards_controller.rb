@@ -1,18 +1,21 @@
+# The logic for retrieving and filtering timecards has been placed in its own
+# PORO class, located in app/presenters/timecards_presenter.rb
+# I'm not sure if it's unnecessarily convoluted or good OO design. We'll see
+# how big that class gets and maybe I'll put it back in the controller. 
+
 class TimecardsController < ApplicationController
-  # Get user also checks for admin/trainer "can see" priveliges. Is that the proper
-  # way? Shouldn't methods only do one thing, or can I use them to do several?
-  # I like it because it reduces redundant before_actions applied to the same 
-  # methods. 
+
   before_action :get_user
-  before_action :can_edit?, except: [:index, :show]
-  before_action :get_timecard, only: [:show, :edit, :update, :destroy]
+  before_action :can_edit?,   except: [:index, :show]
+  before_action :can_see?,      only: [:index, :show]
+  before_action :get_timecard,  only: [:show, :edit, :update, :destroy]
+
+  # The index method is used in 3 cases: any user viewing their own timecard, 
+  # an admin/trainer viewing a single user's timecards, or an admin/trainer 
+  # viewing all users' timecards. The permissions are controlled in the before_actions.
 
   def index
-    # The logic for retrieving and filtering timecards has been placed in its own
-    # PORO class, located in app/presenters/timecards_presenter.rb
-    # I'm not sure if it's unnecessarily convoluted or good OO design. We'll see
-    # how big that class gets and maybe I'll put it back in the controller. 
-    @timecards = TimecardsPresenter::FilteredTimecards.new(@user, params(:start), params(:finish))
+    @timecards = TimecardsPresenter::FilteredTimecards.new(get_timecards_params)
   end
   
   def new
@@ -44,14 +47,15 @@ class TimecardsController < ApplicationController
   private
   
   def get_user
-    # If a user is specified in parameters, check to see if  the current user is 
-    # an admin or a trainer. If not specified, set @user to current_user. 
-    if params[:user_id]
-      redirect_to root_path unless (current_user.admin? || current_user.trainer?)
+    if params[:user_id] > 0
       @user = User.find(params[:user_id])
-    else
+    elsif params[:user_id] != -1 # -1 allows admins to see all timecards
       @user = current_user
     end
+  end
+  
+  def can_see?
+    redirect_to root_path unless (current_user.admin? || current_user.trainer? || @user == current_user)
   end
   
   def can_edit?
@@ -66,10 +70,10 @@ class TimecardsController < ApplicationController
     # Parameters for creating or editing a new timecard
     params.require(:timecard).permit(:start, :end, :description)
   end
-  
+
   def get_timecards_params
     # Parameters for filtering list of timecards
-    params.permit(:user, :start, :finish)
+    params.permit(:user_id, :start, :finish)
   end
-  
+
 end
