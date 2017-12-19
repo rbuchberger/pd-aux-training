@@ -55,3 +55,4 @@ Validations:
   -Set up admin interface. Need a way to see all timecards in a given date range 
   -Maybe change Timecard.end to Timecard.finish? "end" keeps turning purple, and it bothers me. 
   -Add "edit" button to the "show" page
+  -Needs a "name" column when viewing all users

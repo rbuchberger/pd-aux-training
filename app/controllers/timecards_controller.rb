@@ -10,12 +10,12 @@ class TimecardsController < ApplicationController
   before_action :can_see?,      only: [:index, :show]
   before_action :get_timecard,  only: [:show, :edit, :update, :destroy]
 
-  # The index method is used in 3 cases: any user viewing their own timecard, 
-  # an admin/trainer viewing a single user's timecards, or an admin/trainer 
-  # viewing all users' timecards. The permissions are controlled in the before_actions.
+  # This index action is only used for viewing a single users' timecards. 
+  # There will be another created for admins & trainers who wish to view all 
+  # timecards in a big list. 
 
   def index
-    @timecards = TimecardsPresenter::FilteredTimecards.new(get_timecards_params)
+    @timecards = TimecardsPresenter::FilteredTimecards.new(get_timecards_params, @user)
   end
   
   def new
@@ -47,9 +47,9 @@ class TimecardsController < ApplicationController
   private
   
   def get_user
-    if params[:user_id] > 0
+    if params[:user_id].to_i > 0
       @user = User.find(params[:user_id])
-    elsif params[:user_id] != -1 # -1 allows admins to see all timecards
+    elsif params[:user_id].to_i != -1 # -1 allows admins to see all timecards
       @user = current_user
     end
   end
