@@ -5,9 +5,9 @@
 
 class TimecardsController < ApplicationController
 
-  before_action :get_user,    except: [:show]
-  before_action :can_edit?,   except: [:index, :show, :destroy]
-  before_action :can_see?,      only: [:index, :show]
+  before_action :get_user,    except: [:show, :admin_index]
+  before_action :can_edit?,   except: [:index, :show, :destroy, :admin_index]
+  before_action :can_see?,      only: [:index, :show, :admin_index]
   before_action :can_destroy?,  only: [:delete]
   before_action :get_timecard,  only: [:show, :edit, :update, :destroy]
 
@@ -17,7 +17,20 @@ class TimecardsController < ApplicationController
 
   def index
     @date_range = get_timecards_params
+    @users = User.all
     @timecards = TimecardsPresenter::FilteredTimecards.new(@date_range, @user)
+  end
+  
+  # Admins need their own action. Tried to combine it with the regular index
+  # view, but "view all users' timecards" needed too many hacks. 
+  def admin_index
+    @params = get_timecards_params
+    if params[:user_id].blank?
+      @timecards = TimecardsPresenter::FilteredTimecards.new(@params, "all")
+    else
+      @user = User.find(:user_id)
+      @timecards = TimecardsPresenter::FilteredTimecards.new(@params, @user)
+    end
   end
   
   def new
