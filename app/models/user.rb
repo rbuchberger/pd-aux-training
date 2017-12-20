@@ -1,23 +1,28 @@
 class User < ApplicationRecord
 
+  # Relationships:
   has_many :timecards, dependent: :destroy
   
-  # Enumerate roles for rails convenience; they're stored in the database as integers. 
-  enum role: [:pending, :deputy, :trainer, :admin]
-  after_initialize :set_default_role, :if => :new_record? 
-
-  # Set default role to pending for new users. 
-  def set_default_role
-    self.role ||= :pending
-  end
-
- 
+  # Validations:
+  # (Devise handles most of them. I only need to validate my custom fields) 
+  validates :first_name, presence: true, length: {maximum: 50}
+  validates :last_name, presence: true, length: {maximum: 50}
+  validates :badge_number, presence: true
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+         
+  # Enumerate roles for rails convenience.
+  # They're stored in the database as integers. 
+  enum role: [:pending, :deputy, :trainer, :admin]
+  
+  # Callbacks:
+  after_initialize :set_default_role, :if => :new_record? 
 
-
+  # Custom methods:
+ 
   # Add to a devise method, require admin approval of new users. 
   def active_for_authentication?
     super && !self.pending?
@@ -28,8 +33,16 @@ class User < ApplicationRecord
     if self.pending? 
       :not_approved 
     else 
-      super # Use whatever other message 
+      super # Don't modify the original message 
     end 
   end
+
+  private
+  
+  # Define the callback-- New users are set to pending.   
+  def set_default_role
+    self.role ||= :pending
+  end
+
 
 end

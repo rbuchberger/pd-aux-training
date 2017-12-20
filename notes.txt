@@ -34,18 +34,17 @@ Also to do:
 -Application level user logged in checking
 -Mobile formatting of account settings page (account deletion box gets skinny)
 -Mobile formatting of all tables
+-prevent bot spamming of the signup box (captcha?)
 
 -User validations: 
-  -Reasonable length limits on names
-  -Email must be an email address. 
   -Badge number must follow proper format (need to ask Dad what that is)
-  -prevent bot spamming of the signup box (captcha?)
 
 -Timecards to do:
   -Set up admin interface. Need a way to see all timecards in a given date range 
+  -Delete action, permissions, & buttons in view
 
   Validations:
    -No overlapping timecards
-   -Start has to come before end
-   -Reasonable length limit (No more than 16 hours?)
-   -Can't set times in the future? No more than a day in the future?
+   
+- Stuff to ask dad:
+  -Badge number format? 

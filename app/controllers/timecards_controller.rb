@@ -16,7 +16,7 @@ class TimecardsController < ApplicationController
 
   def index
     get_timecards_params
-    @date_range = {start: 30.days.ago, finish: Time.zone.today}.merge(get_timecards_params)
+    @date_range = {start: (Time.zone.now - 30.days), finish: Time.zone.now}.merge(get_timecards_params)
     @timecards = TimecardsPresenter::FilteredTimecards.new(@date_range, @user)
   end
   
