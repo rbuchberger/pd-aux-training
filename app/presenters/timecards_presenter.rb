@@ -10,9 +10,9 @@ module TimecardsPresenter
     # By default, timecards for the past 30 days. 
     # If user is a string "all", it will return all users. 
     
-    def initialize(o = {}, user)
-      s = o[:start] || 30.days.ago
-      f = o[:finish] || Time.zone.today
+    def initialize(date_range, user)
+      puts s = date_range[:start]
+      puts f = date_range[:finish]
       @user = user
       if @user ==  "all" 
         @timecards = Timecard.where(start: s .. f)

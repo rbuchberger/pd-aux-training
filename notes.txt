@@ -56,3 +56,6 @@ Validations:
   -Maybe change Timecard.end to Timecard.finish? "end" keeps turning purple, and it bothers me. 
   -Add "edit" button to the "show" page
   -Needs a "name" column when viewing all users
+  
+  -Split up the admin timecards index from the regular user timecard index. You're
+    doing to many weird things just to avoid having another controller action. 

@@ -1,5 +1,14 @@
 <h4 class="display-3"><%= "#{@user.first_name.capitalize} #{@user.last_name.capitalize}'s Timecards" %></h1>
 <h4><%= link_to "New timecard", new_timecard_path %></h4>
+
+<%= form_tag({}, method: :get)  do %>
+  <%= label_tag "Start: " %>
+  <%= date_field_tag :start %><br>
+  <%= label_tag "End: " %>
+  <%= date_field_tag :finish %>
+  <%= submit_tag "Select" %>
+<% end %>
+
 <table class="table table-hover">
   <tr>
     <th></th>

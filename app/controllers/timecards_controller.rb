@@ -15,7 +15,9 @@ class TimecardsController < ApplicationController
   # timecards in a big list. 
 
   def index
-    @timecards = TimecardsPresenter::FilteredTimecards.new(get_timecards_params, @user)
+    puts get_timecards_params
+    puts @date_range = {start: 30.days.ago, finish: Time.zone.today}.merge(get_timecards_params)
+    @timecards = TimecardsPresenter::FilteredTimecards.new(@date_range, @user)
   end
   
   def new
@@ -73,7 +75,8 @@ class TimecardsController < ApplicationController
 
   def get_timecards_params
     # Parameters for filtering list of timecards
-    params.permit(:user_id, :start, :finish)
+    # Converted to a hash, and nil values removed. 
+  params.permit(:user_id, :start, :finish).to_h.compact.symbolize_keys
   end
 
 end
