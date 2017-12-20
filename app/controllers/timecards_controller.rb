@@ -75,10 +75,13 @@ class TimecardsController < ApplicationController
 
   def get_timecards_params
     # Parameters for filtering list of timecards
+    p = params.permit(:user_id, :start, :finish)
     # Converted to a hash, and nil values removed. 
-  p = params.permit(:user_id, :start, :finish)
-  p = p.to_h.compact.symbolize_keys
-  p = p.each {|k,v| p[k] = v.to_date}
+    p = p.to_h.compact.symbolize_keys
+    # Blank date forms return empty strings instead of nil; have to remove them.
+    p = p.delete_if {|k,v| v.empty? }
+    # Convert strings to dates for activerecord
+    p = p.each { |k,v| p[k] = v.to_date }
   end
 
 end

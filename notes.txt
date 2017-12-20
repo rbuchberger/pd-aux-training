@@ -53,13 +53,10 @@ Validations:
   -Build the show page
   -Bootstrap the create & edit forms
   -Moar bootstrap the index page
-  -Index page needs a way of selecting a date range
   -Set up admin interface. Need a way to see all timecards in a given date range 
   -Maybe change Timecard.end to Timecard.finish? "end" keeps turning purple, and it bothers me. 
   -Add "edit" button to the "show" page
   -Needs a "name" column when viewing all users
   -Sort by start date
-  -More better forms for plugging in dates. 
-  
   -Split up the admin timecards index from the regular user timecard index. You're
     doing to many weird things just to avoid having another controller action. 
