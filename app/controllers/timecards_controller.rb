@@ -5,9 +5,10 @@
 
 class TimecardsController < ApplicationController
 
-  before_action :get_user
-  before_action :can_edit?,   except: [:index, :show]
+  before_action :get_user,    except: [:show]
+  before_action :can_edit?,   except: [:index, :show, :destroy]
   before_action :can_see?,      only: [:index, :show]
+  before_action :can_destroy?,  only: [:delete]
   before_action :get_timecard,  only: [:show, :edit, :update, :destroy]
 
   # This index action is only used for viewing a single users' timecards. 
@@ -15,8 +16,7 @@ class TimecardsController < ApplicationController
   # timecards in a big list. 
 
   def index
-    get_timecards_params
-    @date_range = {start: (Time.zone.now - 30.days), finish: Time.zone.now}.merge(get_timecards_params)
+    @date_range = get_timecards_params
     @timecards = TimecardsPresenter::FilteredTimecards.new(@date_range, @user)
   end
   
@@ -36,7 +36,7 @@ class TimecardsController < ApplicationController
   end
   
   def show
-    
+    @user = User.find(@timecard.user_id)
   end
   
   def edit
@@ -44,12 +44,23 @@ class TimecardsController < ApplicationController
   end
   
   def update
-    @timecard.update!(timecard_params)
+    if @timecard.update(timecard_params)
+      flash[:success] = "Timecard Updated!"
+      redirect_to timecards_path
+    else
+      flash[:danger] = "Could not update timecard!"
+      render edit_timecard_path(@timecard)
+    end
   end
   
   def destroy
-    @timecard.destroy!
-    redirect_to timecards_path
+    if @timecard.destroy
+      flash[:success] = "Timecard deleted!"
+      redirect_to timecards_path
+    else
+      flash[:danger] = "Could not delete timecard."
+      redirect_to timecard_path(@timecard)
+    end
   end
   
   private
@@ -57,7 +68,7 @@ class TimecardsController < ApplicationController
   def get_user
     if params[:user_id].to_i > 0
       @user = User.find(params[:user_id])
-    elsif params[:user_id].to_i != -1 # -1 allows admins to see all timecards
+    else
       @user = current_user
     end
   end
@@ -68,6 +79,10 @@ class TimecardsController < ApplicationController
   
   def can_edit?
     redirect_to root_path unless @user == current_user
+  end
+  
+  def can_destroy?
+    redirect_to root_path unless @user == current_user || current_user.admin?
   end
 
   def get_timecard
@@ -81,13 +96,22 @@ class TimecardsController < ApplicationController
 
   def get_timecards_params
     # Parameters for filtering list of timecards
+    # This whole thing is ugly and I hate it. 
     p = params.permit(:user_id, :start, :finish)
     # Converted to a hash, and nil values removed. 
-    p = p.to_h.compact.symbolize_keys
-    # Blank date forms return empty strings instead of nil; have to remove them.
-    p = p.delete_if {|k,v| v.empty? }
-    # Convert strings to dates for activerecord
-    p = p.each { |k,v| p[k] = v.to_date }
+    p = p.to_h.symbolize_keys
+    if !p[:start].blank? 
+      p[:start] = p[:start].to_date 
+    else
+      p[:start] = Time.zone.now - 30.days
+    end
+    
+    if !p[:finish].blank?
+      p[:finish] = p[:finish].to_date
+    else 
+      p[:finish] = Time.zone.now
+    end
+    p
   end
 
 end

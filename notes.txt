@@ -17,38 +17,36 @@ Some setup you must do manually if you haven't yet:
 
 
 
-Also to do: 
+Don't forget!: 
 
--Super trooper references should probably be removed before it goes live. 
+
 -Generally reduce database calls 
--Need to format devise error messages
--Make sure the last admin can't delete their account. 
--Validation/verification for users and timecards controller (don't assume everything succeeds)
--Working close button on flash messages
 -Configure secrets.yml, make sure production encryption keys aren't on github!
--Add flash messages to everything
--Set up tables to truncate long bits of text
--Check for logged in on all controllers
--Remove "show" and "edit" buttons from tables, add click events to the rows instead
--Maybe change Timecard.end to Timecard.finish? "end" keeps turning purple, and it bothers me.
--Application level user logged in checking
--Mobile formatting of account settings page (account deletion box gets skinny)
--Mobile formatting of all tables
--prevent bot spamming of the signup box (captcha?)
 
+-Application level user logged in checking
+-prevent bot spamming of the signup box (captcha?)
+-Sort users index alphabetically by last name
+-Set up tables to truncate long bits of text. 
+-Make sure the last admin can't delete their account. 
+-Validation/verification for users controller (don't assume everything succeeds)
+-Need to format devise error messages
+-strftime dates on the user show page
+-Capitalize names before save to database
 
 -User validations: 
   -Badge number must follow proper format (need to ask Dad what that is)
 
 -Timecards to do:
   -Set up admin interface. Need a way to see all timecards in a given date range 
-  -Delete action, permissions, & buttons in view
    
 - Stuff to ask dad:
   -Badge number format? 
   -Ok to have descriptionless timecards?
   -Shortest day worth logging? 
 
-Nitpicking details: 
+Low priority: 
 -Looks like everything breaks if app tries to save/update something that's locked
   in a transaction. 
+-Working close button on flash messages?
+-Maybe change Timecard.end to Timecard.finish? "end" keeps turning purple, and it bothers me.
+-Super trooper references should probably be removed before it goes live. 
