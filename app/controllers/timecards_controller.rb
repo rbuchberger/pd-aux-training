@@ -76,7 +76,9 @@ class TimecardsController < ApplicationController
   def get_timecards_params
     # Parameters for filtering list of timecards
     # Converted to a hash, and nil values removed. 
-  params.permit(:user_id, :start, :finish).to_h.compact.symbolize_keys
+  p = params.permit(:user_id, :start, :finish)
+  p = p.to_h.compact.symbolize_keys
+  p = p.each {|k,v| p[k] = v.to_date}
   end
 
 end

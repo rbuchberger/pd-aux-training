@@ -33,6 +33,7 @@ https://github.com/plataformatec/devise/wiki/How-To:-Add-:lockable-to-Users
 -Add flash messages to everything
 -Set up tables to truncate long bits of text
 -Check for logged in on all controllers
+-Remove "show" and "edit" buttons from tables, add click events to the rows instead
 
 Validations:
 -Timecards:
@@ -46,6 +47,7 @@ Validations:
   -Email must be an email address. 
   -Badge number must follow proper format (need to ask Dad what that is)
   -Application level user logged in checking
+  -Mobile formatting of account settings page (account deletion box gets skinny)
   
 -Timecards to do:
   -Build the show page
@@ -56,6 +58,8 @@ Validations:
   -Maybe change Timecard.end to Timecard.finish? "end" keeps turning purple, and it bothers me. 
   -Add "edit" button to the "show" page
   -Needs a "name" column when viewing all users
+  -Sort by start date
+  -More better forms for plugging in dates. 
   
   -Split up the admin timecards index from the regular user timecard index. You're
     doing to many weird things just to avoid having another controller action. 
