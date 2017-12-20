@@ -15,8 +15,8 @@ class TimecardsController < ApplicationController
   # timecards in a big list. 
 
   def index
-    puts get_timecards_params
-    puts @date_range = {start: 30.days.ago, finish: Time.zone.today}.merge(get_timecards_params)
+    get_timecards_params
+    @date_range = {start: 30.days.ago, finish: Time.zone.today}.merge(get_timecards_params)
     @timecards = TimecardsPresenter::FilteredTimecards.new(@date_range, @user)
   end
   

@@ -11,13 +11,13 @@ module TimecardsPresenter
     # If user is a string "all", it will return all users. 
     
     def initialize(date_range, user)
-      puts s = date_range[:start]
-      puts f = date_range[:finish]
+      s = date_range[:start].beginning_of_day
+      f = date_range[:finish].end_of_day
       @user = user
       if @user ==  "all" 
-        @timecards = Timecard.where(start: s .. f)
+        @timecards = Timecard.where(start: s .. f).order(:start)
       else 
-        @timecards = @user.timecards.where(start: s .. f )
+        @timecards = @user.timecards.where(start: s .. f ).order(start: :desc)
       end
     end
     
