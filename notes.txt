@@ -36,15 +36,19 @@ Also to do:
 -Mobile formatting of all tables
 -prevent bot spamming of the signup box (captcha?)
 
+
 -User validations: 
   -Badge number must follow proper format (need to ask Dad what that is)
 
 -Timecards to do:
   -Set up admin interface. Need a way to see all timecards in a given date range 
   -Delete action, permissions, & buttons in view
-
-  Validations:
-   -No overlapping timecards
    
 - Stuff to ask dad:
   -Badge number format? 
+  -Ok to have descriptionless timecards?
+  -Shortest day worth logging? 
+
+Nitpicking details: 
+-Looks like everything breaks if app tries to save/update something that's locked
+  in a transaction. 

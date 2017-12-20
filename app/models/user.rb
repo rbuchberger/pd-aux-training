@@ -19,7 +19,7 @@ class User < ApplicationRecord
   enum role: [:pending, :deputy, :trainer, :admin]
   
   # Callbacks:
-  after_initialize :set_default_role, :if => :new_record? 
+  after_create :set_default_role
 
   # Custom methods:
  
@@ -37,11 +37,9 @@ class User < ApplicationRecord
     end 
   end
 
-  private
-  
   # Define the callback-- New users are set to pending.   
   def set_default_role
-    self.role ||= :pending
+    self.role = :pending
   end
 
 

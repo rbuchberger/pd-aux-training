@@ -25,8 +25,14 @@ class TimecardsController < ApplicationController
   end
   
   def create
-    @timecard = @user.timecards.create(timecard_params)
-    redirect_to timecards_path
+    @timecard = @user.timecards.new(timecard_params)
+    if @timecard.save
+      flash[:success] = "Timecard logged!"
+      redirect_to timecards_path
+    else
+      flash[:danger] = "Could not log timecard!"
+      render new_timecard_path
+    end
   end
   
   def show
