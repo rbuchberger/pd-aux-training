@@ -15,11 +15,13 @@
   <% else %>
     <h2>You are not currently logged in.</h2>
     <p>This website is a toolset for auxiliary officers with the Monroe County Sheriff's office.</p>
-    <%= button_to "Log in!", new_user_session_path, class: "btn btn-success", method: :get %>
-    <%= button_to "Sign up!", new_user_registration_path, class: "btn btn-primary", method: :get %>
+    <div class="row justify-content-center">
+      <%= button_to "Log in", new_user_session_path, class: "btn btn-success mx-5", method: :get %>
+      <%= button_to "Sign up", new_user_registration_path, class: "btn btn-primary mx-5", method: :get %>
+    </div>
   <% end %>
 </div>
-  <% if !@pending.blank? && (current_user.admin? || current_user.trainer?) %>
+  <% if !@pending.blank? && user_signed_in? &&(current_user.admin? || current_user.trainer?) %>
     <div class="card card-body">
       <h2 class="card-title"> Pending users: </h2>
       <p class="card-text">(They won't be able to sign in until they are approved. Only admins and trainers can do this.)</p>
