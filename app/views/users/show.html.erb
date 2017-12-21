@@ -5,22 +5,21 @@
     <div class="card-body">
       <p><strong>Badge number:</strong> <%= @user.badge_number %> </p>
       <p><strong>Email address:</strong> <%= @user.email %> </p>
-      <p><strong>Account created:</strong> <%= @user.created_at %></p>
-      <p><strong>Last signed in:</strong> <%= @user.current_sign_in_at %></p>
+      <p><strong>Account created:</strong> <%= @user.created_at.strftime("%b %d, %Y") %></p>
+      <p><strong>Last signed in:</strong> <%= @user.current_sign_in_at.try(:strftime, "%b %d, %Y" ) %></p>
       <p><strong>Number of times signed in:</strong> <%= @user.sign_in_count %></p>
+      <p><%= link_to "View user's timecards", user_timecards_path(@user) %></p> 
+      <p><%= link_to "Edit user's details", edit_user_path(@user) if current_user.admin? %></p>
       <% if is_trainer_or_admin? && @user.pending? %>
         <div class="row justify-content-center my-3">
           <div class="col">
             <%= button_to("Approve", accept_user_path, method: :put, class: "btn btn-success btn-block") %>
           </div>
           <div class="col">
-            <%= button_to("Reject", reject_user_path, method: :delete, class: "btn btn-danger btn-block") if is_trainer_or_admin? && @user.pending?%>
+            <%= button_to("Reject", reject_user_path, method: :delete, class: "btn btn-danger btn-block") %>
           </div>
         </div>
       <% end %>
-      <div class="row justify-content-center"
-        <p class="text-center"><%= link_to("Edit User", edit_user_path(@user.id), class: "") if current_user.admin? %></p>
-      </div>  
     </div>
   </div>
 </div>

@@ -1,22 +1,18 @@
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col">Name</th>
-            <th scope="col">Badge Number</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-        </tr>
-    </thead>
-    <% @users.each do |u| %>
-   <tr> 
-       <td><%= link_to "Show", user_path(u.id) %></td>
-       <td><%= link_to("Edit", edit_user_path(u.id)) if current_user.admin? %></td>
-       <td><%= "#{u.first_name} #{u.last_name}" %></td>
-       <td><%= u.badge_number %></td>
-       <td><%= u.email %></td>
-       <td><%= u.role.capitalize %></td>
-   </tr>
-<% end %>
-</table>
+<div class="row justify-content-center">
+	<div class="col-sm-6">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Role</th>
+					</tr>
+				</thead>
+				<% @users.each do |u| %>
+			 <tr onclick="window.location='<%= user_path(u.id) %>'"> 
+				 <td><%= "#{u.last_name}, #{u.first_name}".truncate(25, omission: "...") %></td>
+				 <td><%= u.role.capitalize %></td>
+			 </tr>
+			<% end %>
+			</table>
+		</div>
+</div>

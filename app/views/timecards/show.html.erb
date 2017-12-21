@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title"><%= "#{@user.first_name} #{@user.last_name}" %>'s workday:</h4>
+      <h6 class="card-subtitle mb-5"><%= @timecard.description %></h6>
+      <table class="table">
+        <tr>
+          <td>
+            <strong class="">Clocked in:</strong>
+          </td>
+          <td>
+            <%= @timecard.start.strftime("%I:%M %p on %A, %B %e, %Y") %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Clocked out:</strong>
+          </td>
+          <td>
+            <%= @timecard.end.strftime("%I:%M %p") %>
+          </td>
+        </td>
+        <tr>
+          <td>
+            <strong>Hours:</strong>
+          </td>
+          <td>
+            <%= @timecard.duration %> 
+          </td>
+        </td>
+        <tr>
+          <td>
+            <strong>First entered:</strong>
+          </td>
+          <td>
+            <%= @timecard.created_at.strftime("%I:%M %p on %A, %B %e, %Y") %>
+          </td>
+        </td>
+        <tr>
+          <td>
+            <strong>Last edited:</strong>
+          </td>
+          <td>
+            <%= @timecard.updated_at.strftime("%I:%M %p on %A, %B %e, %Y") %>
+          </td>
+        </td>
+      </table>
+      <%= link_to "Edit timecard", edit_timecard_path(@timecard), class: "col mx-auto my-3" if @user == current_user %>
+      <%= button_to "Delete timecard", timecard_path, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger my-3" if @user == current_user || current_user.admin? %>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center my-5">
+  <%= link_to "Go back", :back %>
+</div>
