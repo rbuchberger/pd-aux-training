@@ -23,6 +23,14 @@ class User < ApplicationRecord
 
   # Custom methods:
  
+  def first_last(l = 25)
+    "#{self.first_name} #{self.last_name}".truncate(l, omission: "...")
+  end
+  
+  def last_first(l = 25)
+    "#{self.last_name} #{self.first_name}".truncate(l, omission: "...")
+  end
+ 
   # Add to a devise method, require admin approval of new users. 
   def active_for_authentication?
     super && !self.pending?
