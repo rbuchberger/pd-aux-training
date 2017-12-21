@@ -6,21 +6,39 @@ module TimecardsPresenter
     # Implements default values if something isn't specified. 
     
     include ActiveModel::Model
-    attr_accessor :range_start, :range_end, :user
+    attr_accessor :range_start, :range_end, :user_id
     attr_reader :list
     
-    def initialize
+    def initialize(opts = {}, user = "all")
       default_start = Time.zone.today.beginning_of_day - 30.days
-      default_end   = Time.zone.today.beginning_of_day
-      @range_start  = @range_start.try(:beginning_of_day) || default_start 
-      @range_end    = @range_end.end_of_day.try(:beginning_of_day) || default_end
-      @user         = User.find[:user_id] || "all"
+      default_end   = Time.zone.today.end_of_day
+      
+      if opts[:range_start].blank?
+        @range_start = default_start 
+      else
+        @range_start = opts[:range_start].to_date.beginning_of_day
+      end
+      
+      if opts[:range_end].blank?
+        @range_end = default_end
+      else
+        @range_end = opts[:range_end].to_date.end_of_day
+      end
+      
+      if opts[:user_id].blank?
+        @user = user
+      else
+        @user = User.find(opts[:user_id])
+      end
+      
+      range = (@range_start .. @range_end)
       
       if @user ==  "all" 
-        @list = Timecard.where(start: s .. f).order(start: :desc)
+        @list = Timecard.where(start: range ).order(start: :desc)
       else 
-        @list = @user.timecards.where(start: s .. f ).order(start: :desc)
+        @list = @user.timecards.where(start: range ).order(start: :desc)
       end
+
     end
     
     def total_duration
@@ -33,11 +51,12 @@ module TimecardsPresenter
   
   class SelectOptions
     # Building a list of options for the select box.
-    def new
-      @select_options = {"All Users": 'all'}
+    attr_reader :list
+    def initialize
+      @list = {"All Users": 'all'}
       @users = User.all.order(:last_name)
       @users.each do |u|
-        @select_options[u.last_first(20)] = u.id 
+        @list[u.last_first(20)] = u.id 
       end
     end
   end

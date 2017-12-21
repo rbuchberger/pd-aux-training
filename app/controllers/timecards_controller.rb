@@ -5,28 +5,26 @@ class TimecardsController < ApplicationController
   before_action :can_destroy?,  only: [:delete]
 
   # This index action is only used for viewing a single users' timecards. 
-  # There will be another created for admins & trainers who wish to view all 
-  # timecards in a big list. 
-
   def index
-    @user = get_user
-    @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params)
+    @user = current_user
+    @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params, @user)
   end
   
   # Admins need their own action. Tried to combine it with the regular index
   # view, but "view all users' timecards" needed too many hacks. 
+  # Maybe one day when I'm smarter I'll combine the two for more RESTfulness.
   def admindex
     @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params)
     @select_options = TimecardsPresenter::SelectOptions.new
   end
   
   def new
-    @user = get_user
+    @user = current_user
     @timecard = Timecard.new
   end
   
   def create
-    @user = get_user
+    @user = current_user
     @timecard = @user.timecards.new(timecard_params)
     if @timecard.save
       flash[:success] = "Timecard logged!"
@@ -72,14 +70,6 @@ class TimecardsController < ApplicationController
   
   private
   
-  def get_user
-    if params[:user_id].to_i > 0
-      User.find(params[:user_id])
-    else
-      current_user
-    end
-  end
-  
   def get_timecard
     Timecard.find(params[:id])
   end
@@ -89,7 +79,7 @@ class TimecardsController < ApplicationController
   end
 
   def timecards_filter_params
-   params.permit(:user_id, :start, :finish)
+   params.permit(:user_id, :range_start, :range_end)
   end
   
   def can_see?
