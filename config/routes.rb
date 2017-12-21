@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :users, except: [:new, :create] do
       resources :timecards, only: [:index, :show]
     end
-    get 'timecards', to: 'timecards#admindex', as: 'admin_timecards'
+    get 'timecards/(:user_id)', to: 'timecards#admindex', as: 'admin_timecards'
     # Custom route to allow trainers to approve pending users, but not change other users' roles. 
     put 'users/:id/accept', to: 'users#approve', as: 'accept_user'
     # Custom route that allows trainers to delete users who haven't been approved yet, but nobody else. 

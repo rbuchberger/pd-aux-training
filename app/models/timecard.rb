@@ -13,15 +13,15 @@ class Timecard < ApplicationRecord
 
   # Custom methods:
   
-  def duration_hours(l=1)
-    # Calculates length of workday, in hours rounded to the nearest decimal place.
-   ((self.end - self.start) / 1.hour ).round(l)
-  end
-    
-    # Calculates length of workday. 
+  # Length of workday 
   def duration
     self.end - self.start  
   end
   
+  # Length of workday, in hours rounded to the nearest decimal place.
+  def duration_hours(l=1)
+   ( self.duration / 1.hour ).round(l)
+  end
+    
 end
 

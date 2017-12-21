@@ -5,15 +5,13 @@
 -Account details page looks bad on anything but a wide screen. 
 -Implement soft-delete of users
 -Long names in titles break mobile. Overflow? 
-
+-Make all cells in table rows links as well. 
 
 --- Questions and answers: 
 
 -Badge number format? Should they be unique? --- No. X-01 through X-15, and 700 numbers. 
 -Shortest workday worth logging? -- 30 minutes. 
--Default dates for displaying timecards -- Past thirty days. 
-  
-  
+
   
 --- Low priority (worry about once everything works without exploding): 
 -Looks like everything breaks if app tries to save/update something that's locked
