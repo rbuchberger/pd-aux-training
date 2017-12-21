@@ -6,7 +6,7 @@
 class TimecardsController < ApplicationController
 
   before_action :get_user,    except: [:show, :admin_index]
-  before_action :can_edit?,   except: [:index, :show, :destroy, :admin_index]
+  before_action :can_edit?,   except: [:index, :show, :destroy, :admindex]
   before_action :can_see?,      only: [:index, :show, :admin_index]
   before_action :can_destroy?,  only: [:delete]
   before_action :get_timecard,  only: [:show, :edit, :update, :destroy]
@@ -17,19 +17,18 @@ class TimecardsController < ApplicationController
 
   def index
     @date_range = get_timecards_params
-
     @timecards = TimecardsPresenter::FilteredTimecards.new(@date_range, @user)
   end
   
   # Admins need their own action. Tried to combine it with the regular index
   # view, but "view all users' timecards" needed too many hacks. 
-  def admin_index
+  def admindex
     @params = get_timecards_params
     @users = User.all.order(:last_name)
     # Building a list of options for the select box.
     @select_options = {"All Users": 'all'}
     @users.each do |u|
-      @select_options[u.last_name.truncate(10)] = u.id 
+      @select_options[u.last_first(10)] = u.id 
     end
     if params[:user_id].blank? || params[:user_id] == "all"
       @user = "all"
@@ -37,7 +36,7 @@ class TimecardsController < ApplicationController
       @timecards = TimecardsPresenter::FilteredTimecards.new(@params, "all")
     else
       @user = User.find(params[:user_id])
-      @title = "Timecards for #{@user.first_name} #{@user.last_name}"
+      @title = "Timecards for #{@user.first_last(30)}"
     end
     @timecards = TimecardsPresenter::FilteredTimecards.new(@params, @user)
   end
@@ -58,13 +57,13 @@ class TimecardsController < ApplicationController
   end
   
   def show
-    @user = User.find(@timecard.user_id)
+    @user = @timecard.user
   end
   
   def edit
     
   end
-  
+    
   def update
     if @timecard.update(timecard_params)
       flash[:success] = "Timecard Updated!"

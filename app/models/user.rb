@@ -23,12 +23,14 @@ class User < ApplicationRecord
 
   # Custom methods:
  
+ # Returns full name in a view-friendly format. 
   def first_last(l = 25)
     "#{self.first_name} #{self.last_name}".truncate(l, omission: "...")
   end
   
+  # Returns full name in a different view friendly format. 
   def last_first(l = 25)
-    "#{self.last_name} #{self.first_name}".truncate(l, omission: "...")
+    "#{self.last_name}, #{self.first_name}".truncate(l, omission: "...")
   end
  
   # Add to a devise method, require admin approval of new users. 

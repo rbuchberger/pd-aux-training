@@ -6,10 +6,10 @@
 module TimecardsPresenter
   
   class FilteredTimecards
+    # Middleman, stands between model and controller.
     # Requires a user, accepts a hash of 2 dates (start and finish). 
-    # By default, timecards for the past 30 days. 
     # If user is a string "all", it will return all users. 
-    
+
     def initialize(date_range, user)
       s = date_range[:start].beginning_of_day
       f = date_range[:finish].end_of_day
@@ -23,8 +23,8 @@ module TimecardsPresenter
     
     def total_duration
       time = 0
-      @timecards.each { |t| time += t.duration } 
-      time.round(1)
+      @timecards.each { |t| time += t.duration_hours(1) } 
+      time
     end
     
     def list

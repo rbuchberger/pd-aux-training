@@ -25,7 +25,7 @@
       <% @timecards.list.each do |t| %>
         <tr onclick="window.location='<%= timecard_path(t.id) %>'">
           <td><%= t.start.strftime("%A, %b %d") %></td>
-          <td><%= t.duration %></td>
+          <td><%= t.duration_hours %></td>
           <td><%= t.description.truncate(25, omission: "...") %></td>
         </tr>
       <% end %>

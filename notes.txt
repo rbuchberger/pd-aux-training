@@ -4,20 +4,20 @@
 
 -Account details page looks bad on anything but a wide screen. 
 -Implement soft-delete of users
+-Truncate name in navbar
 
 
 --- Questions and answers: 
 
 -Badge number format? Should they be unique? --- No. X-01 through X-15, and 700 numbers. 
--Ok to have descriptionless timecards? -- No, spit them back out. 
 -Shortest workday worth logging? -- 30 minutes. 
 -Default dates for displaying timecards -- Past thirty days. 
   
   
-
+  
 --- Low priority (worry about once everything works without exploding): 
 -Looks like everything breaks if app tries to save/update something that's locked
-  in a transaction. 
+  in a transaction. (Can test by starting a sandbox console)
 -Working close button on flash messages?
 -Maybe rename timecard start and finish? "end" keeps turning purple, and it bothers me.
 -Super trooper references should probably be removed before it goes live. 
@@ -33,6 +33,7 @@
 -add a trainer or admin method to users
 -don't redirect to users_path when you accept or reject
 -about page, readme, gitignore, church it up for portfolio
+-client side validation of all forms
 
 --- instructions output from generate devise:install
 
