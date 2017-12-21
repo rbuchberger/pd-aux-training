@@ -5,17 +5,16 @@
 
 class TimecardsController < ApplicationController
 
-  before_action :get_user,    except: [:show, :admin_index]
   before_action :can_edit?,   except: [:index, :show, :destroy, :admindex]
-  before_action :can_see?,      only: [:index, :show, :admin_index]
+  before_action :can_see?,      only: [:index, :show, :admindex]
   before_action :can_destroy?,  only: [:delete]
-  before_action :get_timecard,  only: [:show, :edit, :update, :destroy]
 
   # This index action is only used for viewing a single users' timecards. 
   # There will be another created for admins & trainers who wish to view all 
   # timecards in a big list. 
 
   def index
+    @user = get_user
     @date_range = get_timecards_params
     @timecards = TimecardsPresenter::FilteredTimecards.new(@date_range, @user)
   end
@@ -28,24 +27,26 @@ class TimecardsController < ApplicationController
     # Building a list of options for the select box.
     @select_options = {"All Users": 'all'}
     @users.each do |u|
-      @select_options[u.last_first(12)] = u.id 
+      @select_options[u.last_first(20)] = u.id 
     end
     if params[:user_id].blank? || params[:user_id] == "all"
       @user = "all"
-      @title = "All users' timecards"
+      @title = "All Users"
       @timecards = TimecardsPresenter::FilteredTimecards.new(@params, "all")
     else
       @user = User.find(params[:user_id])
-      @title = "Timecards for #{@user.first_last(30)}"
+      @title = @user.first_last(30)
     end
     @timecards = TimecardsPresenter::FilteredTimecards.new(@params, @user)
   end
   
   def new
+    @user = get_user
     @timecard = Timecard.new
   end
   
   def create
+    @user = get_user
     @timecard = @user.timecards.new(timecard_params)
     if @timecard.save
       flash[:success] = "Timecard logged!"
@@ -57,14 +58,18 @@ class TimecardsController < ApplicationController
   end
   
   def show
+    @timecard = get_timecard
     @user = @timecard.user
   end
   
   def edit
-    
+    @timecard = get_timecard
+    @user = @timecard.user
   end
     
   def update
+    @timecard = get_timecard
+    @user = @timecard.user
     if @timecard.update(timecard_params)
       flash[:success] = "Timecard Updated!"
       redirect_to timecards_path
@@ -75,6 +80,7 @@ class TimecardsController < ApplicationController
   end
   
   def destroy
+    @timecard = get_timecard
     if @timecard.destroy
       flash[:success] = "Timecard deleted!"
       redirect_to timecards_path
@@ -88,30 +94,29 @@ class TimecardsController < ApplicationController
   
   def get_user
     if params[:user_id].to_i > 0
-      @user = User.find(params[:user_id])
+      User.find(params[:user_id])
     else
-      @user = current_user
+      current_user
     end
   end
   
+  def get_timecard
+    Timecard.find(params[:id])
+  end
+  
   def can_see?
-    flash[:error] = "You don't have permission to do that."
-    redirect_to root_path unless (current_user.admin? || current_user.trainer? || @user == current_user)
+    redirect_to root_path unless @user == current_user || current_user.trainer? 
   end
   
   def can_edit?
-    flash[:error] = "You don't have permission to do that."
     redirect_to root_path unless @user == current_user
   end
   
   def can_destroy?
-    flash[:error] = "You don't have permission to do that."
     redirect_to root_path unless @user == current_user || current_user.admin?
   end
 
-  def get_timecard
-    @timecard = Timecard.find(params[:id])
-  end
+
 
   def timecard_params
     # Parameters for creating or editing a new timecard

@@ -32,6 +32,11 @@ class User < ApplicationRecord
   def last_first(l = 25)
     "#{self.last_name}, #{self.first_name}".truncate(l, omission: "...")
   end
+  
+  # Admins are trainers too. 
+  def trainer?
+    super || self.admin?
+  end
  
   # Add to a devise method, require admin approval of new users. 
   def active_for_authentication?
