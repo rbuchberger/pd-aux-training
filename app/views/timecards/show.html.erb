@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title"><%= "#{@user.first_name} #{@user.last_name}" %>'s workday:</h4>
+      <h4 class="card-title"><%= "#{@user.first_last(30)}" %>'s workday:</h4>
       <h6 class="card-subtitle mb-5"><%= @timecard.description %></h6>
       <table class="table">
         <tr>

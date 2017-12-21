@@ -5,6 +5,7 @@
 -Account details page looks bad on anything but a wide screen. 
 -Implement soft-delete of users
 -Truncate name in navbar
+-Long names in titles break mobile. Overflow? 
 
 
 --- Questions and answers: 

@@ -28,7 +28,7 @@ class TimecardsController < ApplicationController
     # Building a list of options for the select box.
     @select_options = {"All Users": 'all'}
     @users.each do |u|
-      @select_options[u.last_first(10)] = u.id 
+      @select_options[u.last_first(12)] = u.id 
     end
     if params[:user_id].blank? || params[:user_id] == "all"
       @user = "all"
@@ -95,14 +95,17 @@ class TimecardsController < ApplicationController
   end
   
   def can_see?
+    flash[:error] = "You don't have permission to do that."
     redirect_to root_path unless (current_user.admin? || current_user.trainer? || @user == current_user)
   end
   
   def can_edit?
+    flash[:error] = "You don't have permission to do that."
     redirect_to root_path unless @user == current_user
   end
   
   def can_destroy?
+    flash[:error] = "You don't have permission to do that."
     redirect_to root_path unless @user == current_user || current_user.admin?
   end
 
