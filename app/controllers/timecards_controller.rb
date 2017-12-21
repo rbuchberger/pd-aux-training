@@ -1,8 +1,3 @@
-# The logic for retrieving and filtering timecards has been placed in its own
-# PORO class, located in app/presenters/timecards_presenter.rb
-# I'm not sure if it's unnecessarily convoluted or good OO design. We'll see
-# how big that class gets and maybe I'll put it back in the controller. 
-
 class TimecardsController < ApplicationController
 
   before_action :can_edit?,   except: [:index, :show, :destroy, :admindex]
@@ -15,29 +10,14 @@ class TimecardsController < ApplicationController
 
   def index
     @user = get_user
-    @date_range = get_timecards_params
-    @timecards = TimecardsPresenter::FilteredTimecards.new(@date_range, @user)
+    @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params)
   end
   
   # Admins need their own action. Tried to combine it with the regular index
   # view, but "view all users' timecards" needed too many hacks. 
   def admindex
-    @params = get_timecards_params
-    @users = User.all.order(:last_name)
-    # Building a list of options for the select box.
-    @select_options = {"All Users": 'all'}
-    @users.each do |u|
-      @select_options[u.last_first(20)] = u.id 
-    end
-    if params[:user_id].blank? || params[:user_id] == "all"
-      @user = "all"
-      @title = "All Users"
-      @timecards = TimecardsPresenter::FilteredTimecards.new(@params, "all")
-    else
-      @user = User.find(params[:user_id])
-      @title = @user.first_last(30)
-    end
-    @timecards = TimecardsPresenter::FilteredTimecards.new(@params, @user)
+    @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params)
+    @select_options = TimecardsPresenter::SelectOptions.new
   end
   
   def new
@@ -103,6 +83,14 @@ class TimecardsController < ApplicationController
   def get_timecard
     Timecard.find(params[:id])
   end
+
+  def timecard_params
+    params.require(:timecard).permit(:start, :end, :description)
+  end
+
+  def timecards_filter_params
+   params.permit(:user_id, :start, :finish)
+  end
   
   def can_see?
     redirect_to root_path unless @user == current_user || current_user.trainer? 
@@ -114,33 +102,6 @@ class TimecardsController < ApplicationController
   
   def can_destroy?
     redirect_to root_path unless @user == current_user || current_user.admin?
-  end
-
-
-
-  def timecard_params
-    # Parameters for creating or editing a new timecard
-    params.require(:timecard).permit(:start, :end, :description)
-  end
-
-  def get_timecards_params
-    # Parameters for filtering list of timecards
-    # This whole thing is ugly and I hate it. 
-    p = params.permit(:user_id, :start, :finish)
-    # Converted to a hash, and nil values removed. 
-    p = p.to_h.symbolize_keys
-    if !p[:start].blank? 
-      p[:start] = p[:start].to_date 
-    else
-      p[:start] = Time.zone.now - 30.days
-    end
-    
-    if !p[:finish].blank?
-      p[:finish] = p[:finish].to_date
-    else 
-      p[:finish] = Time.zone.now
-    end
-    p
   end
 
 end

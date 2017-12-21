@@ -1,34 +1,45 @@
-# This is a collection of classes for selecting which timecards to present,
-# and for calculating things like duration. 
-
-# I'm not entirely sure separating this out is necessary. May incorporate this functionality
-# back into the controller, we'll see how big it gets. 
 module TimecardsPresenter
   
   class FilteredTimecards
     # Middleman, stands between model and controller.
-    # Requires a user, accepts a hash of 2 dates (start and finish). 
-    # If user is a string "all", it will return all users. 
-
-    def initialize(date_range, user)
-      s = date_range[:start].beginning_of_day
-      f = date_range[:finish].end_of_day
-      @user = user
+    # Works out a list of timecards to return based on the inputs.
+    # Implements default values if something isn't specified. 
+    
+    include ActiveModel::Model
+    attr_accessor :range_start, :range_end, :user
+    attr_reader :list
+    
+    def initialize
+      default_start = Time.zone.today.beginning_of_day - 30.days
+      default_end   = Time.zone.today.beginning_of_day
+      @range_start  = @range_start.try(:beginning_of_day) || default_start 
+      @range_end    = @range_end.end_of_day.try(:beginning_of_day) || default_end
+      @user         = User.find[:user_id] || "all"
+      
       if @user ==  "all" 
-        @timecards = Timecard.where(start: s .. f).order(start: :desc)
+        @list = Timecard.where(start: s .. f).order(start: :desc)
       else 
-        @timecards = @user.timecards.where(start: s .. f ).order(start: :desc)
+        @list = @user.timecards.where(start: s .. f ).order(start: :desc)
       end
     end
     
     def total_duration
       time = 0
-      @timecards.each { |t| time += t.duration_hours(1) } 
+      @list.each { |t| time += t.duration_hours } 
       time
     end
-    
-    def list
-      @timecards 
+
+  end
+  
+  class SelectOptions
+    # Building a list of options for the select box.
+    def new
+      @select_options = {"All Users": 'all'}
+      @users = User.all.order(:last_name)
+      @users.each do |u|
+        @select_options[u.last_first(20)] = u.id 
+      end
     end
   end
+  
 end

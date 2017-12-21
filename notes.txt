@@ -53,3 +53,23 @@ Some setup you must do manually if you haven't yet:
 
 
   https://www.youtube.com/watch?v=PdDu9T1EbWM
+  
+  p = p.to_h.symbolize_keys
+  
+   # Converted to a hash, and nil values removed. 
+  
+    if !p[:start].blank? 
+      p[:start] = p[:start].to_date 
+    else
+      p[:start] = Time.zone.now - 30.days
+    end
+    
+    if !p[:finish].blank?
+      p[:finish] = p[:finish].to_date
+    else 
+      p[:finish] = Time.zone.now
+    end
+    p
+  
+  
+  
