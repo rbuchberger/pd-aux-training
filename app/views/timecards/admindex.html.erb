@@ -1,12 +1,12 @@
 <div class="row justify-content-center form-group">
-  <h4 class="display-3 my-5">Timecards for <%= @title %></h4>
+  <h4 class="display-3 my-5">Timecards for <%= @timecards.title %></h4>
   <%= form_tag({}, {method: :get, class: "form-inline"})  do %>
     <%= label_tag "Display workdays for " %>
-    <%= select_tag(:user_id, options_for_select(@select_options, @params[:user_id]), class: "form-control mx-2") %>
+    <%= select_tag(:user_id, options_for_select(@select_options.list, selected= @timecards.selected_user_id ), class: "form-control mx-2") %>
     <%= label_tag "From: " %>
-    <%= date_field_tag :start, value = @params[:start].strftime("%Y-%m-%e"), class: "form-control mx-2" %>
+    <%= date_field_tag :range_start, value = @timecards.range_end.strftime("%Y-%m-%e"), class: "form-control mx-2" %>
     <%= label_tag "Through: "%>
-    <%= date_field_tag :finish, value = @params[:finish].strftime("%Y-%m-%e"), class: "form-control mx-2" %>
+    <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%e"), class: "form-control mx-2" %>
     <%= submit_tag "Go!", class: "btn btn-info" %>
   <% end %>
 </div>

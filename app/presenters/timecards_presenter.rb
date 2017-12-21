@@ -7,7 +7,7 @@ module TimecardsPresenter
     
     include ActiveModel::Model
     attr_accessor :range_start, :range_end, :user_id
-    attr_reader :list
+    attr_reader :list, :title, :selected_user_id
     
     def initialize(opts = {}, user = "all")
       default_start = Time.zone.today.beginning_of_day - 30.days
@@ -34,9 +34,13 @@ module TimecardsPresenter
       range = (@range_start .. @range_end)
       
       if @user ==  "all" 
+        @selected_user_id = "all"
         @list = Timecard.where(start: range ).order(start: :desc)
+        @title = "All Users"
       else 
         @list = @user.timecards.where(start: range ).order(start: :desc)
+        @title = @user.first_last
+        @selected_user_id = @user.id
       end
 
     end

@@ -4,7 +4,6 @@
 
 -Account details page looks bad on anything but a wide screen. 
 -Implement soft-delete of users
--Truncate name in navbar
 -Long names in titles break mobile. Overflow? 
 
 
@@ -30,8 +29,6 @@
 -Capitalize names before save to database
 -Make sure the last admin can't delete their account.
 -Proper possesivising of people's names. (There's a gem for it)
--add a full name method to users
--add a trainer or admin method to users
 -don't redirect to users_path when you accept or reject
 -about page, readme, gitignore, church it up for portfolio
 -client side validation of all forms
@@ -53,23 +50,4 @@ Some setup you must do manually if you haven't yet:
 
 
   https://www.youtube.com/watch?v=PdDu9T1EbWM
-  
-  p = p.to_h.symbolize_keys
-  
-   # Converted to a hash, and nil values removed. 
-  
-    if !p[:start].blank? 
-      p[:start] = p[:start].to_date 
-    else
-      p[:start] = Time.zone.now - 30.days
-    end
-    
-    if !p[:finish].blank?
-      p[:finish] = p[:finish].to_date
-    else 
-      p[:finish] = Time.zone.now
-    end
-    p
-  
-  
   
