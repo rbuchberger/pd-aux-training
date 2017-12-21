@@ -17,7 +17,7 @@ class TimecardsController < ApplicationController
 
   def index
     @date_range = get_timecards_params
-    @users = User.all
+
     @timecards = TimecardsPresenter::FilteredTimecards.new(@date_range, @user)
   end
   
@@ -25,12 +25,20 @@ class TimecardsController < ApplicationController
   # view, but "view all users' timecards" needed too many hacks. 
   def admin_index
     @params = get_timecards_params
-    if params[:user_id].blank?
+    @users = User.all #Todo: sort this by last name
+    @select_options = {"All Users": 'all'}
+    @users.each do |u|
+      @select_options[u.last_name.truncate(10)] = u.id 
+    end
+    if params[:user_id].blank? || params[:user_id] == "all"
+      @user = "all"
+      @title = "All users' timecards"
       @timecards = TimecardsPresenter::FilteredTimecards.new(@params, "all")
     else
-      @user = User.find(:user_id)
-      @timecards = TimecardsPresenter::FilteredTimecards.new(@params, @user)
+      @user = User.find(params[:user_id])
+      @title = "Timecards for #{@user.first_name} #{@user.last_name}"
     end
+    @timecards = TimecardsPresenter::FilteredTimecards.new(@params, @user)
   end
   
   def new
