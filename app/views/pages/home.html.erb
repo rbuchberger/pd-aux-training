@@ -9,16 +9,13 @@
   Please tell me what you like, and especially tell me about what you don't like. Also, check it out on mobile!
   Thanks!</p>
 </div>
-<div class="row justify-content-center">
+<div class="row my-5 mx-3">
   <% if user_signed_in? %>
     <%= button_to "Log a workday", new_timecard_path,  class: "btn btn-success text-center my-5", method: :get %>
   <% else %>
     <h2>You are not currently logged in.</h2>
-    <p>This website is a toolset for auxiliary officers with the Monroe County Sheriff's office.</p>
-    <div class="row justify-content-center">
-      <%= button_to "Log in", new_user_session_path, class: "btn btn-success mx-5", method: :get %>
-      <%= button_to "Sign up", new_user_registration_path, class: "btn btn-primary mx-5", method: :get %>
-    </div>
+      <%= button_to "Log in", new_user_session_path, class: "btn btn-success mx-2", method: :get %>
+      <%= button_to "Sign up", new_user_registration_path, class: "btn btn-primary mx-2", method: :get %>
   <% end %>
 </div>
   <% if !@pending.blank? && user_signed_in? &&(current_user.admin? || current_user.trainer?) %>
