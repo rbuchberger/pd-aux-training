@@ -10,13 +10,18 @@ class TimecardValidator < ActiveModel::Validator
     if timecard.end >= Time.zone.now + 24.hours
       timecard.errors[:end] << "can't be more than 24 hours in the future." 
     end
-   
-    if (timecard.end - timecard.start) >= 24.hours
-       timecard.errors[:base] << "Workday is too long. If you really did work more than 24 hours, log 2 timecards." 
-    end
     
-    if (timecard.end - timecard.start) <= 30.minutes
-      timecard.errors[:base] << "Your workday can't be shorter than 30 minutes."
+    # Gonna use length several times. 
+    length = timecard.end - timecard.start
+    if length >= 24.hours
+       timecard.errors[:base] << 
+       "Workday is too long. If you really did work more than 24 hours, log 2 timecards." 
+    elsif length < 0
+      timecard.errors[:base] << 
+      "I think you have your times swapped. End needs to happen after start."
+    elsif length >= 0 && length < 30.minutes
+      timecard.errors[:base] << 
+      "Workday can't be shorter than 30 minutes."
     end
     
     # Get all the user's timecards 

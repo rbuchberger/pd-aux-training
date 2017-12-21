@@ -5,7 +5,7 @@ class Timecard < ApplicationRecord
   belongs_to :user
   
   # Validations
-  validates :description, length: {maximum: 100}
+  validates :description, presence: true, length: {maximum: 100}
   validates :start, presence: true 
   validates :end, presence: true
   validates :user, presence: true
@@ -13,10 +13,16 @@ class Timecard < ApplicationRecord
 
   # Custom methods:
   
-  def duration
+  def duration_hours
     # Calculates length of workday, in hours rounded to the nearest decimal place.
    ((self.end - self.start) / 1.hour ).round(1)
   end
-
+    
+    # Calculates length of workday. 
+  def duration
+    self.end - self.start  
+  end
+  
+  
 end
 
