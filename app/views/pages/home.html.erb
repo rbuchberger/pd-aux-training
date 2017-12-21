@@ -1,7 +1,44 @@
 
-<h1 class="display-4 text-center m-5">Monroe County Sheriff's Office</h1>
-<h2 class="text-center">Aux officer tools</h2>
+<h4 class="display-4 text-center my-5">Monroe County Sheriff's Office</h4>
+<h2>Aux officer tools, testing mode</h2>
 <div class="d-flex justify-content-center">
-  <p class="col-8">This website is very much a work in progress. Currently, its only functionality is user signup and administration.
-  Nothing you see here is set in stone; colors, layout, and behavior can all be changed. Feedback is appreciated!</p>
+  <p>This website is currently in development. 
+  <strong>All data entered will be reset before it goes live.</strong> It's here for testing purposes
+  only! Currently you can sign up, log in, and log workdays. Administrators can administrate users and
+  workdays. Feel free to add, delete, and modify anything you like to test functionality and behavior.
+  Please tell me what you like, and especially tell me about what you don't like. Also, check it out on mobile!
+  Thanks!</p>
+</div>
+<div class="row justify-content-center">
+  <% if user_signed_in? %>
+    <%= button_to "Log a workday", new_timecard_path,  class: "btn btn-success text-center my-5", method: :get %>
+  <% else %>
+    <h2>You are not currently logged in.</h2>
+    <p>This website is a toolset for auxiliary officers with the Monroe County Sheriff's office.</p>
+    <%= button_to "Log in!", new_user_session_path, class: "btn btn-success", method: :get %>
+    <%= button_to "Sign up!", new_user_registration_path, class: "btn btn-primary", method: :get %>
+  <% end %>
+</div>
+  <% if !@pending.blank? && (current_user.admin? || current_user.trainer?) %>
+    <div class="card card-body">
+      <h2 class="card-title"> Pending users: </h2>
+      <p class="card-text">(They won't be able to sign in until they are approved. Only admins and trainers can do this.)</p>
+      <table class="table table-hover">
+  				<thead>
+  					<tr>
+  					  <th></th>
+  						<th scope="col">Name</th>
+  						<th></th>
+  					</tr>
+  				</thead>
+  				<% @pending.each do |u| %>
+  			 <tr onclick="window.location='<%= user_path(u) %>'"> 
+  			   <td><%= button_to("Approve", accept_user_path(u), data: {confirm: "Are you sure you want to approve #{u.first_name} #{u.last_name}?"}, method: :put, class: "btn btn-success btn-block") %></td>
+  				 <td><%= "#{u.last_name}, #{u.first_name}".truncate(25, omission: "...") %></td>
+  				 <td><%= button_to("Reject", reject_user_path(u), data: {confirm: "Are you sure you want to reject #{u.first_name} #{u.last_name}?"}, method: :delete, class: "btn btn-danger btn-block") %></td>
+  			 </tr>
+  			<% end %>
+  		</table>
+    </div>
+  <% end %>
 </div>

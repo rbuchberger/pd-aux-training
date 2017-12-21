@@ -15,7 +15,7 @@ module TimecardsPresenter
       f = date_range[:finish].end_of_day
       @user = user
       if @user ==  "all" 
-        @timecards = Timecard.where(start: s .. f).order(:start)
+        @timecards = Timecard.where(start: s .. f).order(start: :desc)
       else 
         @timecards = @user.timecards.where(start: s .. f ).order(start: :desc)
       end

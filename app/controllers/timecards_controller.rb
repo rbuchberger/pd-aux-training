@@ -25,7 +25,8 @@ class TimecardsController < ApplicationController
   # view, but "view all users' timecards" needed too many hacks. 
   def admin_index
     @params = get_timecards_params
-    @users = User.all #Todo: sort this by last name
+    @users = User.all.order(:last_name)
+    # Building a list of options for the select box.
     @select_options = {"All Users": 'all'}
     @users.each do |u|
       @select_options[u.last_name.truncate(10)] = u.id 

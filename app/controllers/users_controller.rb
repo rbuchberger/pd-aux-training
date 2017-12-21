@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 	before_action :istrainer?, only: [:index, :show, :approve, :reject]
 	
 	def index
-		@users = User.all
+		@users = User.all.order(:last_name)
 	end
 	
 	def show
@@ -16,28 +16,47 @@ class UsersController < ApplicationController
 	end
 	
 	def update
-		@user.update!(user_params)
-		redirect_to users_path
+		if @user.update(user_params)
+			flash[:success] = "User updated!"
+			redirect_to users_path
+		else 
+			flash[:danger] = "Could not update user!"
+			render edit_user_path(@user)
+		end
 	end
 	
 	def destroy
-		@user.destroy!
-		redirect_to users_path
+		if @user.destroy
+			flash[:success] = "User deleted!"
+			redirect_to users_path
+		else
+			flash[:danger] = "Could not delete user."
+			redirect_to user_path(@user)
+		end
 	end
 	
 	# Custom action allowing trainers to approve pending users
 	def approve
 		if @user.pending?
 			@user.role = :deputy
-			@user.save!
-			redirect_to user_path
+			if @user.save
+				flash[:success] = "User approved!"
+				redirect_to user_path(@user)
+			else
+				flash[:danger] = "Could not approve user."
+				redirect_to user_path(@user)
+			end
 		end
 	end
 	# Custom action allowing trainers to reject pending users. 
 	def reject
 		if @user.pending?
-			@user.destroy!
-			redirect_to users_path
+			if @user.destroy
+				flash[:success] = "User rejected!"
+				redirect_to users_path
+			else
+				flash[:danger] = "Could not reject user."
+			end
 		end
 	end
 	
@@ -58,12 +77,5 @@ class UsersController < ApplicationController
 		
 	def user_params
 		params.require(:user).permit(:first_name, :last_name, :badge_number, :role, :email)
-
-		# When updating users, if you change the password devise will fail to validate.
-		# This statement strips it, to prevent that. Except it breaks the update form, so that needs fixed. 
-		# if params[:user][:password].blank?
-		#   params[:user].delete(:password)
-		#   params[:user].delete(:password_confirmation)
-		# end
 	end
 end
