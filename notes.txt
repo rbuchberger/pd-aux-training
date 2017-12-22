@@ -30,6 +30,8 @@
 -don't redirect to users_path when you accept or reject
 -about page, readme, gitignore, church it up for portfolio
 -client side validation of all forms
+-Learn about rails autoloading and importing modules from other files
+-Learn testing and write them
 
 --- instructions output from generate devise:install
 
