@@ -51,3 +51,9 @@ Some setup you must do manually if you haven't yet:
 
   https://www.youtube.com/watch?v=PdDu9T1EbWM
   
+Idea scratchpad
+--Category dropdown (4 or 5 options plus "other") for timecards? 
+--Add timecard list to user show page
+  -- route timecards under users? Maybe there's a better way to do your routing
+    and avoid needing an admindex custom action
+    
