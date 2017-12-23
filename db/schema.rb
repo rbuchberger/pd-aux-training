@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215165713) do
+ActiveRecord::Schema.define(version: 20171223182014) do
 
   create_table "timecards", force: :cascade do |t|
     t.integer "user_id"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(version: 20171215165713) do
     t.datetime "start"
     t.datetime "end"
     t.index ["user_id"], name: "index_timecards_on_user_id"
+  end
+
+  create_table "training_videos", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.text "url"
+    t.text "yt_id"
+    t.integer "custom_start"
+    t.integer "custom_end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
