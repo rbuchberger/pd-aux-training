@@ -7,11 +7,15 @@ Rails.application.routes.draw do
   # Routes for users to CRUD their own timecards:
   resources :timecards
   
+  # Routes for training videos
+  resources :training_videos
+  
   # Administration related routes for managing other users:
   scope '/admin' do
     resources :users, except: [:new, :create] do
       resources :timecards, only: [:index, :show]
     end
+    # Admin timecard index and filters
     get 'timecards/(:user_id)', to: 'timecards#admindex', as: 'admin_timecards'
     # Custom route to allow trainers to approve pending users, but not change other users' roles. 
     put 'users/:id/accept', to: 'users#approve', as: 'accept_user'
