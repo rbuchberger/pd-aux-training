@@ -79,3 +79,10 @@ User.create([
     end: Time.zone.now - 3.days + 9.hours,
   }
   ])
+  
+  TrainingVideo.create(
+    title: "Handcuffs", 
+    description: "Small test video", 
+    url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
+    yt_id: 'PdDu9T1EbWM'
+    )

@@ -19,6 +19,7 @@ class User < ApplicationRecord
   enum role: [:pending, :deputy, :trainer, :admin]
   
   # Callbacks:
+  before_save :format_string_fields
   after_create :set_default_role
 
   # Custom methods:
@@ -51,11 +52,14 @@ class User < ApplicationRecord
       super # Don't modify the original message 
     end 
   end
-
+private
   # Define the callback-- New users are set to pending.   
   def set_default_role
     self.role = :pending
   end
-
-
+  
+  def format_string_fields
+    self.first_name = self.first_name.capitalize
+    self.last_name = self.last_name .capitalize
+    self.badge_number = self.badge_number.upcase
 end

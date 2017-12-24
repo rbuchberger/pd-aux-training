@@ -21,7 +21,6 @@
 -Generally reduce database calls 
 -Configure secrets.yml, make sure production encryption keys aren't on github!
 -prevent bot spamming of the signup box (captcha?)
--Capitalize names before save to database
 -Make sure the last admin can't delete their account.
 -Proper possesivising of people's names. (There's a gem for it)
 -don't redirect to users_path when you accept or reject from homepage
