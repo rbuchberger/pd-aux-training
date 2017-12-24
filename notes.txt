@@ -1,11 +1,8 @@
 --- Don't forget!
  
 -Need to format devise error messages
-
 -Account details page looks bad on anything but a wide screen. 
 -Implement soft-delete of users
--Long names in titles break mobile. Overflow? 
--Make all cells in table rows links as well. 
 
 --- Questions and answers: 
 
@@ -27,11 +24,13 @@
 -Capitalize names before save to database
 -Make sure the last admin can't delete their account.
 -Proper possesivising of people's names. (There's a gem for it)
--don't redirect to users_path when you accept or reject
+-don't redirect to users_path when you accept or reject from homepage
 -about page, readme, gitignore, church it up for portfolio
 -client side validation of all forms
 -Learn about rails autoloading and importing modules from other files
 -Learn testing and write them
+-Long names in titles break mobile. Overflow? 
+-Make all cells in table rows links as well. 
 
 --- instructions output from generate devise:install
 
@@ -53,7 +52,7 @@ Some setup you must do manually if you haven't yet:
   
 Idea scratchpad
 --Category dropdown (4 or 5 options plus "other") for timecards? 
---Add timecard list to user show page
+--Add timecard and training completion list to user show page
   -- route timecards under users? Maybe there's a better way to do your routing
     and avoid needing an admindex custom action
     
