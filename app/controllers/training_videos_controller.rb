@@ -1,7 +1,7 @@
 class TrainingVideosController < ApplicationController
   
-  before_action: :trainer_check, except: [index, show]
-  
+  before_action :trainer_check, except: [:index, :show]
+
   def new
     @video = TrainingVideo.new()
   end
@@ -14,6 +14,7 @@ class TrainingVideosController < ApplicationController
     else
       flash[:danger] = "Could not create video."
       render new_training_video_path
+    end
   end
   
   def show 
@@ -53,7 +54,8 @@ class TrainingVideosController < ApplicationController
   private
   
   def get_video
-    TrainingVideo.find(:id)
+    TrainingVideo.find(params[:id])
+  end
   
   def trainer_check
     redirect_to root_path unless current_user.trainer?

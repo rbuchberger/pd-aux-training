@@ -62,4 +62,5 @@ private
     self.first_name = self.first_name.capitalize
     self.last_name = self.last_name .capitalize
     self.badge_number = self.badge_number.upcase
+  end
 end

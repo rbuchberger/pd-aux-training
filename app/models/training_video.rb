@@ -5,7 +5,7 @@ class TrainingVideo < ApplicationRecord
   validates :description, presence: true
   
   # Callbacks
-  before_save: grab_youtube_id
+#  before_save :grab_youtube_id
   
   private
   
