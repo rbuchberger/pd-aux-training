@@ -3,6 +3,7 @@
 -Need to format devise error messages
 -Account details page looks bad on anything but a wide screen. 
 -Implement soft-delete of users
+-Test youtube regular expression grabber more thoroughly
 
 --- Questions and answers: 
 
