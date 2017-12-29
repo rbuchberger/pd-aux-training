@@ -40,7 +40,7 @@ class TrainingVideosController < ApplicationController
     @videos = TrainingVideo.all
   end
 
-  def delete
+  def destroy
     @video = get_video
     if @video.delete
       flash[:success] = "Video deleted!"

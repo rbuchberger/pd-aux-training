@@ -1,36 +1,38 @@
---- Don't forget!
+--- TODO before release:
  
--Need to format devise error messages
--Account details page looks bad on anything but a wide screen. 
 -Implement soft-delete of users
--Test youtube regular expression grabber more thoroughly
-
---- Questions and answers: 
-
--Badge number format? Should they be unique? --- No. X-01 through X-15, and 700 numbers. 
--Shortest workday worth logging? -- 30 minutes. 
-
+-Mailer config
+-Account details page looks bad on anything but a wide screen. 
+-Super trooper references should probably be removed before it goes live. 
+-Configure secrets.yml, make sure production encryption keys aren't on github!
+-client side validation of all forms
   
---- Low priority (worry about once everything works without exploding): 
+--- Finish after first deployment
+-Test youtube regular expression grabber more thoroughly
+-Format devise error messages
 -Looks like everything breaks if app tries to save/update something that's locked
   in a transaction. (Can test by starting a sandbox console)
 -Working close button on flash messages?
 -Maybe rename timecard start and finish? "end" keeps turning purple, and it bothers me.
--Super trooper references should probably be removed before it goes live. 
 -Stop table headers from highlighting on mouseover
 -better default values for logging timecards. Also, only minute multiples of 15
 -Generally reduce database calls 
--Configure secrets.yml, make sure production encryption keys aren't on github!
 -prevent bot spamming of the signup box (captcha?)
 -Make sure the last admin can't delete their account.
 -Proper possesivising of people's names. (There's a gem for it)
 -don't redirect to users_path when you accept or reject from homepage
 -about page, readme, gitignore, church it up for portfolio
--client side validation of all forms
 -Learn about rails autoloading and importing modules from other files
 -Learn testing and write them
 -Long names in titles break mobile. Overflow? 
 -Make all cells in table rows links as well. 
+-Leave video title and description blank to pull from youtube
+-Custom start and end times
+
+--- Questions and answers: 
+
+-Badge number format? Should they be unique? --- No. X-01 through X-15, and 700 numbers. 
+-Shortest workday worth logging? -- 30 minutes. 
 
 --- instructions output from generate devise:install
 

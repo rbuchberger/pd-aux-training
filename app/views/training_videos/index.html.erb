@@ -1,3 +1,12 @@
-<% @videos.each do |v| %>
-  <%= link_to v.title, training_video_path(v.id) %><br>
-<% end %>
+<table>
+  <% @videos.each do |v| %>
+    <tr>
+      <td><%= link_to v.title, training_video_path(v.id) %> </td>
+      <% if current_user.trainer? %>
+        <td><%= link_to "Edit", edit_training_video_path(v.id) %></td>
+        <td><%= button_to "Delete", training_video_path(v.id), method: :delete, class: "btn btn-danger" %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "Add Video", new_training_video_path if current_user.trainer? %>
