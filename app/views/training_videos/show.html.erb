@@ -1,5 +1,17 @@
-<div class="video_container">
-    <iframe id="ytplayer" type="text/html" class="video_frame"
+<h1 class="text-center"><%= @video.title %></h1>
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe id="ytplayer" type="text/html" class="embed-responsive-item"
       src="https://www.youtube.com/embed/<%= @video.yt_id %>" frameborder="0">
   </iframe>
 </div>
+<div class="card my-2">
+     <p class="mx-5 my-1"><%= @video.description %></p>
+</div>
+<div class="row">
+  <%= link_to "Back to index", training_videos_path, class: "text-center mx-auto my-2" %>
+</div>
+<div class="row">
+  <%= link_to "Edit Video", edit_training_video_path(@video), class: "text-center mx-auto my-2" if current_user.trainer? %>
+</div>
+
+  

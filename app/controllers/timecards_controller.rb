@@ -83,7 +83,7 @@ class TimecardsController < ApplicationController
   end
   
   def can_see?
-    redirect_to root_path unless @user == current_user || current_user.trainer? 
+   # redirect_to root_path unless @user == current_user || current_user.trainer? 
   end
   
   def can_edit?

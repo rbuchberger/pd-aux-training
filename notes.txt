@@ -6,6 +6,7 @@
 -Super trooper references should probably be removed before it goes live. 
 -Configure secrets.yml, make sure production encryption keys aren't on github!
 -client side validation of all forms
+-Timecard permissions are AFU
   
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly

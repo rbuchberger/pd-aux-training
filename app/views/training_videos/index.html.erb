@@ -1,12 +1,10 @@
-<table>
+<h4 class="display-4 text-center my-3">All training videos</h4>
+<table class="table table-hover my-4">
   <% @videos.each do |v| %>
-    <tr>
+    <tr onclick="window.location='<%= training_video_path(v) %>'">
       <td><%= link_to v.title, training_video_path(v.id) %> </td>
-      <% if current_user.trainer? %>
-        <td><%= link_to "Edit", edit_training_video_path(v.id) %></td>
-        <td><%= button_to "Delete", training_video_path(v.id), method: :delete, class: "btn btn-danger" %></td>
-      <% end %>
+      <td><%= link_to "Edit", edit_training_video_path(v.id) if current_user.trainer?%></td>
     </tr>
   <% end %>
 </table>
-<%= link_to "Add Video", new_training_video_path if current_user.trainer? %>
+<%= link_to "Add Video", new_training_video_path, class: "btn btn-primary text-center my-2"  if current_user.trainer? %>
