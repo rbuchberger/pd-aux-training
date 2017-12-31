@@ -10,27 +10,51 @@
     </ul>
   </div>
 <% end %>
-
-<div class="row">
-  <%= form_for @video do |f| %>
-   <div class="row justify-content-center">
-      <div class = "form-group">
-        <%= f.label :title %>
-        <%= f.text_field :title, class: "form-control" %><br>
-      </div>
+<div class="row justify-content-center">
+  <div class="col col-8">
+    <div class="card p-3 mb-4">
+      <h3 class="card-title">Important Information</h3>
+      <p class="card-text">
+        This website can accept any YouTube video, listed or unlisted, to show to 
+        trainees. Listed videos show up in YouTube searches and suggestions, unlisted
+        videos don't. They are only visible to people who already have a link to it. 
+        <strong>This does not mean they are private</strong>; anybody with the link 
+        (including everyone who has access to this website) can share it freely. It's 
+        even possible to randomly discover an unlisted video by trial and error. There 
+        are services available, such as vimeo, which offer truly private video hosting, 
+        but not for free. 
+      </p>
+      <p class="card-text">
+        You can add existing youtube videos, or you can upload your own. You'll need a 
+        Google account, and pay attention to privacy settings before you publish 
+        the video if you'd like to set it as unlisted. There is more help 
+        <a href="https://support.google.com/youtube/answer/57407?co=GENIE.Platform%3DDesktop&hl=en">here</a>
+        if you need it. 
+      </p>
     </div>
-    <div class="row">
-      <div class = "form-group">
-        <%= f.label :description %>
-        <%= f.text_area :description, class: "form-control" %><br>
-      </div>
-    </div>
-    <div class="row">
-      <div class = "form-group">
-        <%= f.label :url %>
-        <%= f.text_field :url, class: "form-control" %><br>
-      </div>
-    </div>
-    <%= f.submit "Save!", class: "btn btn-success btn-block my-4" %><br>
-  <% end %>
+  </div>
 </div>
+<%= form_for @video do |f| %>
+  <div class = "form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control form-control-lg" %>
+    <small id="titleHelp" class="form-text text-muted">
+      This is the name used on this site, it doesn't have to be the same as on youtube. 
+    </small>
+  </div>
+  <div class = "form-group">
+    <%= f.label "Youtube Link" %>
+    <%= f.text_field :url, class: "form-control", placeholder: "https://www.youtube.com/watch?v=3VHTUG-VpWA" %>
+    <small id="urlHelp" class="form-text text-muted">
+      Pull up the youtube video you want to add, copy and paste its address here. 
+    </small>
+  </div>
+  <div class = "form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control", rows: "5" %>
+    <small id="descriptionHelp" class="form-text text-muted">
+      This will show up below the video when people watch it.
+    </small>
+  </div>
+  <%= f.submit "Save!", class: "btn btn-lg btn-success my-4" %>
+<% end %>
