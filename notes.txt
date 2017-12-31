@@ -7,6 +7,7 @@
 -Configure secrets.yml, make sure production encryption keys aren't on github!
 -client side validation of all forms
 -Timecard permissions are AFU
+-training video validation
   
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly
