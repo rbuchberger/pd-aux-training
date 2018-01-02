@@ -14,4 +14,7 @@
   <%= link_to "Edit Video", edit_training_video_path(@video), class: "text-center mx-auto my-2" if current_user.trainer? %>
 </div>
 
+<%= button_to "I solemnly swear that I have completed this training.",
+  training_video_training_records_path(@video), class: "btn btn-block my-2" %>
+
   
