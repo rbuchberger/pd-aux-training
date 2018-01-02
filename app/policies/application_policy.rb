@@ -14,7 +14,7 @@ class ApplicationPolicy
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    scope.where(id: record.id).exists?
   end
 
   def create?
@@ -50,7 +50,18 @@ class ApplicationPolicy
     end
 
     def resolve
-      scope
+      if @user.trainer?
+        scope.all
+      else
+        #
+      end
     end
   end
+  
+  protected
+  
+  def own_record? 
+    @record.user_id == @user.id
+  end
+  
 end

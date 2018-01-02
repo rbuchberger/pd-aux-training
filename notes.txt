@@ -8,7 +8,7 @@
 -client side validation of all forms
 -Timecard permissions are AFU
 -training video validation
-  
+
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly
 -Format devise error messages

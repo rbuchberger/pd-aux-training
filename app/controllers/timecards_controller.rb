@@ -3,6 +3,8 @@ class TimecardsController < ApplicationController
   # This index action is only used for viewing a single users' timecards. 
   def index
     @user = current_user
+    # Passing current_user to the presenter will only return that user's
+    # records, even if some other user_id is specified in params. 
     @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params, @user)
   end
   
@@ -10,6 +12,8 @@ class TimecardsController < ApplicationController
   # view, but "view all users' timecards" needed too many hacks. 
   # Maybe one day when I'm smarter I'll combine the two for more RESTfulness.
   def admindex
+    # Not passing a user argument to the presenter returns all users. If params
+    # includes a user_id, it will return timecards for that user. 
     @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params)
     @select_options = TimecardsPresenter::SelectOptions.new
   end

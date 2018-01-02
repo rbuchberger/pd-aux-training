@@ -26,10 +26,10 @@ module TimecardsPresenter
         @range_end = opts[:range_end].to_date.end_of_day
       end
       
-      if opts[:user_id].blank? && user
+      if user
         @user = user
-      else 
-        @user = User.find(opts[:user_id]) unless opts[:user_id].blank?
+      elsif !opts[:user_id].blank? 
+        @user = User.find(opts[:user_id])
       end
       
       range = (@range_start .. @range_end)
