@@ -1,4 +1,6 @@
 class TrainingVideo < ApplicationRecord
+  has_many :users, through: :training_records, dependent: :destroy
+  
   # Class Variables
   @@url_regex = /(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"'>]+)/
 
