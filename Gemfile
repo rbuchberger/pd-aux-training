@@ -12,28 +12,24 @@ gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.11', platforms: :ruby
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 # Use devise for user registration
 gem 'devise'
+# Use Pundit for access control
+gem 'pundit'
 # Twitter bootstrap for to make it pretty
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 # jQuery for javascript 
 gem 'jquery-rails'
-# Font awesome for logos and icons
-# gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.2'
 # Hirb gem for database convenience
 gem 'hirb', '~> 0.7.3'
 
