@@ -80,9 +80,14 @@ User.create([
   }
   ])
   
-  TrainingVideo.create(
-    title: "Handcuffs", 
-    description: "Small test video", 
-    url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
-    yt_id: 'PdDu9T1EbWM'
-    )
+  TrainingVideo.create([
+    {
+      title: "Handcuffs", 
+      description: "Small test video", 
+      url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
+    } , {
+      title: "The Ultimate Hickok45 Montage",
+      description: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw",
+      url: "Hickock45 here, smokin' some pot.",
+    }
+    ])

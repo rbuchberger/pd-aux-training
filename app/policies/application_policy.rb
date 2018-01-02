@@ -60,8 +60,12 @@ class ApplicationPolicy
   
   protected
   
-  def own_record? 
-    @record.user_id == @user.id
+  def own_record?
+    if @record.class == User
+      @record == @user
+    else
+      @record.user == @user
+    end
   end
   
 end

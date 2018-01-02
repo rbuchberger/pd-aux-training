@@ -2,14 +2,17 @@ class UsersController < ApplicationController
 	
 	def index
 		@users = User.all.order(:last_name)
+		authorize @users
 	end
 	
 	def show
 		@user = get_user
+
 	end
 	
 	def edit 
 		@user = get_user
+
 	end
 	
 	def update
@@ -64,7 +67,9 @@ class UsersController < ApplicationController
 	private
 	
 	def get_user
-		User.find(params[:id])
+		user = User.find(params[:id])
+		authorize user
+		user
 	end
 	
 	def user_params

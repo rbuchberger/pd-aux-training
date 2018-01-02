@@ -29,7 +29,9 @@ class TimecardValidator < ActiveModel::Validator
     # Check if they overlap the new card
     overlaps_existing = false
     existing_user_timecards.each do |t| 
-      overlaps_existing = true if (t[:start]..t[:end]).overlaps? (timecard[:start]..timecard[:end]) 
+      if ( (t[:start]..t[:end]).overlaps? (timecard[:start]..timecard[:end]) ) && t != timecard
+       overlaps_existing = true  
+      end
     end
     if overlaps_existing
       timecard.errors[:base] << "These times overlap with an existing workday."

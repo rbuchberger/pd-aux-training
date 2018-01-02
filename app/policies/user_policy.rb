@@ -5,7 +5,7 @@ class UserPolicy < ApplicationPolicy
   end
   
   def show?
-    own_record? || @user.trainer? 
+    @user.trainer? || own_record?  
   end
   
   def create?

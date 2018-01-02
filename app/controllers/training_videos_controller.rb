@@ -1,13 +1,13 @@
 class TrainingVideosController < ApplicationController
-  
-  before_action :trainer_check, except: [:index, :show]
 
   def new
     @video = TrainingVideo.new()
+    authorize @video
   end
   
   def create 
     @video = TrainingVideo.new(training_video_params)
+    authorize @video
     if @video.save
       flash[:success] = "Training video created!"
       redirect_to training_video_path(@video)
@@ -38,6 +38,7 @@ class TrainingVideosController < ApplicationController
 
   def index
     @videos = TrainingVideo.all
+    authorize @videos
   end
 
   def destroy
@@ -54,11 +55,9 @@ class TrainingVideosController < ApplicationController
   private
   
   def get_video
-    TrainingVideo.find(params[:id])
-  end
-  
-  def trainer_check
-    redirect_to root_path unless current_user.trainer?
+    video = TrainingVideo.find(params[:id])
+    authorize video
+    video
   end
   
   def training_video_params

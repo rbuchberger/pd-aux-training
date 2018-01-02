@@ -2,6 +2,7 @@ class TimecardsController < ApplicationController
 
   # This index action is only used for viewing a single users' timecards. 
   def index
+    authorize Timecard
     @user = current_user
     # Passing current_user to the presenter will only return that user's
     # records, even if some other user_id is specified in params. 
@@ -14,23 +15,27 @@ class TimecardsController < ApplicationController
   def admindex
     # Not passing a user argument to the presenter returns all users. If params
     # includes a user_id, it will return timecards for that user. 
+    authorize Timecard
     @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params)
-    @select_options = TimecardsPresenter::SelectOptions.new
+    @select_options =TimecardsPresenter::SelectOptions.new
   end
   
   def new
     @user = current_user
     @timecard = Timecard.new
+    authorize @timecard
   end
   
   def create
     @user = current_user
     @timecard = @user.timecards.new(timecard_params)
+    authorize @timecard
     if @timecard.save
       flash[:success] = "Timecard logged!"
       redirect_to timecards_path
     else
       flash[:danger] = "Could not log timecard!"
+      @timecard.errors.full_messages.each {|m| flash[:danger] = m}
       render new_timecard_path
     end
   end
@@ -53,7 +58,7 @@ class TimecardsController < ApplicationController
       redirect_to timecards_path
     else
       flash[:danger] = "Could not update timecard!"
-      render edit_timecard_path(@timecard)
+      redirect_to edit_timecard_path(@timecard)
     end
   end
   
@@ -71,7 +76,9 @@ class TimecardsController < ApplicationController
   private
   
   def get_timecard
-    Timecard.find(params[:id])
+    timecard = Timecard.find(params[:id])
+    authorize timecard
+    timecard
   end
 
   def timecard_params
