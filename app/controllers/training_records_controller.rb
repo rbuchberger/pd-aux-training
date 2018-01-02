@@ -22,7 +22,7 @@ class TrainingRecordsController < ApplicationController
   end
   
   def destroy 
-    @training_record = Training_record.find(params[:id])
+    @training_record = TrainingRecord.find(params[:id])
     authorize @training_record
     if @training_record.destroy
       flash[:success] = "Training record deleted."

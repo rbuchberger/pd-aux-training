@@ -19,6 +19,10 @@ class TrainingVideosController < ApplicationController
   
   def show 
     @video = get_video
+    @user = current_user
+    if @user.training_videos.exists?(@video.id)
+      @training_record = @user.training_records.where(training_video_id: @video.id).first
+    end
   end
   
   def edit

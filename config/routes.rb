@@ -6,10 +6,10 @@ Rails.application.routes.draw do
 
   # Routes for users to CRUD their own timecards:
   resources :timecards
-  
+  resources :training_records, only: :destroy
   # Routes for training videos
   resources :training_videos do
-    resources :training_records, only: [:create, :destroy, :index]
+    resources :training_records, only: [:create, :index]
   end
   
   # Administration related routes for managing other users:

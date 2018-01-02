@@ -2,6 +2,7 @@ class User < ApplicationRecord
 
   # Relationships:
   has_many :timecards, dependent: :destroy
+  has_many :training_records
   has_many :training_videos, through: :training_records, dependent: :destroy
   
   # Validations:

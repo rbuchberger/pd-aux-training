@@ -1,4 +1,5 @@
 class TrainingVideo < ApplicationRecord
+  has_many :training_records
   has_many :users, through: :training_records, dependent: :destroy
   
   # Class Variables

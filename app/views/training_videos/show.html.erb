@@ -13,8 +13,13 @@
 <div class="row">
   <%= link_to "Edit Video", edit_training_video_path(@video), class: "text-center mx-auto my-2" if current_user.trainer? %>
 </div>
-
-<%= button_to "I solemnly swear that I have completed this training.",
-  training_video_training_records_path(@video), class: "btn btn-block my-2" %>
-
+<% if @training_record %>
+  <h5>Currently showing this training completed on <%=@training_record.created_at.strftime("%A, %b %d") %></h5>
+  <%= button_to "I haven't actually completed this training.", training_record_path(@training_record), 
+    data: {confirm: "Are you sure you want to delete this training record?"},
+    class: "btn btn-primary", method: :delete %>
+<% else %>
+  <%= button_to "I solemnly swear that I have completed this training.",
+    training_video_training_records_path(@video), class: "btn btn-primary btn-block my-2" %>
+<% end %>
   
