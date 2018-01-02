@@ -1,21 +1,19 @@
 class UsersController < ApplicationController
-	before_action :get_user, except: :index
-	before_action :isadmin?, except: [:index, :show, :approve, :reject]
-	before_action :istrainer?, only: [:index, :show, :approve, :reject]
 	
 	def index
 		@users = User.all.order(:last_name)
 	end
 	
 	def show
-		
+		@user = get_user
 	end
 	
 	def edit 
-		
+		@user = get_user
 	end
 	
 	def update
+		@user = get_user
 		if @user.update(user_params)
 			flash[:success] = "User updated!"
 			redirect_to users_path
@@ -26,6 +24,7 @@ class UsersController < ApplicationController
 	end
 	
 	def destroy
+		@user = get_user
 		if @user.destroy
 			flash[:success] = "User deleted!"
 			redirect_to users_path
@@ -37,6 +36,7 @@ class UsersController < ApplicationController
 	
 	# Custom action allowing trainers to approve pending users
 	def approve
+		@user = get_user
 		if @user.pending?
 			@user.role = :deputy
 			if @user.save
@@ -50,6 +50,7 @@ class UsersController < ApplicationController
 	end
 	# Custom action allowing trainers to reject pending users. 
 	def reject
+		@user = get_user
 		if @user.pending?
 			if @user.destroy
 				flash[:success] = "User rejected!"
@@ -63,18 +64,9 @@ class UsersController < ApplicationController
 	private
 	
 	def get_user
-		@user = User.find(params[:id])
+		User.find(params[:id])
 	end
 	
-	def isadmin?
-		# TODO: this and istrainer? break when a non-logged in user tries to access them. 
-		redirect_to root_path	unless current_user.admin?
-	end
-		
-	def istrainer?
-		redirect_to root_path	unless current_user.trainer? || current_user.admin?
-	end
-		
 	def user_params
 		params.require(:user).permit(:first_name, :last_name, :badge_number, :role, :email)
 	end

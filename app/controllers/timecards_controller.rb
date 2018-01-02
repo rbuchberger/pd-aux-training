@@ -1,9 +1,5 @@
 class TimecardsController < ApplicationController
 
-  before_action :can_edit?,   except: [:index, :show, :destroy, :admindex]
-  before_action :can_see?,      only: [:index, :show, :admindex]
-  before_action :can_destroy?,  only: [:delete]
-
   # This index action is only used for viewing a single users' timecards. 
   def index
     @user = current_user
@@ -81,17 +77,6 @@ class TimecardsController < ApplicationController
   def timecards_filter_params
    params.permit(:user_id, :range_start, :range_end)
   end
-  
-  def can_see?
-   # redirect_to root_path unless @user == current_user || current_user.trainer? 
-  end
-  
-  def can_edit?
-    redirect_to root_path unless @user == current_user
-  end
-  
-  def can_destroy?
-    redirect_to root_path unless @user == current_user || current_user.admin?
-  end
+
 
 end
