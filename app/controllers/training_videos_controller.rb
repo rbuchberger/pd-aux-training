@@ -58,8 +58,10 @@ class TrainingVideosController < ApplicationController
   
   def users
     @video = get_video
-    @users = @video.users.all
-    @users_incomplete = User.where.not( videos: @video.id)
+    authorize @video
+    @users_complete = @video.users.all.order(:last_name)
+    # Surely there's a more efficient way to do this:
+    @users_incomplete = (User.all.order(:last_name) - @users_complete.to_a)  
   end
   
   private

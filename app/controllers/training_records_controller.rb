@@ -14,7 +14,7 @@ class TrainingRecordsController < ApplicationController
   end
   
   def create
-    @training_video = TrainingVideo.find(params[:training_video_id]) 
+    @training_video = TrainingVideo.find(params[:id]) 
     @user = current_user
     @training_record = TrainingRecord.new(
       training_video_id: @training_video.id,

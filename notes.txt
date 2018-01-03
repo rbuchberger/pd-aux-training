@@ -8,9 +8,10 @@
 -client side validation of all forms
 
 --- Training records TODO
--training_videos#users action, view, policy
+-training_videos# view
 -users#training_videos action, view, policy
 -add training completion display to training_videos index for regular users
+-you have an index action & view under training_records, unused. Use it or ditch it. 
 
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly

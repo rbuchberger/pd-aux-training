@@ -15,7 +15,7 @@
       class: "btn btn-outline-danger btn-sm", method: :delete %>
   <% else %>
     <%= button_to "I solemnly swear that I have completed this training.",
-      training_video_training_records_path(@video), class: "btn btn-primary btn-block my-2" %>
+      training_records_path(@video), method: :post, class: "btn btn-primary btn-block my-2" %>
   <% end %>
 </div>
 <div class="row">
@@ -25,6 +25,6 @@
   <%= link_to "Edit Video", edit_training_video_path(@video), class: "text-center mx-auto my-2" if current_user.trainer? %>
 </div>
 <div class="row">
-  <%= link_to "List users who have completed this video", training_video_training_records_path(@video), class: "text-center mx-auto my-2" if current_user.trainer? %>
+  <%= link_to "List users who have completed this video", users_training_video_path(@video), class: "text-center mx-auto my-2" if current_user.trainer? %>
 </div>
   

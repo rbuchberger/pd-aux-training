@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   resources :training_records, only: [:destroy, :show]
   # Routes for training videos
   resources :training_videos do
-    resources :training_records, only: :create
-    get 'users'
+    member do
+      resources :training_records, only: :create
+      get 'users'
+    end
   end
   
   # Administration related routes for managing other users:

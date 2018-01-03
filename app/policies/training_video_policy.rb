@@ -19,5 +19,9 @@ class TrainingVideoPolicy < ApplicationPolicy
   def destroy?
     @user.trainer?
   end
+  
+  def users?
+    @user.trainer?
+  end
 
 end
