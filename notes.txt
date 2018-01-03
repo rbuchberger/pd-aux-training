@@ -9,11 +9,13 @@
 -client side validation of all forms
 -Detailed instructions on admin pages
 -User name validation with regex (UTF-8 characters only, no numbers, spaces.)
+-stop using current_user.trainer? in your views. Switch to policies
 
 --- Training records TODO
 -you have an action & view under training_records, unused. Use it or ditch it. 
 -unused Training record get path in routes as well. 
 -Training listings need links
+-links to video & user pages
 
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly

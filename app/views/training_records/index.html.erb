@@ -2,16 +2,16 @@
 
 <h5 class="mt-5">Training records by video:</h5>
 
-<table class="table">
+<table class="table table-hover">
   <thead>
     <tr class="row">
       <th class="col-8">Title</th>
-      <th class="col-4">Users showing completed</th>
+      <th class="col-4">Users completed:</th>
     </tr>
   </thead>
   <tbody>
     <% @training_videos.each do |v| %>
-      <tr class="row">
+      <tr class="row" onclick="window.location='<%= users_training_video_path(v.id) %>'">
         <td class="col-8"><%= v.title %></td>
         <td class="col-4"><%= v.users.size %></td>
       </tr>
@@ -21,7 +21,7 @@
 
 <h5 class="mt-5">Training records by user:</h5>
 
-<table class="table">
+<table class="table table-hover">
   <thead>
     <tr class="row">
       <th class="col-8">Name</th>
@@ -30,7 +30,7 @@
   </thead>
   <tbody>
   <% @users.each do |u| %>
-    <tr class="row">
+    <tr class="row" onclick="window.location='<%= training_videos_user_path(u.id) %>'">
       <td class="col-8"><%= u.first_last %></td>
       <td class="col-4"><%= u.training_videos.size %></td>
     </tr>
