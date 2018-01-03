@@ -2,8 +2,8 @@ class TrainingRecordsController < ApplicationController
   
   def index
     authorize TrainingRecord
-    @training_videos = TrainingVideo.all.includes(:training_records)
-    @users = User.all.includes(:training_records)
+    @training_videos = TrainingVideo.all.order(:title).includes(:training_records)
+    @users = User.all.order(:last_name).includes(:training_records)
   end
   
   def create

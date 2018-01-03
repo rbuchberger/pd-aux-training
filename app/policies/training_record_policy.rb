@@ -8,6 +8,6 @@ class TrainingRecordPolicy < ApplicationPolicy
   end
   
   def destroy? 
-    own_record? || @user.trainer?
+    own_record? # || @user.trainer?
   end
 end

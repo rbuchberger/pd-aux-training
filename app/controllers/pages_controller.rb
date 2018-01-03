@@ -1,6 +1,11 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!
   def home
-    @pending = User.where(role: :pending)
+    @user = current_user
+    if @user
+      @incomplete_video_count = TrainingVideo.count - @user.training_records.count
+      @last_workday = @user.timecards.last
+      @pending_count = User.where(role: :pending).count
+    end
   end
 end

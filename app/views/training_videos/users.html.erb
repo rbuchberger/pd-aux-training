@@ -1,14 +1,14 @@
 <h4 class="display-4 text-center"><%= @video.title %></h4>
-<h5>Showing complete:</h5>
+<h5>Complete:</h5>
 <ul>
   <% @users_complete.each do |u| %>
-    <li><%= u.first_last %></li>
+    <li><%= link_to  u.first_last, user_path(u) %></li>
   <% end %>
 </ul>
 
-<h5>Not showing complete: </h5>
+<h5>Not complete: </h5>
 <ul>
   <% @users_incomplete.each do |u| %>
-    <li><%= u.first_last %></li>
+    <li><%= link_to u.first_last, user_path(u) %></li>
   <% end %>
 </ul>

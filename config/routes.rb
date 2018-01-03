@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   
   # Routes for users to CRUD their own timecards:
   resources :timecards
-  resources :training_records, only: [:destroy, :show]
+  resources :training_records, only: :destroy
   # Routes for training videos
   resources :training_videos do
     member do

@@ -7,28 +7,31 @@
 <div class="row justify-content-center form-group">
   <%= form_tag({}, {method: :get, class: "form-inline"})  do %>
     <%= label_tag "Display workdays from: " %>
-    <%= date_field_tag :range_start, value = @timecards.range_start.strftime("%Y-%m-%e"), class: "form-control mx-2" %>
-    <%= label_tag "Through: "%>
-    <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%e"), class: "form-control mx-2" %>
+    <%= date_field_tag :range_start, value = @timecards.range_start.strftime("%Y-%m-%d"), class: "form-control mx-2" %>
+    <%= label_tag "through: "%>
+    <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%d"), class: "form-control mx-2" %>
     <%= submit_tag "Go!", class: "btn btn-info" %>
   <% end %>
 </div>
 <div class="row justify-content-center">
   <div class="col-sm-6">
     <table class=" table table-hover my-4">
-      <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Hours</th>
-        <th scope="col">Description</th>
-      </tr>
-    
-      <% @timecards.list.each do |t| %>
-        <tr onclick="window.location='<%= timecard_path(t.id) %>'">
-          <td><%= t.start.strftime("%A, %b %d") %></td>
-          <td><%= t.duration_hours %></td>
-          <td><%= t.description.truncate(25, omission: "...") %></td>
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Hours</th>
+          <th scope="col">Description</th>
         </tr>
-      <% end %>
+      </thead>
+      <tbody>
+        <% @timecards.list.each do |t| %>
+          <tr onclick="window.location='<%= timecard_path(t.id) %>'">
+            <td><%= t.start.strftime("%A, %b %d") %></td>
+            <td><%= t.duration_hours %></td>
+            <td><%= t.description.truncate(25, omission: "...") %></td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
   </div>
 </div>

@@ -9,13 +9,14 @@
 -client side validation of all forms
 -Detailed instructions on admin pages
 -User name validation with regex (UTF-8 characters only, no numbers, spaces.)
--stop using current_user.trainer? in your views. Switch to policies
+-stop using things like current_user.trainer? in your views. Switch to policies
+-Link from user#training videos to user details
+-link from training video#users to video
+-categorize users index
 
---- Training records TODO
--you have an action & view under training_records, unused. Use it or ditch it. 
--unused Training record get path in routes as well. 
--Training listings need links
--links to video & user pages
+
+--- Before publishing this round
+ -log workday form needs love
 
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly
@@ -24,12 +25,10 @@
   in a transaction. (Can test by starting a sandbox console)
 -Working close button on flash messages?
 -Maybe rename timecard start and finish? "end" keeps turning purple, and it bothers me.
--Stop table headers from highlighting on mouseover
 -better default values for logging timecards. Also, only minute multiples of 15
 -Generally reduce database calls 
 -prevent bot spamming of the signup box (captcha?)
 -Make sure the last admin can't delete their account.
--Proper possesivising of people's names. (There's a gem for it)
 -don't redirect to users_path when you accept or reject from homepage
 -about page, readme, gitignore, church it up for portfolio
 -Learn about rails autoloading and importing modules from other files

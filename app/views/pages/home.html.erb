@@ -1,43 +1,46 @@
-
-<h4 class="display-4 text-center my-5">Monroe County Sheriff's Office</h4>
-<h2>Aux officer tools, testing mode</h2>
-<div class="d-flex justify-content-center">
-  <p>This website is currently in development. 
-  <strong>All data entered will be reset before it goes live.</strong> It's here for testing purposes
-  only! Currently you can sign up, log in, and log workdays. Administrators can administrate users and
-  workdays. Feel free to add, delete, and modify anything you like to test functionality and behavior.
-  Please tell me what you like, and especially tell me about what you don't like. Also, check it out on mobile!
-  Thanks!</p>
+<h4 class="display-4 text-center my-4">Monroe County Sheriff's Office</h4>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div class="card border-warning">
+      <h4 class="card-header">Under Construction</h4>
+      <p class="card-body card-text">This website is not ready for real-world use yet. It is not currently guaranteed to be secure, and all data entered here will be deleted before it goes live. <strong>Do not enter real world information yet.</strong> It's here for testing and evaluation only!</p>
+    </div>
+  </div>
 </div>
-<div class="row my-5 mx-3">
+<div class="row my-5 mx-3 justify-content-center">
   <% if user_signed_in? %>
-    <%= button_to "Log a workday", new_timecard_path,  class: "btn btn-success text-center my-5", method: :get %>
+    <div class="card col-8 p-3">
+      <h5 class="card-title"><%="You have #{pluralize(@incomplete_video_count, "incomplete training video")}."%></h5>
+      <%= button_to "Go train", training_videos_path, method: :get, class: "btn btn-lg btn-primary btn-block col-4" %>
+    </div>
+    <div class="card col-8 p-3">
+      <% unless @last_workday.blank? %>
+        <h5 class="card-title">Your most recent timecard was <%= @last_workday.duration_hours %> hours, on <%= @last_workday.start.strftime("%A, %b %d") %>.</p>
+      <% else %>
+        <h5 class="card-title">You have not logged any timecards.</h5>
+      <% end %>
+        <%= button_to "Log a workday", new_timecard_path,  class: "btn btn-lg btn-primary btn-block col-4", method: :get %>
+    </div>
+    <% if current_user.trainer? %>
+      <div class="card col-8 p-3">
+        <h5 class="card-title"><%= pluralize(@pending_count, "user") %> awaiting approval.</h5>
+        <p class="card-text">These users will not be able to sign in until they are approved by either a trainer or an administrator.</p>
+        <%= button_to "Manage Users", users_path, class: "btn btn-lg btn-primary btn-block col-4", method: :get %>
+      </div>
+    <% end %>
   <% else %>
-    <h2>You are not currently logged in.</h2>
-      <%= button_to "Log in", new_user_session_path, class: "btn btn-success mx-2", method: :get %>
-      <%= button_to "Sign up", new_user_registration_path, class: "btn btn-primary mx-2", method: :get %>
-  <% end %>
-</div>
-  <% if !@pending.blank? && user_signed_in? &&(current_user.admin? || current_user.trainer?) %>
-    <div class="card card-body">
-      <h2 class="card-title"> Pending users: </h2>
-      <p class="card-text">(They won't be able to sign in until they are approved. Only admins and trainers can do this.)</p>
-      <table class="table table-hover">
-  				<thead>
-  					<tr>
-  					  <th></th>
-  						<th scope="col">Name</th>
-  						<th></th>
-  					</tr>
-  				</thead>
-  				<% @pending.each do |u| %>
-  			 <tr onclick="window.location='<%= user_path(u) %>'"> 
-  			   <td><%= button_to("Approve", accept_user_path(u), data: {confirm: "Are you sure you want to approve #{u.first_name} #{u.last_name}?"}, method: :put, class: "btn btn-success btn-block") %></td>
-  				 <td><%= "#{u.last_name}, #{u.first_name}".truncate(25, omission: "...") %></td>
-  				 <td><%= button_to("Reject", reject_user_path(u), data: {confirm: "Are you sure you want to reject #{u.first_name} #{u.last_name}?"}, method: :delete, class: "btn btn-danger btn-block") %></td>
-  			 </tr>
-  			<% end %>
-  		</table>
+    <div class="card col-8 p-3">
+      <h5 class="card-title">You are not currently logged in.</h5>
+      <div class="container">
+        <div class="row justify-content-between m-3">
+          <div class="col-5">
+            <%= button_to "Sign up", new_user_registration_path, class: "btn btn-primary mx-2 btn-block", method: :get %>
+          </div>
+          <div class="col-5">
+            <%= button_to "Log in", new_user_session_path, class: "btn btn-success mx-2 btn-block", method: :get %>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
