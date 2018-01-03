@@ -1,6 +1,7 @@
 <div class="embed-responsive embed-responsive-16by9">
-    <iframe type="text/html" class="embed-responsive-item"
-      src="https://www.youtube.com/embed/<%= @video.yt_id %>" frameborder="0">
+  <iframe type="text/html" class="embed-responsive-item"
+    src="https://www.youtube.com/embed/<%= @video.yt_id %>?modestbranding=1&rel=0&showinfo=0" 
+    frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen>
   </iframe>
 </div>
 <div class="card my-3 p-3">
@@ -19,12 +20,12 @@
   <% end %>
 </div>
 <div class="row">
-  <%= link_to "Back to index", training_videos_path, class: "text-center mx-auto my-2" %>
+  <%= link_to "List users who have completed this video", users_training_video_path(@video), class: "text-center mx-auto my-2" if current_user.trainer? %>
 </div>
 <div class="row">
   <%= link_to "Edit Video", edit_training_video_path(@video), class: "text-center mx-auto my-2" if current_user.trainer? %>
 </div>
 <div class="row">
-  <%= link_to "List users who have completed this video", users_training_video_path(@video), class: "text-center mx-auto my-2" if current_user.trainer? %>
+  <%= link_to "Back to video listing", training_videos_path, class: "text-center mx-auto my-2" %>
 </div>
   

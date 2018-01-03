@@ -64,4 +64,4 @@ Idea scratchpad
 --Add timecard and training completion list to user show page
   -- route timecards under users? Maybe there's a better way to do your routing
     and avoid needing an admindex custom action
-    
+--Youtube playlist support?
