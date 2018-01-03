@@ -7,12 +7,10 @@ class UsersController < ApplicationController
 	
 	def show
 		@user = get_user
-
 	end
 	
 	def edit 
 		@user = get_user
-
 	end
 	
 	def update
@@ -51,6 +49,7 @@ class UsersController < ApplicationController
 			end
 		end
 	end
+	
 	# Custom action allowing trainers to reject pending users. 
 	def reject
 		@user = get_user
@@ -62,6 +61,15 @@ class UsersController < ApplicationController
 				flash[:danger] = "Could not reject user."
 			end
 		end
+	end
+	
+	# Index training videos by completion status, based on a particular user
+	def training_videos
+	  @user = get_user
+    authorize @user
+    @training_videos_complete = @user.training_videos.all.order(:title)
+    # Surely there's a more efficient way to do this:
+    @training_videos_incomplete = (TrainingVideo.all.order(:title) - @training_videos_complete.to_a)  
 	end
 	
 	private

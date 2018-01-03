@@ -28,4 +28,8 @@ class UserPolicy < ApplicationPolicy
     approve?
   end
   
+  def training_videos?
+    own_record? || @user.trainer?
+  end
+  
 end

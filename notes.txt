@@ -1,17 +1,18 @@
 --- TODO before release:
  
--Implement soft-delete of users
+-Implement soft-delete of users. Better routing (under 'member') for approve and reject actions
 -Mailer config
--Account details page looks bad on anything but a wide screen. 
+-Account details page looks bad on anything but a wide screen. Generally check for 
+  mobile friendliness. 
 -Super trooper references should probably be removed before it goes live. 
 -Configure secrets.yml, make sure production encryption keys aren't on github!
 -client side validation of all forms
+-Detailed instructions on admin pages
 
 --- Training records TODO
--training_videos# view
--users#training_videos action, view, policy
 -add training completion display to training_videos index for regular users
--you have an index action & view under training_records, unused. Use it or ditch it. 
+-you have an action & view under training_records, unused. Use it or ditch it. 
+-Training record get path as well. 
 
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly
