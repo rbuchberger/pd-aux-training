@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   # Routes for training videos
   resources :training_videos do
     member do
-      resources :training_records, only: :create
+      post 'training_records', to: 'training_records#create'
       get 'users'
     end
   end

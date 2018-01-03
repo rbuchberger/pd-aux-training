@@ -61,3 +61,31 @@ Idea scratchpad
   -- route timecards under users? Maybe there's a better way to do your routing
     and avoid needing an admindex custom action
 --Youtube playlist support?
+
+--- Heroku messages
+remote: ###### WARNING:
+remote:        Removing `Gemfile.lock` because it was generated on Windows.
+remote:        Bundler will do a full resolve so native gems are handled properly.
+remote:        This may result in unexpected gem versions being used in your app.
+remote:        In rare occasions Bundler may not be able to resolve your dependencies at all.
+remote:        https://devcenter.heroku.com/articles/bundler-windows-gemfile
+remote: 
+...
+remote: ###### WARNING:
+remote:        You have not declared a Ruby version in your Gemfile.
+remote:        To set your Ruby version add this line to your Gemfile:
+remote:        ruby '2.3.4'
+remote:        # See https://devcenter.heroku.com/articles/ruby-versions for more information.
+remote: 
+remote: ###### WARNING:
+remote:        Removing `Gemfile.lock` because it was generated on Windows.
+remote:        Bundler will do a full resolve so native gems are handled properly.
+remote:        This may result in unexpected gem versions being used in your app.
+remote:        In rare occasions Bundler may not be able to resolve your dependencies at all.
+remote:        https://devcenter.heroku.com/articles/bundler-windows-gemfile
+remote: 
+remote: ###### WARNING:
+remote:        No Procfile detected, using the default web server.
+remote:        We recommend explicitly declaring how to boot your server process via a Procfile.
+remote:        https://devcenter.heroku.com/articles/ruby-default-web-server
+remote: 
