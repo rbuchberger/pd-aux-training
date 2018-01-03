@@ -1,6 +1,6 @@
 class TrainingRecordPolicy < ApplicationPolicy
   def index?
-    current_user.trainer?
+    @user.trainer?
   end
   
   def create?
@@ -8,6 +8,6 @@ class TrainingRecordPolicy < ApplicationPolicy
   end
   
   def destroy? 
-    own_record? || current_user.trainer?
+    own_record? || @user.trainer?
   end
 end

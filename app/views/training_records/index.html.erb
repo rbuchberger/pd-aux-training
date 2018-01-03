@@ -1,2 +1,40 @@
-<h4 class="display-4 text-center"><%= @title %></h4>
+<h4 class="display-4 text-center my-3">Training Completions</h4>
+
+<h5 class="mt-5">Training records by video:</h5>
+
+<table class="table">
+  <thead>
+    <tr class="row">
+      <th class="col-8">Title</th>
+      <th class="col-4">Users showing completed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @training_videos.each do |v| %>
+      <tr class="row">
+        <td class="col-8"><%= v.title %></td>
+        <td class="col-4"><%= v.users.size %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h5 class="mt-5">Training records by user:</h5>
+
+<table class="table">
+  <thead>
+    <tr class="row">
+      <th class="col-8">Name</th>
+      <th class="col-4">Videos completed:</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |u| %>
+    <tr class="row">
+      <td class="col-8"><%= u.first_last %></td>
+      <td class="col-4"><%= u.training_videos.size %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 

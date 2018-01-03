@@ -12,6 +12,8 @@ Rails.application.routes.draw do
         get 'training_videos'
       end
     end
+    # Training records index
+    resources :training_records, only: :index
     # Admin timecard index and filters
     get 'timecards/(:user_id)', to: 'timecards#admindex', as: 'admin_timecards'
     # Custom route to allow trainers to approve pending users, but not change other users' roles. 

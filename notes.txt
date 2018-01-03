@@ -13,6 +13,7 @@
 --- Training records TODO
 -you have an action & view under training_records, unused. Use it or ditch it. 
 -unused Training record get path in routes as well. 
+-Training listings need links
 
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly
@@ -53,12 +54,6 @@ Some setup you must do manually if you haven't yet:
 
      In production, :host should be set to the actual host of your application.
 
-
---- Sample video for testing:
-
-
-  https://www.youtube.com/watch?v=PdDu9T1EbWM
-  
 Idea scratchpad
 --Category dropdown (4 or 5 options plus "other") for timecards? 
 --Add timecard and training completion list to user show page

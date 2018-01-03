@@ -1,16 +1,9 @@
 class TrainingRecordsController < ApplicationController
   
   def index
-    if !params[:training_video_id].blank?
-      @resource = TrainingVideo.find(params[:training_video_id])  
-      @completions = @resource.users.all
-      @title = "Users who have completed #{@resource.title}"
-    elsif !params[:user_id].blank?
-      @resource = User.find(params[:user_id])
-      @completions = @resource.training_videos.all
-      @title = "#{@resource.first_last}'s completed videos"
-    end
-      
+    authorize TrainingRecord
+    @training_videos = TrainingVideo.all.includes(:training_records)
+    @users = User.all.includes(:training_records)
   end
   
   def create
