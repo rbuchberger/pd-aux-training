@@ -41,8 +41,10 @@ class TrainingVideosController < ApplicationController
   end
 
   def index
-    @videos = TrainingVideo.all
-    authorize @videos
+    @user = current_user
+    authorize TrainingVideo
+    @videos_complete = @user.training_videos.all.order(:title)
+    @videos_incomplete = TrainingVideo.all.order(:title).to_a - @videos_complete.to_a
   end
 
   def destroy
@@ -61,7 +63,7 @@ class TrainingVideosController < ApplicationController
     authorize @video
     @users_complete = @video.users.all.order(:last_name)
     # Surely there's a more efficient way to do this:
-    @users_incomplete = (User.all.order(:last_name) - @users_complete.to_a)  
+    @users_incomplete = (User.all.order(:last_name).to_a - @users_complete.to_a)  
   end
   
   private

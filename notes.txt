@@ -8,11 +8,11 @@
 -Configure secrets.yml, make sure production encryption keys aren't on github!
 -client side validation of all forms
 -Detailed instructions on admin pages
+-User name validation with regex (UTF-8 characters only, no numbers, spaces.)
 
 --- Training records TODO
--add training completion display to training_videos index for regular users
 -you have an action & view under training_records, unused. Use it or ditch it. 
--Training record get path as well. 
+-unused Training record get path in routes as well. 
 
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly

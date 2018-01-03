@@ -1,9 +1,17 @@
-<h4 class="display-4 text-center my-3">All training videos</h4>
+<h4 class="display-4 text-center my-3">My Training</h4>
+<h5>Not complete: </h5>
 <table class="table table-hover my-4">
-  <% @videos.each do |v| %>
+  <% @videos_incomplete.each do |v| %>
     <tr onclick="window.location='<%= training_video_path(v) %>'">
       <td><%= link_to v.title, training_video_path(v.id) %> </td>
-      <td><%= link_to "Edit", edit_training_video_path(v.id) if current_user.trainer?%></td>
+    </tr>
+  <% end %>
+</table>
+<h5>Complete: </h5>
+<table class="table table-hover my-4">
+  <% @videos_complete.each do |v| %>
+    <tr onclick="window.location='<%= training_video_path(v) %>'">
+      <td><%= link_to v.title, training_video_path(v.id) %> </td>
     </tr>
   <% end %>
 </table>

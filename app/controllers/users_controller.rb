@@ -69,7 +69,7 @@ class UsersController < ApplicationController
     authorize @user
     @training_videos_complete = @user.training_videos.all.order(:title)
     # Surely there's a more efficient way to do this:
-    @training_videos_incomplete = (TrainingVideo.all.order(:title) - @training_videos_complete.to_a)  
+    @training_videos_incomplete = (TrainingVideo.all.order(:title).to_a - @training_videos_complete.to_a)  
 	end
 	
 	private

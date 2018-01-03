@@ -27,13 +27,13 @@ class User < ApplicationRecord
   # Custom methods:
  
  # Returns full name in a view-friendly format. 
-  def first_last(l = 25)
-    "#{self.first_name} #{self.last_name}".truncate(l, omission: "...")
+  def first_last(length = 25)
+    "#{self.first_name} #{self.last_name}".truncate(length, omission: "...")
   end
   
   # Returns full name in a different view friendly format. 
-  def last_first(l = 25)
-    "#{self.last_name}, #{self.first_name}".truncate(l, omission: "...")
+  def last_first(length = 25)
+    "#{self.last_name}, #{self.first_name}".truncate(length, omission: "...")
   end
   
   # Admins are trainers too. 
@@ -55,14 +55,15 @@ class User < ApplicationRecord
     end 
   end
 private
-  # Define the callback-- New users are set to pending.   
+  # Callback: New users are set to pending.   
   def set_default_role
     self.role = :pending
   end
   
+  # Callback: Fixes capitalization and formatting. 
   def format_string_fields
-    self.first_name = self.first_name.capitalize
-    self.last_name = self.last_name .capitalize
+    self.first_name = self.first_name.downcase.capitalize
+    self.last_name = self.last_name.downcase.capitalize
     self.badge_number = self.badge_number.upcase
   end
 end
