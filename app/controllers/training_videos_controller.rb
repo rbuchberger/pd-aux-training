@@ -56,6 +56,12 @@ class TrainingVideosController < ApplicationController
     end
   end
   
+  def users
+    @video = get_video
+    @users = @video.users.all
+    @users_incomplete = User.where.not( videos: @video.id)
+  end
+  
   private
   
   def get_video

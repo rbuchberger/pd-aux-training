@@ -6,17 +6,18 @@ Rails.application.routes.draw do
 
   # Routes for users to CRUD their own timecards:
   resources :timecards
-  resources :training_records, only: :destroy
+  resources :training_records, only: [:destroy, :show]
   # Routes for training videos
   resources :training_videos do
-    resources :training_records, only: [:create, :index]
+    resources :training_records, only: :create
+    get 'users'
   end
   
   # Administration related routes for managing other users:
   scope '/admin' do
     resources :users, except: [:new, :create] do
       resources :timecards, only: [:index, :show]
-      resources :training_records, only: [:index, :destroy]
+      get 'videos'
     end
     # Admin timecard index and filters
     get 'timecards/(:user_id)', to: 'timecards#admindex', as: 'admin_timecards'
@@ -24,7 +25,6 @@ Rails.application.routes.draw do
     put 'users/:id/accept', to: 'users#approve', as: 'accept_user'
     # Custom route that allows trainers to delete users who haven't been approved yet, but nobody else. 
     delete 'users/:id/reject', to: 'users#reject', as: 'reject_user'
-  
   end
   
 end

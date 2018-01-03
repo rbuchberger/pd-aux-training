@@ -6,8 +6,11 @@
 -Super trooper references should probably be removed before it goes live. 
 -Configure secrets.yml, make sure production encryption keys aren't on github!
 -client side validation of all forms
--Timecard permissions are AFU
--training video validation
+
+--- Training records TODO
+-training_videos#users action, view, policy
+-users#training_videos action, view, policy
+-add training completion display to training_videos index for regular users
 
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly
