@@ -1,10 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# These seeds are for testing purposes only. 
 
 User.create([
   {
@@ -39,9 +33,10 @@ User.create([
     role: :pending,
     password: '123456',
     password_confirmation: '123456'
-  } ])
+  } 
+])
   
-  Timecard.create([
+Timecard.create([
   {
     user_id: 1,
     description: 'Raiding Panties',
@@ -78,16 +73,46 @@ User.create([
     start: Time.zone.now - 3.days + 2.hours,
     end: Time.zone.now - 3.days + 9.hours,
   }
-  ])
+])
   
-  TrainingVideo.create([
-    {
-      title: "Handcuffs", 
-      description: "Small test video", 
-      url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
-    } , {
-      title: "The Ultimate Hickok45 Montage",
-      description: "Hickock45 here, smokin' some pot.",
-      url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw",
-    }
-    ])
+TrainingVideo.create([
+  {
+    title: "How to apply handcuffs", 
+    description: "I know someone who's into this stuff.", 
+    url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
+  } , {
+    title: "The Ultimate Hickok45 Montage",
+    description: "Hickock45 here, smokin' some pot.",
+    url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw",
+  } , {
+    title: "How to be an operator",
+    description: "",
+    url: "https://www.youtube.com/watch?v=8lf5oRgkqeA&index=1&list=FLcGBJ-rifHsKrhvwmmX4VCw",
+  } , {
+    title: "Handgun selection",
+    description: "",
+    url: "https://www.youtube.com/watch?v=-OSodRtHHmo&index=5&list=FLcGBJ-rifHsKrhvwmmX4VCw",
+  }
+])
+
+TrainingRecord.create([
+  {
+    user_id: 3,
+    training_video_id: 2
+  } , {
+    user_id: 3,
+    training_video_id: 1
+  } , {
+    user_id: 3,
+    training_video_id: 3
+  } , {
+    user_id: 1,
+    training_video_id: 2
+  } , {
+    user_id: 1,
+    training_video_id: 4
+  } , {
+    user_id: 2,
+    training_video_id: 1
+  } 
+])
