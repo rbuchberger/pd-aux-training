@@ -9,7 +9,7 @@ class User < ApplicationRecord
   # (Devise handles most of them. I only need to validate my custom fields) 
   validates :first_name, presence: true, length: {maximum: 50}
   validates :last_name, presence: true, length: {maximum: 50}
-  validates :badge_number, presence: true, length: {maximum: 10}
+  validates :badge_number, presence: true, length: {maximum: 4}
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
