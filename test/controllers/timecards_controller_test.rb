@@ -47,11 +47,13 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
       # update timecard
       test "deputy update" do
         sign_in users(:deputy)
-        patch timecard_path(timecards(:deputy)), params: {timecard: {description: "new description"}}
-        
-        assert timecards(:deputy).description = "new description"
+        t = timecards(:deputy)
+        patch timecard_path(t), params: {timecard: {'description' => 'new description'}}
+        t = Timecard.find(t.id)
+
+        assert_equal  'new description', t.description
         assert flash[:success]
-        assert_response :redirect
+        assert_redirected_to timecard_path(t)
       end     
       
       # destroy timecard
@@ -100,7 +102,7 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
       test "logged out index" do
         get timecards_path
         
-        assert_response :redirect
+        assert_redirected_to new_user_session_path
         assert flash[:alert]
       end
       
@@ -110,19 +112,20 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
         sign_in users(:deputy)
         get admin_timecards_path
         
-        assert_response :redirect
+        assert_redirected_to root_path
         assert flash[:alert]
       end
       
       # Deputies editing someone else's timecard should throw an error
       test "deputy update someone else" do
         sign_in users(:deputy)
-        t = timecards(:trainer).description
-        patch timecard_path(timecards(:trainer)), params: {timecard: {description: "new description"}}
-        
-        assert_response :redirect
+        t = timecards(:trainer)
+        patch timecard_path(t), params: {timecard: {'description' => 'new description'}}
+        t = Timecard.find(t.id)
+    
+        assert_redirected_to root_path
         assert flash[:alert]
-        assert timecards(:trainer).description == t
+        assert timecards(:trainer).description == t.description
       end
     
     # --- Trainer tests
@@ -133,7 +136,7 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
           delete timecard_path(timecards(:deputy))
         end
         
-        assert_response :redirect
+        assert_redirected_to root_path
         assert flash[:alert]
         assert timecards(:deputy)
       end
@@ -143,12 +146,13 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
       # edit someone else's 
       test "admin update someone else" do
         sign_in users(:admin)
-        t = timecards(:deputy).description
-        patch timecard_path(timecards(:deputy)), params: {timecard: {description: "new description"}}
-        
-        assert_response :redirect
+        t = timecards(:trainer)
+        patch timecard_path(t), params: {timecard: {'description' => 'new description'}}
+        t = Timecard.find(t.id)
+    
+        assert_redirected_to root_path
         assert flash[:alert]
-        assert timecards(:deputy).description == t
+        assert_equal timecards(:trainer).description, t.description
       end
 
 end

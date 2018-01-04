@@ -48,7 +48,7 @@ class TrainingRecordsControllerTest < ActionDispatch::IntegrationTest
         get training_records_path
         
         assert flash[:alert]
-        assert_response :redirect
+        assert_redirected_to root_path
       end
 
     # --- Admin tests  
@@ -61,7 +61,7 @@ class TrainingRecordsControllerTest < ActionDispatch::IntegrationTest
         end
         
         assert flash[:alert]
-        assert_response :redirect
+        assert_redirected_to root_path
       end      
 
 end
