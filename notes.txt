@@ -37,7 +37,7 @@
 -Make all cells in table rows links as well. 
 -Leave video title and description blank to pull from youtube
 -Custom start and end times
-
+-pull spaces out of names? 
 --- Questions and answers: 
 
 -Badge number format? Should they be unique? --- No. X-01 through X-15, and 700 numbers. 

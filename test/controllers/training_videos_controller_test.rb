@@ -93,8 +93,8 @@ class TrainingVideosControllerTest < ActionDispatch::IntegrationTest
       test "deputy update" do
         sign_in users(:deputy)
         patch training_video_path(training_videos(:one)),  params: {description: "new description"}
-        
-        assert training_videos(:one).description != "new description"
+        t = TrainingVideo.find(training_videos(:one).id)
+        assert t.description != "new description"
         assert flash[:alert]
         assert_redirected_to root_path
       end      
