@@ -116,10 +116,12 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
       # Deputies editing someone else's timecard should throw an error
       test "deputy update someone else" do
         sign_in users(:deputy)
+        t = timecards(:trainer).description
         patch timecard_path(timecards(:trainer)), params: {timecard: {description: "new description"}}
         
         assert_response :redirect
         assert flash[:alert]
+        assert timecards(:trainer).description == t
       end
     
     # --- Trainer tests
@@ -132,6 +134,7 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
         
         assert_response :redirect
         assert flash[:alert]
+        assert timecards(:deputy)
       end
       
     # --- Admin tests  
@@ -139,10 +142,12 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
       # edit someone else's 
       test "admin update someone else" do
         sign_in users(:admin)
+        t = timecards(:deputy).description
         patch timecard_path(timecards(:deputy)), params: {timecard: {description: "new description"}}
         
         assert_response :redirect
         assert flash[:alert]
+        assert timecards(:deputy).description == t
       end
 
 end
