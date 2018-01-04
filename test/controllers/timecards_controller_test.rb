@@ -94,19 +94,55 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
       end
   
   # --- Things that shouldn't work
-    # --- Pending tests
-    
-    # --- Deputy tests
-      # admindex
+    # --- Not logged in tests
+      # Logged out users should be redirected
+      test "logged out index" do
+        get timecards_path
+        
+        assert_response :redirect
+        assert flash[:alert]
+      end
       
+    # --- Deputy tests
+      # Deputies accessing admindex should throw an error
+      test "deputy admindex" do
+        sign_in users(:deputy)
+        get admin_timecards_path
+        
+        assert_response :redirect
+        assert flash[:alert]
+      end
+      
+      # Deputies editing someone else's timecard should throw an error
+      test "deputy update someone else" do
+        sign_in users(:deputy)
+        patch timecard_path(timecards(:trainer)), params: {timecard: {description: "new description"}}
+        
+        assert_response :redirect
+        assert flash[:alert]
+      end
     
     # --- Trainer tests
       # delete someone else's
+      test "trainer delete someone else" do
+        sign_in users(:trainer)
+        assert_no_difference('Timecard.count') do
+          delete timecard_path(timecards(:deputy))
+        end
+        
+        assert_response :redirect
+        assert flash[:alert]
+      end
       
     # --- Admin tests  
-      # create someone else's
-      
+
       # edit someone else's 
-      
+      test "admin update someone else" do
+        sign_in users(:admin)
+        patch timecard_path(timecards(:deputy)), params: {timecard: {description: "new description"}}
+        
+        assert_response :redirect
+        assert flash[:alert]
+      end
 
 end
