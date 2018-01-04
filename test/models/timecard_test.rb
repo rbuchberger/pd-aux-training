@@ -98,4 +98,28 @@ class TimecardTest < ActiveSupport::TestCase
     assert t.class == Float
     assert (0.5 .. 24.0).include? t
   end
+  
+  # Should be deleted when a user is deleted
+  test "Delete with user" do
+   user = User.create({
+      first_name: 'Stan',
+      last_name: 'Beaudry',
+      badge_number: 'a99',
+      email: 'stan@example.com',
+      role: :admin,
+      password: 123456,
+      password_confirmation: 123456
+    })
+    
+    user.timecards.create({
+      description: 'Raiding Panties',
+      start: Time.zone.now - 5.days,
+      end: Time.zone.now - 5.days + 5.hours
+      })
+     
+    t = Timecard.count
+    user.destroy
+    
+    assert Timecard.count == t-1 
+  end
 end
