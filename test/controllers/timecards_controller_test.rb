@@ -49,6 +49,7 @@ class TimecardsControllerTest < ActionDispatch::IntegrationTest
         sign_in users(:deputy)
         patch timecard_path(timecards(:deputy)), params: {timecard: {description: "new description"}}
         
+        assert timecards(:deputy).description = "new description"
         assert flash[:success]
         assert_response :redirect
       end     

@@ -16,21 +16,3 @@ deputy:
   user_id: 3,
   training_video_id: 3
  
-
-four:
-  id: 4
-  user_id: 1,
-  training_video_id: 2
- 
-
-five: 
-  id: 5
-  user_id: 1,
-  training_video_id: 4
- 
-
-six: 
-  id: 6
-  user_id: 2,
-  training_video_id: 1
- 
