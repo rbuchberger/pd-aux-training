@@ -1,24 +1,24 @@
 
-one: {
-  title: "How to apply handcuffs" 
-  description: "I know someone who's into this stuff." 
-  url: "https://www.youtube.com/watch?v=PdDu9T1EbWM" 
-}
+# one: 
+#   title: "How to apply handcuffs" 
+#   description: "I know someone who's into this stuff." 
+#   url: "https://www.youtube.com/watch?v=PdDu9T1EbWM" 
 
-two: {
-  title: "The Ultimate Hickok45 Montage"
-  description: "Hickock45 here smokin' some pot."
-  url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw"
-}
 
-three: {
-  title: "How to be an operator"
-  description: ""
-  url: "https://www.youtube.com/watch?v=8lf5oRgkqeA&index=1&list=FLcGBJ-rifHsKrhvwmmX4VCw"
-}
+# two: 
+#   title: "The Ultimate Hickok45 Montage"
+#   description: "Hickock45 here smokin' some pot."
+#   url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw"
 
-four: {
-  title: "Handgun selection"
-  description: ""
-  url: "https://www.youtube.com/watch?v=-OSodRtHHmo&index=5&list=FLcGBJ-rifHsKrhvwmmX4VCw"
-}
+
+# three: 
+#   title: "How to be an operator"
+#   description: ""
+#   url: "https://www.youtube.com/watch?v=8lf5oRgkqeA&index=1&list=FLcGBJ-rifHsKrhvwmmX4VCw"
+
+
+# four: 
+#   title: "Handgun selection"
+#   description: ""
+#   url: "https://www.youtube.com/watch?v=-OSodRtHHmo&index=5&list=FLcGBJ-rifHsKrhvwmmX4VCw"
+

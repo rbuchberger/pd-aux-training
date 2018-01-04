@@ -1,29 +1,29 @@
-one: {
-  user_id: 3,
-  training_video_id: 2
-}
+# one: 
+#   user_id: 3,
+#   training_video_id: 2
 
-two: {
-  user_id: 3,
-  training_video_id: 1
-}
 
-three: {
-  user_id: 3,
-  training_video_id: 3
-} 
+# two: 
+#   user_id: 3,
+#   training_video_id: 1
 
-four: {
-  user_id: 1,
-  training_video_id: 2
-} 
 
-five: {
-  user_id: 1,
-  training_video_id: 4
-} 
+# three: 
+#   user_id: 3,
+#   training_video_id: 3
+ 
 
-six: {
-  user_id: 2,
-  training_video_id: 1
-} 
+# four: 
+#   user_id: 1,
+#   training_video_id: 2
+ 
+
+# five: 
+#   user_id: 1,
+#   training_video_id: 4
+ 
+
+# six: 
+#   user_id: 2,
+#   training_video_id: 1
+ 
