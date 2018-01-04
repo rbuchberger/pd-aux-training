@@ -55,7 +55,7 @@ class TimecardsController < ApplicationController
     @user = @timecard.user
     if @timecard.update(timecard_params)
       flash[:success] = "Timecard Updated!"
-      redirect_to timecards_path
+      redirect_to timecard_path(@timecard)
     else
       flash[:danger] = "Could not update timecard!"
       redirect_to edit_timecard_path(@timecard)

@@ -7,10 +7,10 @@ class ActiveSupport::TestCase
   
   def valid_user_params
     {
-    first_name: 'Frau',
-    last_name: 'Farbissina',
-    badge_number: 'x03',
-    email: 'pending@example.com',
+    first_name: 'Stan',
+    last_name: 'Beaudry',
+    badge_number: 'x15',
+    email: 'stantheman@example.com',
     role: :pending,
     password: '123456',
     password_confirmation: '123456'
@@ -19,7 +19,7 @@ class ActiveSupport::TestCase
   
   def valid_timecard_params
     {
-      # user_id: users(:deputy).id
+      # user_id: users(:deputy).id,
       description: 'Raiding Panties',
       start: Time.zone.now - 20.days,
       end: Time.zone.now - 20.days + 5.hours,

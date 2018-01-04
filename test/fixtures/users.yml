@@ -1,5 +1,6 @@
 
 admin:
+  id: 1
   first_name: 'Austin'
   last_name: 'Powers'
   badge_number: 'a01'
@@ -8,7 +9,8 @@ admin:
   # password: '123456'
   # password_confirmation: '123456'
 
-trainer: 
+trainer:
+  id: 2
   first_name: 'Vanessa'
   last_name: 'Kensington'
   badge_number: 'x01'
@@ -17,7 +19,8 @@ trainer:
 #   password: '123456'
 #   password_confirmation: '123456'
  
-deputy: 
+deputy:
+  id: 3
   first_name: 'Scott'
   last_name: 'Evil'
   badge_number: 'x02'
@@ -27,7 +30,8 @@ deputy:
   # password_confirmation: '123456'
  
 
-pending: 
+pending:
+  id: 4
   first_name: 'Frau'
   last_name: 'Farbissina'
   badge_number: 'x03'

@@ -25,9 +25,11 @@ class TrainingRecordTest < ActiveSupport::TestCase
       training_video_id: video.id
     })
     
-    assert_difference('TrainingRecord.count', -1) do
-      video.destroy
-    end
+    t = TrainingRecord.count
+    
+    video.destroy
+    
+    assert TrainingRecord.count < t
     
   end
   
@@ -38,10 +40,11 @@ class TrainingRecordTest < ActiveSupport::TestCase
     user.training_records.create({
       training_video_id: video.id
     })
+    t = TrainingRecord.count
     
-    assert_difference('TrainingRecord.count', -1) do
-      user.destroy
-    end
+    user.destroy
+    
+    assert TrainingRecord.count < t
     
   end
 end

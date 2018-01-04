@@ -55,12 +55,11 @@ module TimecardsPresenter
   end
   
   class SelectOptions
-    # Building a list of options for the user select box on the admindex.
+    # Build a list of options for the user select box on the admindex.
     attr_reader :list
     def initialize
-      @list = {"All Users": ''}
-      @users = User.all.order(:last_name)
-      @users.each do |u|
+      @list = {'All Users' => ''}
+      User.all.order(:last_name).each do |u|
         @list[u.last_first(20)] = u.id 
       end
     end
