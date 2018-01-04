@@ -1,11 +1,48 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one: {
+  user_id: 1
+  description: 'Raiding Panties'
+  start: Time.zone.now - 5.days
+  end: Time.zone.now - 5.days + 5.hours
+}
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+two: {
+  user_id: 1
+  description: 'Dealing with fembots'
+  start: Time.zone.now - 4.days
+  end: Time.zone.now - 4.days + 3.hours
+}
+
+three: {
+  user_id: 2
+  description: 'Spy stuff'
+  start: Time.zone.now - 5.days
+  end: Time.zone.now - 5.days + 5.hours
+}
+
+four: {
+  user_id: 3
+  description: 'Getting shushed' 
+  start: Time.zone.now - 31.days
+  end: Time.zone.now - 31.days + 9.hours
+}
+
+five: {
+  user_id: 4
+  description: 'Bring in de femBOTS!'
+  start: Time.zone.now - 10.days 
+  end: Time.zone.now - 10.days + 10.hours
+}
+
+six: {
+  user_id: 1
+  description: 'Putting the GRRR in swinger baby'
+  start: Time.zone.now - 7.days
+  end: Time.zone.now - 7.days + 12.hours
+}
+
+seven: {
+  user_id: 1
+  description: 'Retrieving Mojo'
+  start: Time.zone.now - 3.days + 2.hours
+  end: Time.zone.now - 3.days + 9.hours
+}
