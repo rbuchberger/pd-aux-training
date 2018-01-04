@@ -3,4 +3,8 @@ class TrainingRecord < ApplicationRecord
   # video by one user. 
   belongs_to :training_video
   belongs_to :user
+  
+  validates :training_video_id, presence: true
+  validates :user_id, presence: true
+  
 end
