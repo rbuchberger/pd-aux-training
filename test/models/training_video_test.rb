@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class TrainingVideoTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  # Shouldn't save without a title
+  
+  # Title can't be longer than 50 characters
+  
+  #  
 end
