@@ -93,21 +93,94 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   # --- Things that shouldn't work
   
     # --- Logged out test
-    
+      test "logged out index" do
+        get users_path
+        
+        assert_redirected_to new_user_session_path
+        assert flash[:alert]
+      end
+      
     # --- Deputy tests
       # index
-    
+      test "deputy index" do
+        sign_in users(:deputy)
+        get users_path
+        
+        assert_redirected_to root_path
+        assert flash[:alert]
+        
+      end
       # approve
       
+      test "deputy approve" do
+        sign_in users(:deputy)
+        put accept_user_path(users(:pending))
+        t = User.find(users(:pending).id)
+        
+        assert_redirected_to root_path
+        assert flash[:alert]
+        assert_equal t.role, "pending"        
+      end
+      
       # reject
+      test "deputy reject" do
+        sign_in users(:deputy)
+        assert_no_difference('User.count') do
+          delete reject_user_path(users(:pending))
+        end
+        assert_redirected_to root_path
+        assert flash[:alert]
+      end      
       
       # Someone else's training videos
-    # --- Trainer tests
-      # update
+      test "deputy user videos" do
+        sign_in users(:deputy)
+        get training_videos_user_path(users(:trainer))
+        
+        assert_redirected_to root_path
+        assert flash[:alert]
+      end
       
+    # --- Trainer tests
       # edit
+      test "trainer edit user" do
+        sign_in users(:trainer)
+        get edit_user_path(users(:deputy))
+        
+        assert_redirected_to root_path
+        assert flash[:alert]
+      end
+      # update
+      test "trainer update user" do
+        sign_in users(:trainer)
+        test_user = users(:deputy)
+        patch user_path(test_user), params: {user: {first_name: "newname"}}
+        t = User.find(test_user.id)
+        
+        assert_equal t.first_name, users(:deputy).first_name
+        assert_redirected_to root_path
+        assert flash[:alert]
+      end
       
       # destroy
-    
-    # --- Admin tests  
+      test "trainer delete" do
+        sign_in users(:trainer)
+        
+        assert_no_difference('User.count') do
+          delete user_path(users(:deputy))
+        end
+        assert_redirected_to root_path
+        assert flash[:alert]
+      end
+      
+      # reject non-pending user
+      test "trainer reject nonpending" do
+        sign_in users(:trainer)
+        assert_no_difference('User.count') do
+          delete reject_user_path(users(:deputy))
+        end
+        assert_redirected_to root_path
+        assert flash[:alert]        
+      end
+    # --- Admin tests: none. Admins can do everything. 
 end
