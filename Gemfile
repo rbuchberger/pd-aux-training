@@ -4,6 +4,8 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
+# Lock in current version of ruby. 
+ruby '2.4.0p0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use Puma as the app server
@@ -23,13 +25,13 @@ gem 'bcrypt', '~> 3.1.11', platforms: :ruby
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 # Use devise for user registration
-gem 'devise'
+gem 'devise', '4.4.0'
 # Use Pundit for access control
-gem 'pundit'
+gem 'pundit' '1.1.0'
 # Twitter bootstrap for to make it pretty
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 # jQuery for javascript 
-gem 'jquery-rails'
+gem 'jquery-rails', '4.3.1'
 # Hirb gem for database convenience
 gem 'hirb', '~> 0.7.3'
 
@@ -48,9 +50,8 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :production do
+  # Heroku needs postgres
   gem 'pg', '~> 0.18.4'
 end
 
