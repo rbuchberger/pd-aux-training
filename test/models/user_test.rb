@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
   
   # Should have a first name
   test "has first name" do
-    t = User.new(valid_test_params)
+    t = User.new(valid_user_params)
     t.first_name = ""
     
     assert_not t.save
@@ -14,7 +14,7 @@ class UserTest < ActiveSupport::TestCase
   
   # First name no longer than 50 chars
   test "long first name" do
-    t = User.new(valid_test_params)
+    t = User.new(valid_user_params)
     t.first_name = "a" * 51
     
     assert_not t.save
@@ -22,7 +22,7 @@ class UserTest < ActiveSupport::TestCase
   
   # Should have a last name
   test "has last name" do
-    t = User.new(valid_test_params)
+    t = User.new(valid_user_params)
     t.last_name = ""
     
     assert_not t.save
@@ -30,7 +30,7 @@ class UserTest < ActiveSupport::TestCase
   
   # Last name no longer than 50 chars
   test "long last name" do
-    t = User.new(valid_test_params)
+    t = User.new(valid_user_params)
     t.last_name = "a" * 51
     
     assert_not t.save
@@ -38,7 +38,7 @@ class UserTest < ActiveSupport::TestCase
   
   # Should have a badge number
   test "has badge number" do
-    t = User.new(valid_test_params)
+    t = User.new(valid_user_params)
     t.badge_number = ""
     
     assert_not t.save
@@ -46,7 +46,7 @@ class UserTest < ActiveSupport::TestCase
   
   # Badge number no longer than 4 chars
   test "long badge number" do
-    t = User.new(valid_test_params)
+    t = User.new(valid_user_params)
     t.badge_number = "12345"
     
     assert_not t.save
@@ -54,7 +54,7 @@ class UserTest < ActiveSupport::TestCase
   
   # Should capitalize string fields before save
   test "format strings" do
-    t = User.new(valid_test_params)
+    t = User.new(valid_user_params)
     t.first_name = "asdf"
     t.last_name = "ASDF"
     t.badge_number = "abC2"
@@ -68,7 +68,7 @@ class UserTest < ActiveSupport::TestCase
   
   # Newly created users should be set to pending
   test "pending new" do
-    t = User.new(valid_test_params)
+    t = User.new(valid_user_params)
     t.role = :admin
     t.save
     
@@ -77,7 +77,7 @@ class UserTest < ActiveSupport::TestCase
   
   # pending users should not be considered active for authentication
   test "pending active" do
-    t = User.create(valid_test_params)
+    t = User.create(valid_user_params)
     
     assert_not t.active_for_authentication?
   end
@@ -101,20 +101,6 @@ class UserTest < ActiveSupport::TestCase
     t = users(:admin)
     
     assert t.trainer?
-  end
-  
-  private
-  
-  def valid_test_params
-    {
-    first_name: 'Frau',
-    last_name: 'Farbissina',
-    badge_number: 'x03',
-    email: 'pending@example.com',
-    role: :pending,
-    password: '123456',
-    password_confirmation: '123456'
-    }
   end
   
 end

@@ -89,3 +89,26 @@ remote:        No Procfile detected, using the default web server.
 remote:        We recommend explicitly declaring how to boot your server process via a Procfile.
 remote:        https://devcenter.heroku.com/articles/ruby-default-web-server
 remote: 
+
+
+
+---- controller tests copy-paste
+
+  include Devise::Test::IntegrationHelpers
+  
+  # --- Things that should work
+    # --- Deputy tests
+    
+    # --- Trainer tests
+    
+    # --- Admin tests
+  
+  
+  # --- Things that shouldn't work
+    # --- Deputy tests
+    
+    # --- Trainer tests
+    
+    # --- Admin tests  
+  
+  

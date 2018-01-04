@@ -86,7 +86,7 @@ class TimecardTest < ActiveSupport::TestCase
   
   # should return a duration
   test "timecard duration" do
-    t = timecards(:one).duration
+    t = timecards(:deputy).duration
     assert t.class == Float
     assert (30.minutes .. 24.hours).include? t
     
@@ -94,7 +94,7 @@ class TimecardTest < ActiveSupport::TestCase
   
   # should return a duration in hours
   test "timecard duration hours" do
-    t = timecards(:one).duration_hours
+    t = timecards(:deputy).duration_hours
     assert t.class == Float
     assert (0.5 .. 24.0).include? t
   end
