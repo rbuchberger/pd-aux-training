@@ -1,19 +1,19 @@
-# admin: 
-#     first_name: 'Austin'
-#   last_name: 'Powers'
-#   badge_number: 'a01'
-#   email: 'admin@example.com'
-#   role: :admin
-#   password: '123456'
-#   password_confirmation: '123456'
 
+admin:
+  first_name: 'Austin'
+  last_name: 'Powers'
+  badge_number: 'a01'
+  email: 'admin@example.com'
+  role: :admin
+  # password: '123456'
+  # password_confirmation: '123456'
 
-# trainer: 
-#   first_name: 'Vanessa'
-#   last_name: 'Kensington'
-#   badge_number: 'x01'
-#   email: 'trainer@example.com'
-#   role: :trainer
+trainer: 
+  first_name: 'Vanessa'
+  last_name: 'Kensington'
+  badge_number: 'x01'
+  email: 'trainer@example.com'
+  role: :trainer
 #   password: '123456'
 #   password_confirmation: '123456'
  
@@ -27,11 +27,11 @@ deputy:
   # password_confirmation: '123456'
  
 
-# pending: 
-#   first_name: 'Frau'
-#   last_name: 'Farbissina'
-#   badge_number: 'x03'
-#   email: 'pending@example.com'
-#   role: :pending
+pending: 
+  first_name: 'Frau'
+  last_name: 'Farbissina'
+  badge_number: 'x03'
+  email: 'pending@example.com'
+  role: :pending
 #   password: '123456'
 #   password_confirmation: '123456'
