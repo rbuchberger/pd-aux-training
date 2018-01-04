@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 # Lock in current version of ruby. 
-ruby '2.4.0p0'
+ruby '2.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use Puma as the app server
@@ -22,12 +22,10 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.11', platforms: :ruby
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 # Use devise for user registration
 gem 'devise', '4.4.0'
 # Use Pundit for access control
-gem 'pundit' '1.1.0'
+gem 'pundit', '1.1.0'
 # Twitter bootstrap for to make it pretty
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 # jQuery for javascript 
@@ -46,6 +44,8 @@ group :development, :test do
 end
 
 group :development do
+  # Use Capistrano for deployment
+  # gem 'capistrano-rails', group: :development
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
 end
