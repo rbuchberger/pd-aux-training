@@ -1,22 +1,23 @@
 --- TODO before release:
  
 -Implement soft-delete of users. Better routing (under 'member') for approve and reject actions
+-User name validation with regex (UTF-8 characters only, no numbers, spaces.)
+-categorize users index
 -Mailer config
--Account details page looks bad on anything but a wide screen. Generally check for 
-  mobile friendliness. 
 -Super trooper references should probably be removed before it goes live. 
 -Configure secrets.yml, make sure production encryption keys aren't on github!
--client side validation of all forms
 -Detailed instructions on admin pages
--User name validation with regex (UTF-8 characters only, no numbers, spaces.)
--Link from user#training videos to user details
--link from training video#users to video
--categorize users index
 -config puma.rb
 -make sure any possibly empty collection doesn't try to render 
--role selection radio buttons need love
+-robots.txt
 
 --- Finish after first deployment
+-Account details page looks bad on anything but a wide screen. Generally check for 
+  mobile friendliness. 
+-client side validation of all forms
+-Link from user#training videos to user details
+-link from training video#users to video
+-role selection radio buttons need love
 -Test youtube regular expression grabber more thoroughly
 -Format devise error messages
 -Looks like everything breaks if app tries to save/update something that's locked
@@ -37,6 +38,7 @@
 -Custom start and end times
 -pull spaces out of names? 
 -Learn about rails environments
+-use more partials, especially when rendering collections
 --- Questions and answers: 
 
 -Badge number format? Should they be unique? --- No. X-01 through X-15, and 700 numbers. 
