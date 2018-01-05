@@ -41,19 +41,26 @@ class User < ApplicationRecord
     super || self.admin?
   end
  
-  # Add to a devise method, require admin approval of new users. 
+  # Devise method overwrite - Makes sure user is approved and makes sure user isn't deactivated.
   def active_for_authentication?
-    super && !self.pending?
+    super && !self.pending? && !deleted_at
   end
 
   # Modify the devise flash message for unapproved users. 
   def inactive_message 
     if self.pending? 
       :not_approved 
-    else 
-      super # Don't modify the original message 
+    elsif self.deleted_at
+	    :deleted_account
+    else
+      super
     end 
   end
+  # Soft delete method, used to overwrite the default destroy method and stop users from deleting their accounts. 
+  def soft_delete
+	  update_attribute(:deleted_at, Time.zone.now)
+  end
+
 private
   # Callback: New users are set to pending.   
   def set_default_role

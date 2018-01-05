@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   
   # Routes for users to register and edit their logins & profiles
-  devise_for :users
+  devise_for :users, controllers: {registrations: 'users/registrations'}
 
   
   # Administration related routes for managing other users:
