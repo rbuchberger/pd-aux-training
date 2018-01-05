@@ -17,6 +17,7 @@ en:
       unauthenticated: "You need to sign in or sign up before continuing."
       unconfirmed: "You have to confirm your email address before continuing."
       not_approved: 'Your account has not been approved yet.'
+      deleted_account: "Your account has been deactivated. An administrator can reactivate it."
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"
