@@ -13,8 +13,8 @@
 -link from training video#users to video
 -categorize users index
 -config puma.rb
--stop using things like current_user.trainer? in your views. Switch to policies
-- see if I can call .each on nil class 
+-make sure any possibly empty collection doesn't try to render 
+-role selection radio buttons need love
 
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly
