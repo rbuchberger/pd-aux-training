@@ -21,7 +21,10 @@ class UserPolicy < ApplicationPolicy
   end
   
   def approve?
-     @user.trainer? && @record.pending? 
+    @user.trainer? &&
+    @record.pending? &&
+    !@record.timecards.any? &&
+    !@record.training_records.any?
   end
   
   def reject?
