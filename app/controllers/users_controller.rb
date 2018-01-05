@@ -62,7 +62,31 @@ class UsersController < ApplicationController
 			end
 		end
 	end
-	
+  
+  # Preferred method for turning people off.
+  def deactivate
+    @user = get_user
+    @user.deactivated_at = Time.zone.now
+    if @user.save
+      flash[:success] = "User deactivated."
+    else
+      flash[:danger] = "Could not deactivate user."
+    end
+    redirect_to user_path(@user)
+  end
+
+  # because it lets you turn them back on again. 
+  def reactivate
+    @user = get_user
+    @user.deactivated_at = nil
+    if @user.save
+      flash[:success] = "User reactivated"
+    else
+      flash[:alert] = "Could not reactivate user."
+    end
+    redirect_to user_path(@user)
+  end
+
 	# Index training videos by completion status, based on a particular user
 	def training_videos
 	  @user = get_user
