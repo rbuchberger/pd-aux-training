@@ -10,8 +10,8 @@
       <p><strong>Number of times signed in:</strong> <%= @user.sign_in_count %></p>
       <p><%= link_to "View user's training", training_videos_user_path(@user) %></p>
       <p><%= link_to "View user's timecards", admin_timecards_path(@user) %></p> 
-      <p><%= link_to "Edit user's details", edit_user_path(@user) if current_user.admin? %></p>
-      <% if current_user.trainer? && @user.pending? %>
+      <p><%= link_to "Edit user's details", edit_user_path(@user) if policy(@user).edit? %></p>
+      <% if policy(@user).approve? %>
         <div class="row justify-content-center my-3">
           <div class="col">
             <%= button_to("Approve", accept_user_path, method: :put, class: "btn btn-success btn-block") %>

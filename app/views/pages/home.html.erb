@@ -21,7 +21,7 @@
       <% end %>
         <%= button_to "Log a workday", new_timecard_path,  class: "btn btn-lg btn-primary btn-block col-4", method: :get %>
     </div>
-    <% if current_user.trainer? %>
+    <% if policy(User).index? %>
       <div class="card col-8 p-3">
         <h5 class="card-title"><%= pluralize(@pending_count, "user") %> awaiting approval.</h5>
         <p class="card-text">These users will not be able to sign in until they are approved by either a trainer or an administrator.</p>

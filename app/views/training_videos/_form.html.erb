@@ -1,10 +1,10 @@
-<% if @video.errors.any? %>
+<% if @training_video.errors.any? %>
   <div class="card border-danger">
     <div class="card-header bg-danger text-white">
-     <%= "#{pluralize(@video.errors.count, "error")} prevented this timecard from being saved: " %>
+     <%= "#{pluralize(@training_video.errors.count, "error")} prevented this timecard from being saved: " %>
     </div>
     <ul class="list-group list-group-flush">
-      <% @video.errors.full_messages.each do |m| %>
+      <% @training_video.errors.full_messages.each do |m| %>
         <li class="list-group-item"><%= "#{m}" %></li>
       <% end %>
     </ul>
@@ -34,7 +34,7 @@
     </div>
   </div>
 </div>
-<%= form_for @video do |f| %>
+<%= form_for @training_video do |f| %>
   <div class = "form-group">
     <%= f.label "YouTube address" %>
     <%= f.text_field :url, class: "form-control", placeholder: "https://www.youtube.com/watch?v=3VHTUG-VpWA" %>

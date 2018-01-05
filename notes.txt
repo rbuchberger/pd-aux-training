@@ -9,14 +9,12 @@
 -client side validation of all forms
 -Detailed instructions on admin pages
 -User name validation with regex (UTF-8 characters only, no numbers, spaces.)
--stop using things like current_user.trainer? in your views. Switch to policies
 -Link from user#training videos to user details
 -link from training video#users to video
 -categorize users index
-
-
---- Before publishing this round
- -log workday form needs love
+-config puma.rb
+-stop using things like current_user.trainer? in your views. Switch to policies
+- see if I can call .each on nil class 
 
 --- Finish after first deployment
 -Test youtube regular expression grabber more thoroughly
@@ -38,6 +36,7 @@
 -Leave video title and description blank to pull from youtube
 -Custom start and end times
 -pull spaces out of names? 
+-Learn about rails environments
 --- Questions and answers: 
 
 -Badge number format? Should they be unique? --- No. X-01 through X-15, and 700 numbers. 
@@ -55,6 +54,7 @@ Some setup you must do manually if you haven't yet:
 
      In production, :host should be set to the actual host of your application.
 
+
 Idea scratchpad
 --Category dropdown (4 or 5 options plus "other") for timecards? 
 --Add timecard and training completion list to user show page
@@ -63,34 +63,8 @@ Idea scratchpad
 --Youtube playlist support?
 
 --- Heroku messages
-remote: ###### WARNING:
-remote:        Removing `Gemfile.lock` because it was generated on Windows.
-remote:        Bundler will do a full resolve so native gems are handled properly.
-remote:        This may result in unexpected gem versions being used in your app.
-remote:        In rare occasions Bundler may not be able to resolve your dependencies at all.
-remote:        https://devcenter.heroku.com/articles/bundler-windows-gemfile
-remote: 
-...
-remote: ###### WARNING:
-remote:        You have not declared a Ruby version in your Gemfile.
-remote:        To set your Ruby version add this line to your Gemfile:
-remote:        ruby '2.3.4'
-remote:        # See https://devcenter.heroku.com/articles/ruby-versions for more information.
-remote: 
-remote: ###### WARNING:
-remote:        Removing `Gemfile.lock` because it was generated on Windows.
-remote:        Bundler will do a full resolve so native gems are handled properly.
-remote:        This may result in unexpected gem versions being used in your app.
-remote:        In rare occasions Bundler may not be able to resolve your dependencies at all.
-remote:        https://devcenter.heroku.com/articles/bundler-windows-gemfile
-remote: 
-remote: ###### WARNING:
-remote:        No Procfile detected, using the default web server.
-remote:        We recommend explicitly declaring how to boot your server process via a Procfile.
-remote:        https://devcenter.heroku.com/articles/ruby-default-web-server
-remote: 
 
-
+https://devcenter.heroku.com/articles/ruby-default-web-server
 
 ---- controller tests copy-paste
 
