@@ -1,7 +1,7 @@
 <h4 class="display-4 text-center my-4">My Training</h4>
 <h5>Not complete: </h5>
 <table class="table table-hover my-4">
-  <% unless @training_videos_incomplete.any? %>
+  <% if @training_videos_incomplete.any? %>
     <% @training_videos_incomplete.each do |v| %>
       <tr onclick="window.location='<%= training_video_path(v) %>'">
         <td><%= link_to v.title, training_video_path(v.id) %> </td>
@@ -11,7 +11,7 @@
 </table>
 <h5>Complete: </h5>
 <table class="table table-hover my-4">
-  <% unless @training_videos_complete.any? %>
+  <% if @training_videos_complete.any? %>
     <% @training_videos_complete.each do |v| %>
       <tr onclick="window.location='<%= training_video_path(v) %>'">
         <td><%= link_to v.title, training_video_path(v.id) %> </td>
