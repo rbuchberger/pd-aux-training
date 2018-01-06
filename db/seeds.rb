@@ -33,7 +33,17 @@ User.create([
     role: :pending,
     password: '123456',
     password_confirmation: '123456'
+  } , {
+    first_name: 'Number',
+    last_name: 'Two', 
+    badge_number: 'x03',
+    email: 'deactivated@example.com',
+    role: :deputy,
+    password: '123456',
+    password: '123456',
+    deleted_at: Time.zone.now - 1.day
   } 
+
 ])
   
 Timecard.create([
