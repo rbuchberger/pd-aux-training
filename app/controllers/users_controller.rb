@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   # Preferred method for turning people off.
   def deactivate
     @user = get_user
-    @user.deactivated_at = Time.zone.now
+    @user.deleted_at = Time.zone.now
     if @user.save
       flash[:success] = "User deactivated."
     else
@@ -78,7 +78,7 @@ class UsersController < ApplicationController
   # because it lets you turn them back on again. 
   def reactivate
     @user = get_user
-    @user.deactivated_at = nil
+    @user.deleted_at = nil
     if @user.save
       flash[:success] = "User reactivated"
     else

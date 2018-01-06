@@ -34,5 +34,13 @@ class UserPolicy < ApplicationPolicy
   def training_videos?
     own_record? || @user.trainer?
   end
-  
+
+  def deactivate?
+    update?
+  end
+
+  def reactivate?
+    update?
+  end
+
 end

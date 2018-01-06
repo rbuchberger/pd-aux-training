@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :users, except: [:new, :create] do
       member do
         get 'training_videos'
+        patch 'deactivate'
+        patch 'reactivate'
       end
     end
     # Training records index
