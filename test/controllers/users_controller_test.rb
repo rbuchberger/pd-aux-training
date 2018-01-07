@@ -89,7 +89,22 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_response :redirect
         assert flash[:success]
       end
+
+      # Activate
+      test "admin activate" do
+        sign_in users(:admin) 
+        patch reactivate_user_path(users(:deactivated))
+
+        assert_not User.find(users(:deactivated).id).deleted_at
+      end 
   
+      # Deactivate
+      test "admin deactivate" do 
+        sign_in users(:admin)
+        patch deactivate_user_path(users(:deputy))
+
+        assert User.find(users(:deputy).id).deleted_at > (Time.zone.now - 10.seconds) 
+      end
   # --- Things that shouldn't work
   
     # --- Logged out test
@@ -176,11 +191,47 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       # reject non-pending user
       test "trainer reject nonpending" do
         sign_in users(:trainer)
+
         assert_no_difference('User.count') do
           delete reject_user_path(users(:deputy))
         end
         assert_redirected_to root_path
         assert flash[:alert]        
       end
-    # --- Admin tests: none. Admins can do everything. 
+      
+      # Deactivate user
+      test "trainer deactivate" do
+        sign_in users(:trainer)
+        patch deactivate_user_path(users(:deputy))
+
+        assert_not User.find(users(:deputy).id).deleted_at
+        assert_redirected_to root_path
+        assert flash[:alert]
+      end
+
+      # Reactivate user
+      test "trainer reactivate" do 
+        sign_in users(:trainer)
+        patch reactivate_user_path(users(:deputy))
+
+        assert_equal User.find(users(:deputy).id).deleted at, users(:deput).deleted_at
+        assert_redirected_to root_path
+        assert flash[:alert]
+      end
+        
+    # --- Admin tests
+      # Reject pending user with records (Can only happen if user is manually set back to
+      # pending and then deleted.) 
+      test "admin reject pending with records" do
+        u = users(:deputy)
+        u.role = :pending
+        u.save
+
+        assert_no_difference('User.count') do
+          delete reject_user_path(u)
+        end
+        assert_redirected_to root_path
+        assert flash[:alert]
+      end
+ 
 end
