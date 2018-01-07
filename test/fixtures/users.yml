@@ -39,3 +39,12 @@ pending:
   role: :pending
 #   password: '123456'
 #   password_confirmation: '123456'
+
+deactivated:
+  id: 5
+  first_name: 'Number'
+  last_name: 'Two'
+  badge_number: 'N/A'
+  email: 'deactivated@example.com'
+  role: :deputy
+  deleted_at: <%= Time.zone.now - 1.day %>
