@@ -1,0 +1,11 @@
+
+  <p class="card-text">This person has signed up, but they must be approved by a trainer or an administrator before they will be able to log in. If you reject them, their account will be deleted irreversibly.</p>
+  <div class="row justify-content-center my-3">
+    <div class="col">
+      <%= button_to("Approve", approve_user_path(@user), method: :patch, class: "btn btn-success btn-block") %>
+    </div>
+    <div class="col">
+      <%= button_to("Reject", reject_user_path(@user), method: :delete, class: "btn btn-danger btn-block", data: { confirm: "Are you sure?" } ) %>
+    </div>
+  </div>
+</div>

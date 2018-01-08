@@ -20,26 +20,35 @@
       <%= f.email_field :email, class: "form-control" %>
     </div>
   </div>
-  <div class="row justify-content-center">  
-    <div class="col-md-8 form-check form-check-inline text-center">
-      <label class="mx-4">  
-        <%= f.radio_button :role, :pending %>
-        Pending
-      </label>
-      <label class="mx-4">
-        <%= f.radio_button :role, :deputy %>
-        Deputy
-      </label>
-      <label class="mx-4">
-        <%= f.radio_button :role, :trainer %>
-        Trainer
-      </label>
-      <label class="mx-4">
-        <%= f.radio_button :role, :admin %>
-        Administrator
-      </label>
+  <% unless @user.deleted_at || @user.pending? %>
+    <div class="row justify-content-center">  
+      <div class="col-md-8 my-4 form-check form-check-inline text-center">
+        <div class="card p-3 my-3">
+          <h4 class="card-title text-left">Role</h4>
+          <p class="card-text text-left">This is how you control which people can do which things.</p>
+          <ul class="text-left card-text">
+            <li><strong>Deputy:</strong> Deputies are basic users. They can see all training videos, log completed training, and log, edit, and delete their own timecards. They can't edit videos, and they can't see any other users.</li>
+            <li><strong>Trainer:</strong> Trainers have full control over training videos, can see all user information, and can approve or reject pending signups, but they can't edit user details or deactivate them.</li>
+            <li><strong>Administrator:</strong> These users can do nearly anything, including permanent deletion of user accounts (which you shouldn't do). Don't give someone this role unless they need it. </li>
+          </ul>
+          <div class="row justify-content-center my-3">
+            <label class="mx-auto form-check-label">
+              <%= f.radio_button :role, :deputy, class: "form-check-input" %>
+              Deputy
+            </label>
+            <label class="form-check-label mx-auto">
+              <%= f.radio_button :role, :trainer, class: "form-check-input" %>
+              Trainer
+            </label>
+            <label class="mx-auto form-check-label">
+              <%= f.radio_button :role, :admin, class: "form-check-input" %>
+              Administrator
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  <% end %>
   <div class="row justify-content-center">
     <div class="col-md-8 actions form-group">
       <%= f.submit "Update", class: "btn btn-primary btn-lg btn-block" %>
@@ -47,17 +56,33 @@
   </div>
  
 <% end %>
-<br><br>
-
 <div class="row justify-content-center">
-  <div class="card border-danger m-5 p-2">
-      <h4 class="card-title">Account Deletion</h4>
-      <p class="card-text">Warning: This cannot be undone. All of this person's training records and timecards will be irreversibly deleted.</p>
-      <div class="row justify-content-center">
-          <%= button_to "Delete user", user_path, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-lg btn-block" %>
-      </div>
+  <div class="card border-primary m-3 p-3">
+    <% if @user.deleted_at %>
+      <h4 class="card-title">This user's account has been deactivated.</h4>
+      <p class="card-text"><%= @user.first_last %> was deactivated on <%= @user.deleted_at.strftime("%B %e, %Y") %>. Deactivated users can't log in, and they won't show up in most of the site, but all their records will be kept. If you reactivate them, they will have normal access again.</p>
+      <%= button_to "Reactivate User", reactivate_user_path(@user), class: "btn btn-primary btn-block", method: :patch %>
+    <% elsif policy(@user).approve? %>
+      <h4 class="card-title">User not approved yet.</h4>
+      <%= render "approve_buttons" %>
+    <% else %>
+      <h4 class="card-title">Deactivate user</h4>
+      <p><%= @user.first_last %> is currently active. If you deactivate a user, their records will not be deleted, but they will not be able to log in and they will not show up in most parts of the site.</p>
+      <%= button_to "Deactivate User", deactivate_user_path(@user), class: "btn btn-secondary btn-block", method: :patch %>
+    <% end %>
   </div>
 </div>
+<% unless policy(@user).approve? %>
+  <div class="row justify-content-center">
+    <div class="card border-danger m-3 p-2">
+        <h4 class="card-title">Account Deletion</h4>
+        <p class="card-text">Warning: This cannot be undone. All of this person's training records and timecards will be irreversibly deleted. If this was a real account used by a real person, you shouldn't do this; use the deactivate button above instead.</p>
+        <div class="row justify-content-center">
+            <%= button_to "Delete user", user_path, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-sm" %>
+        </div>
+    </div>
+  </div>
+<% end %>
 <div class="row justify-content-center">
   <%= link_to "Back", :back, class: "m-5" %>
 </div>

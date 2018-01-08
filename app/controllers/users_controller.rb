@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
 	
 	def index
-		@users = User.all.order(:last_name)
-		authorize @users
+    authorize User
+    @users = User.where.not(role: :pending).order(:role, :last_name)
+    @users_pending = User.unscoped.where(role: :pending).order(:last_name)
+    @users_deactivated = User.unscoped.where.not(deleted_at: nil).order(:last_name)
 	end
 	
 	def show
@@ -62,7 +64,32 @@ class UsersController < ApplicationController
 			end
 		end
 	end
-	
+  
+  # Preferred method for turning people off.
+  def deactivate
+    @user = get_user
+    @user.deleted_at = Time.zone.now
+    @user.role = :deputy
+    if @user.save
+      flash[:success] = "User deactivated."
+    else
+      flash[:danger] = "Could not deactivate user."
+    end
+    redirect_to user_path(@user)
+  end
+
+  # because it lets you turn them back on again. 
+  def reactivate
+    @user = get_user
+    @user.deleted_at = nil
+    if @user.save
+      flash[:success] = "User reactivated"
+    else
+      flash[:alert] = "Could not reactivate user."
+    end
+    redirect_to user_path(@user)
+  end
+
 	# Index training videos by completion status, based on a particular user
 	def training_videos
 	  @user = get_user
@@ -75,7 +102,7 @@ class UsersController < ApplicationController
 	private
 	
 	def get_user
-		user = User.find(params[:id])
+    user = User.unscoped.find(params[:id])
 		authorize user
 		user
 	end

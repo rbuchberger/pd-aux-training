@@ -21,7 +21,10 @@ class UserPolicy < ApplicationPolicy
   end
   
   def approve?
-     @user.trainer? && @record.pending? 
+    @user.trainer? &&
+    @record.pending? &&
+    !@record.timecards.any? &&
+    !@record.training_records.any?
   end
   
   def reject?
@@ -31,5 +34,13 @@ class UserPolicy < ApplicationPolicy
   def training_videos?
     own_record? || @user.trainer?
   end
-  
+
+  def deactivate?
+    update?
+  end
+
+  def reactivate?
+    update?
+  end
+
 end

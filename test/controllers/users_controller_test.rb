@@ -33,7 +33,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       # approve
       test "trainer approve" do
         sign_in users(:trainer)
-        put accept_user_path(users(:pending))
+        patch approve_user_path(users(:pending))
         t = User.find(users(:pending).id)
         
         assert_response :redirect
@@ -89,7 +89,24 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_response :redirect
         assert flash[:success]
       end
+
+      # Activate
+      test "admin activate" do
+        sign_in users(:admin) 
+        patch reactivate_user_path(users(:deactivated))
+
+        assert_not User.unscoped.find(users(:deactivated).id).deleted_at
+      end 
   
+      # Deactivate
+      test "admin deactivate" do 
+        sign_in users(:admin)
+        patch deactivate_user_path(users(:trainer))
+        t = User.unscoped.find(users(:trainer).id)
+
+        assert t.deleted_at > (Time.zone.now - 10.seconds) 
+        assert_equal t.role, "deputy"
+      end
   # --- Things that shouldn't work
   
     # --- Logged out test
@@ -114,8 +131,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       
       test "deputy approve" do
         sign_in users(:deputy)
-        put accept_user_path(users(:pending))
-        t = User.find(users(:pending).id)
+        patch approve_user_path(users(:pending))
+        t = User.unscoped.find(users(:pending).id)
         
         assert_redirected_to root_path
         assert flash[:alert]
@@ -176,11 +193,46 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       # reject non-pending user
       test "trainer reject nonpending" do
         sign_in users(:trainer)
+
         assert_no_difference('User.count') do
           delete reject_user_path(users(:deputy))
         end
         assert_redirected_to root_path
         assert flash[:alert]        
       end
-    # --- Admin tests: none. Admins can do everything. 
+      
+      # Deactivate user
+      test "trainer deactivate" do
+        sign_in users(:trainer)
+        patch deactivate_user_path(users(:deputy))
+
+        assert_not User.find(users(:deputy).id).deleted_at
+        assert_redirected_to root_path
+        assert flash[:alert]
+      end
+
+      # Reactivate user
+      test "trainer reactivate" do 
+        sign_in users(:trainer)
+        patch reactivate_user_path(users(:deputy))
+
+        assert_nil User.find(users(:deputy).id).deleted_at
+        assert flash[:alert]
+        assert_redirected_to root_path
+      end
+        
+    # --- Admin tests
+      # Reject pending user with records (Can only happen if user is manually set back to
+      # pending and then deleted.) 
+      test "admin reject pending with records" do
+        u = users(:deputy)
+        u.role = :pending
+        u.save
+
+        assert_no_difference('User.count') do
+          delete reject_user_path(u)
+        end
+        assert flash[:alert]
+      end
+ 
 end
