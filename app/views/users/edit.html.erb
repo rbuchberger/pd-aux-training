@@ -22,20 +22,31 @@
   </div>
   <% unless policy(@user).approve? %>
     <div class="row justify-content-center">  
-      <div class="col-md-8 form-check form-check-inline text-center">
-        <label class="mx-4">
-          <%= f.radio_button :role, :deputy %>
+      <div class="col-md-8 my-4 form-check form-check-inline text-center">
+        <div class="card p-3 my-3">
+          <h4 class="card-title text-left">Role</h4>
+          <p class="card-text text-left">This is how you control which people can do which things.</p>
+          <ul class="text-left card-text">
+            <li><strong>Deputy:</strong> Deputies are basic users. They can see all training videos, log completed training, and log, edit, and delete their own timecards. They can't edit videos, and they can't see any other users.</li>
+            <li><strong>Trainer:</strong> Trainers have full control over training videos, can see all user information, and can approve or reject pending signups, but they can't edit user details or deactivate them.</li>
+            <li><strong>Administrator:</strong> These users can do nearly anything, including permanent deletion of user accounts (which you shouldn't do). Don't give someone this role unless they need it. </li>
+          </ul>
+          <div class="row justify-content-center my-3">
+        <label class="mx-auto form-check-label">
+          <%= f.radio_button :role, :deputy, class: "form-check-input" %>
           Deputy
         </label>
-        <label class="mx-4">
-          <%= f.radio_button :role, :trainer %>
+        <label class="form-check-label mx-auto">
+          <%= f.radio_button :role, :trainer, class: "form-check-input" %>
           Trainer
         </label>
-        <label class="mx-4">
-          <%= f.radio_button :role, :admin %>
+        <label class="mx-auto form-check-label">
+          <%= f.radio_button :role, :admin, class: "form-check-input" %>
           Administrator
         </label>
+          </div>
       </div>
+        </div>
     </div>
   <% end %>
   <div class="row justify-content-center">
