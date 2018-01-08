@@ -1,27 +1,21 @@
 <div class="row justify-content-center">
   <div class="col align-self-center col-md-8 card"> 
     <h4 class="display-4 card-title text-center"><%= @user.first_last %> </h1>
-    <h4 class="card-subtitle text-center"><%= @user.role.capitalize %></h2>
+    <h4 class="card-subtitle text-center"><%= @user.deleted_at ? "Deactivated" : @user.role.capitalize %></h2>
     <div class="card-body">
       <p><strong>Badge number:</strong> <%= @user.badge_number %> </p>
       <p><strong>Email address:</strong> <%= @user.email %> </p>
       <p><strong>Account created:</strong> <%= @user.created_at.strftime("%b %d, %Y") %></p>
-      <p><strong>Last signed in:</strong> <%= @user.current_sign_in_at.try(:strftime, "%b %d, %Y" ) %></p>
-      <p><strong>Number of times signed in:</strong> <%= @user.sign_in_count %></p>
-      <p><strong>Activation status: </strong> <%= @user.deleted_at ? "Deactivated on #{@user.deleted_at.strftime("%b %d, %Y")}" : "Active" %></p> 
-      <p><%= link_to "View user's training", training_videos_user_path(@user) %></p>
-      <p><%= link_to "View user's timecards", admin_timecards_path(@user) %></p> 
-      <p><%= link_to "Edit user's details", edit_user_path(@user) if policy(@user).edit? %></p>
-      <% if policy(@user).approve? %>
-        <div class="row justify-content-center my-3">
-          <div class="col">
-            <%= button_to("Approve", accept_user_path, method: :put, class: "btn btn-success btn-block") %>
-          </div>
-          <div class="col">
-            <%= button_to("Reject", reject_user_path, method: :delete, class: "btn btn-danger btn-block") %>
-          </div>
-        </div>
+      <% unless policy(@user).approve? %>
+        <p><strong>Last signed in:</strong> <%= @user.current_sign_in_at ? @user.current_sign_in_at.strftime("%b %d, %Y") : "None" %></p>
+        <p><strong>Number of times signed in:</strong> <%= @user.sign_in_count %></p>
+        <p><strong>Activation status: </strong> <%= @user.deleted_at ? "Deactivated on #{@user.deleted_at.strftime("%b %d, %Y")}" : "Active" %></p> 
+        <p><%= link_to "View user's training", training_videos_user_path(@user) %></p>
+        <p><%= link_to "View user's timecards", admin_timecards_path(@user) %></p> 
+      <% else %>
+        <%= render "approve_buttons" %>
       <% end %>
+      <p><%= link_to "Edit user's details", edit_user_path(@user) if policy(@user).edit? %></p>
     </div>
   </div>
 </div>

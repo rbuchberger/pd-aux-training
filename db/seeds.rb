@@ -40,7 +40,6 @@ User.create([
     email: 'deactivated@example.com',
     role: :deputy,
     password: '123456',
-    password: '123456',
     deleted_at: Time.zone.now - 1.day
   } 
 
@@ -67,11 +66,6 @@ Timecard.create([
     description: 'Getting shushed' ,
     start: Time.zone.now - 31.days,
     end: Time.zone.now - 31.days + 9.hours,
-  } , {
-    user_id: 4,
-    description: 'Bring in de femBOTS!',
-    start: Time.zone.now - 10.days ,
-    end: Time.zone.now - 10.days + 10.hours,
   } , {
     user_id: 1,
     description: 'Putting the GRRR in swinger baby',
