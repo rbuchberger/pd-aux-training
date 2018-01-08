@@ -24,6 +24,10 @@ class User < ApplicationRecord
   before_save :format_string_fields
   after_create :set_default_role
 
+  # Scopes:
+  def self.default_scope 
+    User.where(deleted_at: [nil, ""]).order(:last_name)
+  end
   # Custom methods:
  
  # Returns full name in a view-friendly format. 
