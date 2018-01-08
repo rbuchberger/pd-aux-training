@@ -67,6 +67,7 @@ class UsersController < ApplicationController
   def deactivate
     @user = get_user
     @user.deleted_at = Time.zone.now
+    @user.role = :deputy
     if @user.save
       flash[:success] = "User deactivated."
     else

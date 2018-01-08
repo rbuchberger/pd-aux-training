@@ -101,9 +101,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       # Deactivate
       test "admin deactivate" do 
         sign_in users(:admin)
-        patch deactivate_user_path(users(:deputy))
+        patch deactivate_user_path(users(:trainer))
+        t = User.find(users(:trainer).id)
 
-        assert User.find(users(:deputy).id).deleted_at > (Time.zone.now - 10.seconds) 
+        assert t.deleted_at > (Time.zone.now - 10.seconds) 
+        assert_equal t.role, "deputy"
       end
   # --- Things that shouldn't work
   
