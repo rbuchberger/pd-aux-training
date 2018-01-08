@@ -50,16 +50,16 @@
     </div>
   </div>
 <% end %>
-<div class="row justify-content-center">
-  <div class="col-6 mt-5 jumbotron">
-      <h4 class="row display-4 justify-content-center">Account Deletion</h4>
-      <p class="row justify-content-center px-4">Warning: This cannot be undone. All of your training records and timecards will be irreversibly deleted. 
+<div class="row">
+  <div class="m-5 p-3 card border-danger">
+      <h4 class="card-title">Account Deactivation</h4>
+      <p class="card-text"><strong>Warning:</strong> If you deactivate your account, you will no longer be able to log in. Your records will be preserved, only an administrator can reactivate you.</p>
         <% if current_user.admin? %>
-          Please ensure that you are not the only remaining administrator account; If all administrator accounts are deleted, it will be difficult to create new ones.
+          Please ensure that you are not the only remaining administrator account; If all administrator accounts are deactivated, it will be difficult to create new ones.
         <% end %>
       </p>
       <div class="row justify-content-center">
-        <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %></p>
+        <%= button_to "Deactivate my account", registration_path(resource_name), data: { confirm: "Are you sure you want to deactivate your account?" }, method: :delete, class: "btn btn-danger" %></p>
       </div>
   </div>
 </div>
