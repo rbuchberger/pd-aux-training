@@ -30,7 +30,7 @@ class UserTest < ActiveSupport::TestCase
   
   # Last name no longer than 50 chars
   test "long last name" do
-    t = User.new(valid_user_params)
+    t = User.unscoped.new(valid_user_params)
     t.last_name = "a" * 51
     
     assert_not t.save
@@ -77,7 +77,7 @@ class UserTest < ActiveSupport::TestCase
   
   # pending users should not be considered active for authentication
   test "pending active" do
-    t = User.create(valid_user_params)
+    t = User.unscoped.create(valid_user_params)
     
     assert_not t.active_for_authentication?
   end

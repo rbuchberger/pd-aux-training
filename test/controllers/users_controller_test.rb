@@ -95,14 +95,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         sign_in users(:admin) 
         patch reactivate_user_path(users(:deactivated))
 
-        assert_not User.find(users(:deactivated).id).deleted_at
+        assert_not User.unscoped.find(users(:deactivated).id).deleted_at
       end 
   
       # Deactivate
       test "admin deactivate" do 
         sign_in users(:admin)
         patch deactivate_user_path(users(:trainer))
-        t = User.find(users(:trainer).id)
+        t = User.unscoped.find(users(:trainer).id)
 
         assert t.deleted_at > (Time.zone.now - 10.seconds) 
         assert_equal t.role, "deputy"
@@ -132,7 +132,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       test "deputy approve" do
         sign_in users(:deputy)
         patch approve_user_path(users(:pending))
-        t = User.find(users(:pending).id)
+        t = User.unscoped.find(users(:pending).id)
         
         assert_redirected_to root_path
         assert flash[:alert]

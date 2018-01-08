@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
 	
 	def index
-		@users = User.all.order(:last_name)
-		authorize @users
+    authorize User
+		@users = User.all
+    @users_pending = User.unscoped.where(role: :pending).order(:last_name)
+    @users_deactivated = User.unscoped.where.not(deleted_at: nil).order(:last_name)
 	end
 	
 	def show
@@ -100,7 +102,7 @@ class UsersController < ApplicationController
 	private
 	
 	def get_user
-		user = User.find(params[:id])
+    user = User.unscoped.find(params[:id])
 		authorize user
 		user
 	end

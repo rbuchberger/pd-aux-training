@@ -26,7 +26,7 @@ class User < ApplicationRecord
 
   # Scopes:
   def self.default_scope 
-    User.where(deleted_at: [nil, ""]).order(:last_name)
+    User.where(deleted_at: nil).order(:last_name)
   end
   # Custom methods:
  

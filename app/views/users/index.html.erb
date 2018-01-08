@@ -1,6 +1,7 @@
 <h4 class="display-4 text-center my-4">All Users</h4>
-<div class="row justify-content-center">
+<div class="row justify-content-center my-4">
 	<div class="col-sm-6">
+    <h4>Active: </h4>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -12,6 +13,40 @@
 			 <tr onclick="window.location='<%= user_path(u.id) %>'"> 
 				 <td><%= "#{u.last_name}, #{u.first_name}".truncate(25, omission: "...") %></td>
 				 <td><%= u.role.capitalize %></td>
+			 </tr>
+			<% end %>
+			</table>
+		</div>
+</div>
+<div class="row justify-content-center my-4">
+	<div class="col-sm-6">
+    <h4>Pending:</h4>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col" >Name</th>
+					</tr>
+				</thead>
+				<% @users_pending.each do |u| %>
+			 <tr onclick="window.location='<%= user_path(u.id) %>'"> 
+				 <td><%= "#{u.last_name}, #{u.first_name}".truncate(25, omission: "...") %></td>
+			 </tr>
+			<% end %>
+			</table>
+		</div>
+</div>
+<div class="row justify-content-center my-4">
+	<div class="col-sm-6">
+    <h4>Deactivated:</h4>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+					</tr>
+				</thead>
+				<% @users_deactivated.each do |u| %>
+			 <tr onclick="window.location='<%= user_path(u.id) %>'"> 
+				 <td><%= "#{u.last_name}, #{u.first_name}".truncate(25, omission: "...") %></td>
 			 </tr>
 			<% end %>
 			</table>

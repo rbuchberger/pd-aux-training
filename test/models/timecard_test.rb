@@ -101,25 +101,11 @@ class TimecardTest < ActiveSupport::TestCase
   
   # Should be deleted when a user is deleted
   test "Delete with user" do
-   user = User.create({
-      first_name: 'Stan',
-      last_name: 'Beaudry',
-      badge_number: 'a99',
-      email: 'stan@example.com',
-      role: :admin,
-      password: 123456,
-      password_confirmation: 123456
-    })
+    user = users(:deputy) 
+    t = user.timecards.count * -1
+    assert_difference('Timecard.count', t) do
+      user.destroy
+    end
     
-    user.timecards.create({
-      description: 'Raiding Panties',
-      start: Time.zone.now - 5.days,
-      end: Time.zone.now - 5.days + 5.hours
-      })
-     
-    t = Timecard.count
-    user.destroy
-    
-    assert Timecard.count == t-1 
   end
 end
