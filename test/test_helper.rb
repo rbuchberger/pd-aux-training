@@ -3,6 +3,8 @@ require 'rails/test_help'
 require 'capybara/rails'
 require 'capybara/minitest'
 
+Rails.application.load_seed
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
