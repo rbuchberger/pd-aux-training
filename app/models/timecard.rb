@@ -23,5 +23,9 @@ class Timecard < ApplicationRecord
    ( self.duration / 1.hour ).round(l)
   end
     
+  # Allows viewing of deactivated users' timecards.
+  def user
+    User.unscoped{ super }
+  end
 end
 
