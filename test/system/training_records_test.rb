@@ -7,7 +7,8 @@ class TrainingRecordsTest < ApplicationSystemTestCase
    click_link "Timecards"
    click_button "Log new workday"
    fill_in('Description', with: "I AM DEFINITELY A HUMAN.")
-   select('00', from: 'timecard_start_41')
+   select('00', from: 'timecard_start_4i')
+   select('01', from: 'timecard_start_5i')
    click_button "Log it!"
    assert_text "Timecard logged!"
  end
