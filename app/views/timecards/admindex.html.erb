@@ -25,9 +25,9 @@
       <tbody>
         <% if @timecards.list.any? %>
           <% @timecards.list.each do |t| %>
-            <tr onclick="window.location='<%= timecard_path(t.id) %>'">
-              <td><%= t.user.last_first %></td>
-              <td><%= t.start.strftime("%A, %b %d") %></td>
+            <tr onclick="window.location='<%= timecard_path(t) %>'">
+              <td><%= t.user.last_first  %></td>
+              <td><%= link_to t.start.strftime("%A, %b %d"), timecard_path(t) %></td>
               <td><%= t.duration_hours %></td>
               <td><%= t.description.truncate(40, omission: "...") %></td>
             </tr>
