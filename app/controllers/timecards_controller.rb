@@ -17,7 +17,7 @@ class TimecardsController < ApplicationController
     # includes a user_id, it will return timecards for that user. 
     authorize Timecard
     @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params)
-    @select_options =TimecardsPresenter::SelectOptions.new
+    @select_options = @timecards.select_options
   end
   
   def new

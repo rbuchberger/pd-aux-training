@@ -7,4 +7,8 @@ class TrainingRecord < ApplicationRecord
   validates :training_video_id, presence: true
   validates :user_id, presence: true
   
+  # Allows viewing of deactivated users' records. 
+  def user
+    User.unscoped { super }
+  end
 end
