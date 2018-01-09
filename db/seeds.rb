@@ -89,10 +89,6 @@ TrainingVideo.create([
     description: "Hickock45 here, smokin' some pot.",
     url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw",
   } , {
-    title: "How to be an operator",
-    description: "",
-    url: "https://www.youtube.com/watch?v=8lf5oRgkqeA&index=1&list=FLcGBJ-rifHsKrhvwmmX4VCw",
-  } , {
     title: "Handgun selection",
     description: "",
     url: "https://www.youtube.com/watch?v=-OSodRtHHmo&index=5&list=FLcGBJ-rifHsKrhvwmmX4VCw",
@@ -114,7 +110,7 @@ TrainingRecord.create([
     training_video_id: 2
   } , {
     user_id: 1,
-    training_video_id: 4
+    training_video_id: 3
   } , {
     user_id: 2,
     training_video_id: 1
