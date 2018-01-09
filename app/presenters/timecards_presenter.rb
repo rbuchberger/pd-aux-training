@@ -10,28 +10,28 @@ module TimecardsPresenter
     attr_accessor :range_start, :range_end, :user_id
     attr_reader :list, :title, :selected_user_id, :select_options
      
-    def initialize(opts = {}, user = nil)
+    def initialize(params = {}, user = nil)
       default_start = Time.zone.today.beginning_of_day - 30.days
       default_end   = Time.zone.today.end_of_day
 
       @select_options = SelectOptions.new 
 
-      if opts[:range_start].blank?
+      if params[:range_start].blank?
         @range_start = default_start 
       else
-        @range_start = opts[:range_start].to_date.beginning_of_day
+        @range_start = params[:range_start].to_date.beginning_of_day
       end
       
-      if opts[:range_end].blank?
+      if params[:range_end].blank?
         @range_end = default_end
       else
-        @range_end = opts[:range_end].to_date.end_of_day
+        @range_end = params[:range_end].to_date.end_of_day
       end
       
       if user
         @user = user
-      elsif !opts[:user_id].blank? 
-        @user = User.unscoped.find(opts[:user_id])
+      elsif !params[:user_id].blank? 
+        @user = User.unscoped.find(params[:user_id])
         @select_options.add(@user) if @user.deleted_at # Select options builder won't include deactivated users, so we have to manually include them when selected specifically.  
       end
       
