@@ -8,12 +8,14 @@ module TimecardsPresenter
     # include ActiveModel::Model # (turns out I didn't need it.)
     
     attr_accessor :range_start, :range_end, :user_id
-    attr_reader :list, :title, :selected_user_id
-    
+    attr_reader :list, :title, :selected_user_id, :select_options
+     
     def initialize(opts = {}, user = nil)
       default_start = Time.zone.today.beginning_of_day - 30.days
       default_end   = Time.zone.today.end_of_day
-      
+
+      @select_options = SelectOptions.new 
+
       if opts[:range_start].blank?
         @range_start = default_start 
       else
@@ -29,7 +31,8 @@ module TimecardsPresenter
       if user
         @user = user
       elsif !opts[:user_id].blank? 
-        @user = User.find(opts[:user_id])
+        @user = User.unscoped.find(opts[:user_id])
+        @select_options.add(@user) if @user.deleted_at # Select options builder won't include deactivated users, so we have to manually include them when selected specifically.  
       end
       
       range = (@range_start .. @range_end)
@@ -56,12 +59,16 @@ module TimecardsPresenter
   
   class SelectOptions
     # Build a list of options for the user select box on the admindex.
-    attr_reader :list
+    attr_accessor :list
     def initialize
       @list = {'All Users' => ''}
-      User.all.order(:last_name).each do |u|
+      User.all.each do |u|
         @list[u.last_first(20)] = u.id 
       end
+    end
+
+    def add(user)
+      @list[user.last_first(20)] = user.id
     end
   end
   
