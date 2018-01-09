@@ -23,13 +23,17 @@
         </tr>
       </thead>
       <tbody>
-        <% @timecards.list.each do |t| %>
-          <tr onclick="window.location='<%= timecard_path(t.id) %>'">
-            <td><%= t.user.last_first %></td>
-            <td><%= t.start.strftime("%A, %b %d") %></td>
-            <td><%= t.duration_hours %></td>
-            <td><%= t.description.truncate(40, omission: "...") %></td>
-          </tr>
+        <% if @timecards.list.any? %>
+          <% @timecards.list.each do |t| %>
+            <tr onclick="window.location='<%= timecard_path(t.id) %>'">
+              <td><%= t.user.last_first %></td>
+              <td><%= t.start.strftime("%A, %b %d") %></td>
+              <td><%= t.duration_hours %></td>
+              <td><%= t.description.truncate(40, omission: "...") %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr><td>No timecards found for these dates</td></tr>
         <% end %>
       </tbody>
     </table>

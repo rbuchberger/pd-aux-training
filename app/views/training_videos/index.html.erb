@@ -1,8 +1,12 @@
 <h4 class="display-4 text-center my-4">My Training</h4>
 <% if @training_videos_incomplete.any? %>
   <%= render partial: 'index_table', locals: {which_listing: "Not Complete", videos: @training_videos_incomplete} %>
+<% else %>
+  <h5 class="my-4">No incompleted videos to display.</h5>
 <% end %>
 <% if @training_videos_complete.any? %>
   <%= render partial: 'index_table', locals: {which_listing: "Complete", videos: @training_videos_complete} %>
+<% else %>
+  <h5 class="my-4">No completed videos to display.</h5>
 <% end %>
 <%= link_to "Add Video", new_training_video_path, class: "btn btn-primary text-center my-2"  if policy(TrainingVideo).new? %>

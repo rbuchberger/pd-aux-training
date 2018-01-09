@@ -1,14 +1,21 @@
 <h4 class="display-4 text-center">Training Records: <%= @user.first_last %></h4>
-<h5>Complete:</h5>
-<ul>
-  <% @training_videos_complete.each do |v| %>
-    <li><%= link_to v.title, training_video_path(v) %></li>
-  <% end %>
-</ul>
-
-<h5>Not Complete:</h5>
-<ul>
-  <% @training_videos_incomplete.each do |v| %>
-    <li><%= link_to v.title, training_video_path(v) %></li>
-  <% end %>
-</ul>
+<h5 class="mt-4">Complete:</h5>
+<% if @training_videos_complete.any? %>
+  <ul>
+    <% @training_videos_complete.each do |v| %>
+      <li><%= link_to v.title, training_video_path(v) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>This person hasn't finished any videos yet.</p>
+<% end %>
+<h5 class="mt-4">Not Complete:</h5>
+<% if @training_videos_incomplete.any? %>
+  <ul>
+    <% @training_videos_incomplete.each do |v| %>
+      <li><%= link_to v.title, training_video_path(v) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>This person has completed all training videos.</p>
+<% end %>

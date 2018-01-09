@@ -14,8 +14,8 @@
   <tbody>
     <% if @training_videos.any? %>
       <% @training_videos.each do |v| %>
-        <tr class="row" onclick="window.location='<%= users_training_video_path(v.id) %>'">
-          <td class="col-8"><%= v.title %></td>
+        <tr class="row" onclick="window.location='<%= users_training_video_path(v) %>'">
+          <td class="col-8"><%= link_to v.title, users_training_video_path(v) %></td>
           <td class="col-4"><%= v.users.size %></td>
         </tr>
     <% end %>
@@ -38,8 +38,8 @@
   </thead>
   <tbody>
   <% @users.each do |u| %>
-    <tr class="row" onclick="window.location='<%= training_videos_user_path(u.id) %>'">
-      <td class="col-8"><%= u.last_first %></td>
+    <tr class="row" onclick="window.location='<%= training_videos_user_path(u) %>'">
+      <td class="col-8"><%= link_to u.last_first, training_videos_user_path(u) %></td>
       <td class="col-4"><%= u.training_videos.size %></td>
     </tr>
   <% end %>
