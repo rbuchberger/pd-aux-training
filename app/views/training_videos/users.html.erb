@@ -1,14 +1,22 @@
 <h4 class="display-4 text-center my-4"><%= @training_video.title %></h4>
-<h5>Complete:</h5>
-<ul>
-  <% @users_complete.each do |u| %>
-    <li><%= link_to  u.first_last, user_path(u) %></li>
-  <% end %>
-</ul>
+<h5 class="mt-4">Complete:</h5>
+<% if @users_complete.any? %>
+  <ul>
+    <% @users_complete.each do |u| %>
+      <li><%= link_to  u.first_last, user_path(u) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nobody has finished this video yet.</p>
+<% end %>
 
-<h5>Not complete: </h5>
-<ul>
-  <% @users_incomplete.each do |u| %>
-    <li><%= link_to u.first_last, user_path(u) %></li>
-  <% end %>
-</ul>
+<h5 class="mt-4">Not complete: </h5>
+<% if @users_incomplete.any?%>
+  <ul>
+    <% @users_incomplete.each do |u| %>
+      <li><%= link_to u.first_last, user_path(u) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Everyone has completed this video.</p>
+<% end %>

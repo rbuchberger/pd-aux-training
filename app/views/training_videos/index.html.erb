@@ -1,22 +1,4 @@
 <h4 class="display-4 text-center my-4">My Training</h4>
-<h5>Not complete: </h5>
-<table class="table table-hover my-4">
-  <% if @training_videos_incomplete.any? %>
-    <% @training_videos_incomplete.each do |v| %>
-      <tr onclick="window.location='<%= training_video_path(v) %>'">
-        <td><%= link_to v.title, training_video_path(v.id) %> </td>
-      </tr>
-    <% end %>
-  <% end %>
-</table>
-<h5>Complete: </h5>
-<table class="table table-hover my-4">
-  <% if @training_videos_complete.any? %>
-    <% @training_videos_complete.each do |v| %>
-      <tr onclick="window.location='<%= training_video_path(v) %>'">
-        <td><%= link_to v.title, training_video_path(v.id) %> </td>
-      </tr>
-    <% end %>
-  <% end %>
-</table>
+<%= render partial: 'index_table', locals: {which_listing: "Not Complete", videos: @training_videos_incomplete} %>
+<%= render partial: 'index_table', locals: {which_listing: "Complete", videos: @training_videos_complete} %>
 <%= link_to "Add Video", new_training_video_path, class: "btn btn-primary text-center my-2"  if policy(TrainingVideo).new? %>
