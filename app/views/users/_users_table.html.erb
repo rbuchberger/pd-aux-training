@@ -1,28 +1,34 @@
-<div class="row justify-content-center my-4">
-	<div class="col-sm-6">
-    <h4><%= which_list %>:</h4>
-  </div>
-</div>
-
-<div class="row justify-content-center mt-4">
-	<div class="col-sm-6">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-            <%  if which_list == "Active" %>
-              <th scope="col">Role</th>
+<% if users.any? %>
+  <h4><%= which_list %>:</h4>
+  <div class="row my-4">
+    <div class="col-sm-6">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+              <%  if which_list == "Active" %>
+                <th scope="col">Role</th>
+              <% end %>
+          </tr>
+        </thead>
+        <% users.each do |u| %>
+          <tr onclick="window.location='<%= user_path(u) %>'"> 
+            <td><%= link_to u.last_first(40), user_path(u) %></td>
+            <% if which_list == "Active" %>
+              <td><%= u.role.capitalize %></td>
             <% end %>
-        </tr>
-      </thead>
-      <% users.each do |u| %>
-        <tr onclick="window.location='<%= user_path(u) %>'"> 
-          <td><%= link_to u.last_first(40), user_path(u) %></td>
-          <% if which_list == "Active" %>
-            <td><%= u.role.capitalize %></td>
-          <% end %>
-        </tr>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-sm-6">
+      <% if which_list == "Active" %>
+        <p>These are normal users. They can log in, and their role defines their permissions.</p>
+      <% elsif which_list == "Pending" %>
+        <p>These people have signed up, but they need to be approved before they can do anything. Click their name, look for the big buttons.</p>
+      <% elsif which_list == "Deactivated" %>
+        <p>These people have been deactivated. Their records haven't been deleted, but they'll be hidden unless you look for them specifically (which you can do from their details page). An admin can activate them again, by going to their details, then edit details.</p>
       <% end %>
-    </table>
+    </div>
   </div>
-</div>
+<% end %>

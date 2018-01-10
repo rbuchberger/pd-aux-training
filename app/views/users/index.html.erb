@@ -1,10 +1,4 @@
-<h4 class="display-4 text-center my-4">All Users</h4>
-<% if @users_active.any? %>
-  <%= render partial: 'users_table', locals: {which_list: 'Active', users: @users_active} %>
-<% end %>
-<% if @users_pending.any? %>
-  <%= render partial: 'users_table', locals: {which_list: 'Pending', users: @users_pending} %>
-<% end %>
-<% if @users_deactivated.any? %>
-  <%= render partial: 'users_table', locals: {which_list: 'Deactivated', users: @users_deactivated} %>
-<% end %>
+<h4 class="display-4 text-center my-4">Everybody</h4>
+<%= render partial: 'users_table', locals: {which_list: 'Active', users: @users_active} %>
+<%= render partial: 'users_table', locals: {which_list: 'Pending', users: @users_pending} %>
+<%= render partial: 'users_table', locals: {which_list: 'Deactivated', users: @users_deactivated} %>
