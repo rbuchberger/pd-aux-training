@@ -1,28 +1,61 @@
-<div class="row justify-content-center my-4">
-	<div class="col-sm-6">
-    <h4><%= which_list %>:</h4>
-  </div>
-</div>
-
-<div class="row justify-content-center mt-4">
-	<div class="col-sm-6">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-            <%  if which_list == "Active" %>
-              <th scope="col">Role</th>
+<% if users.any? %>
+  <hr class="mt-3" />
+  <h4><%= which_list %>:</h4>
+  <div class="row my-2">
+    <div class="col-sm-6">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+              <%  if which_list == "Active" %>
+                <th scope="col">Role</th>
+              <% end %>
+          </tr>
+        </thead>
+        <% users.each do |u| %>
+          <tr onclick="window.location='<%= user_path(u) %>'"> 
+            <td><%= link_to u.last_first(40), user_path(u) %></td>
+            <% if which_list == "Active" %>
+              <td><%= u.role.capitalize %></td>
             <% end %>
-        </tr>
-      </thead>
-      <% users.each do |u| %>
-        <tr onclick="window.location='<%= user_path(u) %>'"> 
-          <td><%= link_to u.last_first(40), user_path(u) %></td>
-          <% if which_list == "Active" %>
-            <td><%= u.role.capitalize %></td>
-          <% end %>
-        </tr>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-sm-6">
+      <% if which_list == "Active" %>
+        <h6>Deputies:</h6>
+        <ul>
+          <li>Can see all training videos and mark them as complete.</li>
+          <li>Can see their own training records.</li>
+          <li>Can log, review,  edit, and delete their own timecards.</li>
+          <li>Cannot access anything under the "Administration" menu.</li>
+        </ul>
+        <h6>Trainers:</h6>
+        <ul>
+          <li>Can do everything a deputy can.</li>
+          <li>Can create, edit, and delete training videos.</li>
+          <li>Can view anyone's training records, timecards, and details.</li>
+          <li>Have view access to the "Administration" menu.</li>
+          <li>Cannot edit any user details, including role and activation.</li>
+          <li>Can approve or reject pending signups.</li>
+        </ul>
+        <h6>Admins:</h6>
+        <p>Be careful who you give this role to. You shoudn't need more than a couple people with these permissions. If these rules could be improved, let me know! <a href="mailto:rbuchberger@gmail.com">rbuchberger@gmail.com</a></p> 
+        <ul>
+          <li>Can do everything a trainer can.</li>
+          <li>Can edit user information such as name, badge number, and email address.</li>
+          <li>Can set any user's role to anything.</li>
+          <li>Can deactivate and reactivate anybody.</li>
+          <li>Can delete any user account, even though they should almost never do it.</li>
+          <li>Can delete (but not create or edit!) any timecard.</li>
+        </ul>
+      <% elsif which_list == "Pending" %>
+        <p>These people have signed up, but they need to be approved (by a trainer or an admin) before they can do anything. Click their name, look for the big buttons. If you're having a lot of spam signups, there are some things that can be done to mitigate it. Send me an email: <a href="mailto:rbuchberger@gmail.com">rbuchberger@gmail.com</a></p>
+      <% elsif which_list == "Deactivated" %>
+        <p>These people have been deactivated. Their records haven't been deleted, but they'll be hidden unless you look for them specifically by clicking on them here. An admin can activate them again under "edit details".</p>
+        <p><strong>There's no reason to delete real accounts that were ever used by a real person.</strong> Deactivate them instead, and their records will be maintained as long as the site still functions.</p>
       <% end %>
-    </table>
+    </div>
   </div>
-</div>
+<% end %>
