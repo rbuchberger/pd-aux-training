@@ -77,19 +77,19 @@ private
   # Callback: Fixes capitalization and formatting. 
   def format_string_fields
     # Capitalization
-    self.first_name = self.first_name.downcase.capitalize
+    self.first_name = self.first_name.downcase.split.map{|w| w.capitalize}.join(' ')
     # replace multiple spaces with a single one.
     self.first_name = self.first_name.gsub(/ {2,}/, " ")
     # remove spaces from the end
     self.first_name = self.first_name.gsub(/ \z/, "")
     # Capitalize last name
-    self.last_name = self.last_name.downcase.capitalize
+    self.last_name = self.last_name.downcase.split.map{|w| w.capitalize}.join(' ')
     # Replace multiple spaces with a single one.
     self.last_name = self.last_name.gsub(/ {2,}/, " ")
     # Remove spaces from the end
-    self.last_name = self.last_name.gsub(/ \z/, "")
+    self.last_name = self.last_name.gsub(/ *\z/, "")
     # Capitalize I, II, IV, etc
-    self.last_name = self.last_name.gsub(/[i,v,x]{1,3}\z/i, '\1'.upcase)
+    self.last_name = self.last_name.gsub(/[i,v,x]{1,3}\z/i) {|g| g.upcase}
     # Capitalize badge number
     self.badge_number = self.badge_number.upcase
     # Add a dash to the badge number, if it's an X-number format. 

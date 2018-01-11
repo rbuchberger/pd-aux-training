@@ -63,18 +63,18 @@ class UserTest < ActiveSupport::TestCase
     assert_not t.save
   end 
   
-  # Should capitalize string fields before save
+  # Should standardize string fields before save
   test "format strings" do
     t = User.new(valid_user_params)
     t.first_name = "robert  a   "
     t.last_name = "  buchberger ix   "
     t.badge_number = "x15"
     
-    t.save
+    assert t.save
     
-    assert t.first_name = "Robert A"
-    assert t.last_name = "Buchberger IX"
-    assert t.badge_number = "X-15"
+    assert_equal t.first_name, "Robert A"
+    assert_equal t.last_name, "Buchberger IX"
+    assert_equal t.badge_number, "X-15"
   end
   
   # Newly created users should be set to pending
