@@ -9,23 +9,25 @@
 </div>
 <div class="row my-5 mx-1 justify-content-center">
   <% if user_signed_in? %>
-    <div class="card col-xl-8 p-3">
-      <h5 class="card-title"><%="You have #{pluralize(@incomplete_video_count, "incomplete training video")}."%></h5>
-      <%= button_to "Go train", training_videos_path, method: :get, class: "btn btn-lg btn-primary" %>
-    </div>
+    <% if @incomplete_video_count > 0 %>
+      <div class="card col-xl-8 p-3">
+        <h5 class="card-title"><%="You have #{pluralize(@incomplete_video_count, "incomplete training video")}."%></h5>
+        <%= button_to "Go train", training_videos_path, method: :get, class: "btn btn-lg btn-primary" %>
+      </div>
+    <% end %>
     <div class="card col-xl-8 p-3">
       <% unless @last_workday.blank? %>
         <h5 class="card-title">Your most recent timecard was <%= @last_workday.duration_hours %> hours, on <%= @last_workday.start.strftime("%A, %b %d") %>.</p>
-      <% else %>
+    <% else %>
         <h5 class="card-title">You have not logged any timecards.</h5>
       <% end %>
         <%= button_to "Log a workday", new_timecard_path,  class: "btn btn-lg btn-primary", method: :get %>
     </div>
-    <% if policy(User).index? %>
+    <% if policy(User).index? && @pending_count > 0 %>
       <div class="card col-xl-8 p-3">
         <h5 class="card-title"><%= pluralize(@pending_count, "user") %> awaiting approval.</h5>
         <p class="card-text">These users will not be able to sign in until they are approved by either a trainer or an administrator.</p>
-        <%= button_to "Manage Users", users_path, class: "btn btn-lg btn-primary", method: :get %>
+        <%= button_to "Manage Users", users_path(anchor: 'Pending'), class: "btn btn-lg btn-primary", method: :get %>
       </div>
     <% end %>
   <% else %>

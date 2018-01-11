@@ -7,9 +7,12 @@ class User < ApplicationRecord
   
   # Validations:
   # (Devise handles most of them. I only need to validate my custom fields) 
-  validates :first_name, presence: true, length: {maximum: 50}
-  validates :last_name, presence: true, length: {maximum: 50}
-  validates :badge_number, presence: true, length: {maximum: 4}
+  # Validates first and last names, 50 characters, a-z/A-Z, hyphens, and spaces. Fix casing afterwards
+  name_regex = /\A[a-z,\-, ]{1,30}\z/i
+  validates_format_of :first_name, with: name_regex 
+  validates_format_of :last_name,  with: name_regex
+  # Validates badge number, Either X-(2 digits) with or without dash. If no dash, add it later. 
+  validates_format_of :badge_number, with: /\A(x\-?\d{2}|7\d{2}|N\/?A)\z/i 
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -73,8 +76,25 @@ private
   
   # Callback: Fixes capitalization and formatting. 
   def format_string_fields
-    self.first_name = self.first_name.downcase.capitalize
-    self.last_name = self.last_name.downcase.capitalize
+    # Capitalization
+    self.first_name = self.first_name.downcase.split.map{|w| w.capitalize}.join(' ')
+    # replace multiple spaces with a single one.
+    self.first_name = self.first_name.gsub(/ {2,}/, " ")
+    # remove spaces from the end
+    self.first_name = self.first_name.gsub(/ \z/, "")
+    # Capitalize last name
+    self.last_name = self.last_name.downcase.split.map{|w| w.capitalize}.join(' ')
+    # Replace multiple spaces with a single one.
+    self.last_name = self.last_name.gsub(/ {2,}/, " ")
+    # Remove spaces from the end
+    self.last_name = self.last_name.gsub(/ *\z/, "")
+    # Capitalize I, II, IV, etc
+    self.last_name = self.last_name.gsub(/[i,v,x]{1,3}\z/i) {|g| g.upcase}
+    # Capitalize badge number
     self.badge_number = self.badge_number.upcase
+    # Add a dash to the badge number, if it's an X-number format. 
+    self.badge_number = self.badge_number.gsub(/(?<X>X)(?<num>\d{2})/, '\k<X>-\k<num>' )
+    # Change NA to N/A for consistency. 
+    self.badge_number = self.badge_number.gsub(/NA/, 'N/A')
   end
 end

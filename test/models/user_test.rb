@@ -12,11 +12,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not t.save
   end
   
-  # First name no longer than 50 chars
-  test "long first name" do
+  # First name format 
+  test "first name format" do
     t = User.new(valid_user_params)
-    t.first_name = "a" * 51
-    
+    t.first_name = "a" * 31
+    assert_not t.save
+    t.first_name = "Robert%"
+    assert_not t.save
+    t.first_name = "Robert 534"
     assert_not t.save
   end
   
@@ -28,14 +31,16 @@ class UserTest < ActiveSupport::TestCase
     assert_not t.save
   end  
   
-  # Last name no longer than 50 chars
-  test "long last name" do
-    t = User.unscoped.new(valid_user_params)
-    t.last_name = "a" * 51
-    
+  # Last name format
+  test "last name format" do
+    t = User.new(valid_user_params)
+    t.last_name = "a" * 31
+    assert_not t.save
+    t.last_name = "Buchberger%"
+    assert_not t.save
+    t.last_name = "Buchberger 534"
     assert_not t.save
   end 
-  
   # Should have a badge number
   test "has badge number" do
     t = User.new(valid_user_params)
@@ -44,26 +49,32 @@ class UserTest < ActiveSupport::TestCase
     assert_not t.save
   end  
   
-  # Badge number no longer than 4 chars
-  test "long badge number" do
+  # Badge number format 
+  test "badge number format" do
     t = User.new(valid_user_params)
-    t.badge_number = "12345"
-    
+
+    t.badge_number = "1234"
+    assert_not t.save
+
+    t.badge_number = "Y-05"
+    assert_not t.save
+
+    t.badge_number = "805"
     assert_not t.save
   end 
   
-  # Should capitalize string fields before save
+  # Should standardize string fields before save
   test "format strings" do
     t = User.new(valid_user_params)
-    t.first_name = "asdf"
-    t.last_name = "ASDF"
-    t.badge_number = "abC2"
+    t.first_name = "robert  a   "
+    t.last_name = "  buchberger ix   "
+    t.badge_number = "x15"
     
-    t.save
+    assert t.save
     
-    assert t.first_name = "Asdf"
-    assert t.last_name = "Asdf"
-    assert t.badge_number = "ABC2"
+    assert_equal t.first_name, "Robert A"
+    assert_equal t.last_name, "Buchberger IX"
+    assert_equal t.badge_number, "X-15"
   end
   
   # Newly created users should be set to pending

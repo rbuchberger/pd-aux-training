@@ -4,7 +4,7 @@ User.create([
   {
     first_name: 'Austin',
     last_name: 'Powers',
-    badge_number: 'a01',
+    badge_number: '701',
     email: 'admin@example.com',
     role: :admin,
     password: '123456',
@@ -36,7 +36,7 @@ User.create([
   } , {
     first_name: 'Number',
     last_name: 'Two', 
-    badge_number: 'x03',
+    badge_number: 'N/A',
     email: 'deactivated@example.com',
     role: :deputy,
     password: '123456',
