@@ -5,19 +5,17 @@
     <div class="col-sm-6">
       <table class="table table-hover">
         <thead>
-          <tr>
-            <th scope="col">Name</th>
-              <%  if which_list == "Active" %>
-                <th scope="col">Role</th>
-              <% end %>
+          <tr class="row">
+            <th scope="col" class="col-6">Name</th>
+            <th scope="col" class="col-3"><%= 'Role' if which_list =="Active" %></th>
+            <th scope="col" class="col-3">Badge</th>
           </tr>
         </thead>
         <% users.each do |u| %>
-          <tr onclick="window.location='<%= user_path(u) %>'"> 
-            <td><%= link_to u.last_first(40), user_path(u) %></td>
-            <% if which_list == "Active" %>
-              <td><%= u.role.capitalize %></td>
-            <% end %>
+          <tr class="row" onclick="window.location='<%= user_path(u) %>'"> 
+            <td class="col-6"><%= link_to u.last_first(40), user_path(u) %></td>
+            <td class="col-3" ><%= u.role.capitalize if which_list == "Active" %></td>
+            <td  class="col-3"><%= u.badge_number %></td>
           </tr>
         <% end %>
       </table>
