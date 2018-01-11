@@ -94,5 +94,7 @@ private
     self.badge_number = self.badge_number.upcase
     # Add a dash to the badge number, if it's an X-number format. 
     self.badge_number = self.badge_number.gsub(/(?<X>X)(?<num>\d{2})/, '\k<X>-\k<num>' )
+    # Change NA to N/A for consistency. 
+    self.badge_number = self.badge_number.gsub(/NA/, 'N/A')
   end
 end
