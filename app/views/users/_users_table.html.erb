@@ -1,6 +1,6 @@
 <% if users.any? %>
   <hr class="mt-3" />
-  <h4><%= which_list %>:</h4>
+  <h4 id="<%= which_list %>"><%= which_list %>:</h4>
   <div class="row my-2">
     <div class="col-sm-6">
       <table class="table table-hover">
@@ -15,7 +15,7 @@
           <tr class="row" onclick="window.location='<%= user_path(u) %>'"> 
             <td class="col-6"><%= link_to u.last_first(40), user_path(u) %></td>
             <td class="col-3" ><%= u.role.capitalize if which_list == "Active" %></td>
-            <td  class="col-3"><%= u.badge_number %></td>
+            <td class="col-3"><%= u.badge_number %></td>
           </tr>
         <% end %>
       </table>
