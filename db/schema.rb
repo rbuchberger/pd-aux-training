@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112032947) do
+ActiveRecord::Schema.define(version: 20180112033419) do
 
   create_table "timecards", force: :cascade do |t|
     t.integer "user_id"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "start"
-    t.datetime "end"
+    t.datetime "clock_in"
+    t.datetime "clock_out"
     t.index ["user_id"], name: "index_timecards_on_user_id"
   end
 
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 20180112032947) do
     t.text "title"
     t.text "description"
     t.text "url"
-    t.text "yt_id"
     t.integer "custom_start"
     t.integer "custom_end"
     t.datetime "created_at", null: false

@@ -2,24 +2,24 @@ class TrainingRecordsController < ApplicationController
   
   def index
     authorize TrainingRecord
-    @training_videos = TrainingVideo.all.order(:title).includes(:training_records)
+    @training_requirements = TrainingRequirement.all.order(:title).includes(:training_records)
     @users = User.all.order(:last_name).includes(:training_records)
   end
   
   def create
-    @training_video = TrainingVideo.find(params[:id]) 
+    @training_requirement = TrainingRequirement.find(params[:id]) 
     @user = current_user
     @training_record = TrainingRecord.new(
-      training_video_id: @training_video.id,
+      training_requirement_id: @training_requirement.id,
       user_id: @user.id
     )
     authorize @training_record
     if @training_record.save
-      flash[:success] = "You have successfully completed #{@training_video.title}!"
-      redirect_to training_videos_path
+      flash[:success] = "You have successfully completed #{@training_requirement.title}!"
+      redirect_to training_requirements_path
     else
       flash[:danger] = "Could not complete training record"
-      redirect_to training_video_path(@training_video)
+      redirect_to training_requirements_path(@training_requirement)
     end
     
   end
@@ -39,7 +39,7 @@ class TrainingRecordsController < ApplicationController
   private
   
   def training_record_params
-    params.require(:training_video)
+    params.require(:training_requirement))
   end
   
 end
