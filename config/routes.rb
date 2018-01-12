@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   scope '/admin' do
     resources :users, except: [:new, :create] do
       member do
-        get 'training_videos'
+        get 'training_requirements'
         patch 'deactivate'
         patch 'reactivate'
         patch 'approve'
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   resources :timecards
   resources :training_records, only: :destroy
   # Routes for training videos
-  resources :training_videos do
+  resources :training_requirements do
     member do
       post 'training_records', to: 'training_records#create'
       get 'users'

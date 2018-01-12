@@ -1,10 +1,10 @@
-<% if @training_video.errors.any? %>
+<% if @training_requirement.errors.any? %>
   <div class="card border-danger">
     <div class="card-header bg-danger text-white">
-     <%= "#{pluralize(@training_video.errors.count, "error")} prevented this timecard from being saved: " %>
+     <%= "#{pluralize(@training_requirement.errors.count, "error")} prevented this video from being saved: " %>
     </div>
     <ul class="list-group list-group-flush">
-      <% @training_video.errors.full_messages.each do |m| %>
+      <% @training_requirement.errors.full_messages.each do |m| %>
         <li class="list-group-item"><%= "#{m}" %></li>
       <% end %>
     </ul>

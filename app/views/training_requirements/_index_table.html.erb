@@ -1,9 +1,9 @@
 <h5><%= which_listing %>:</h5>
 <table class="table table-hover my-4">
-  <% if videos.any? %>
-    <% videos.each do |v| %>
-      <tr onclick="window.location='<%= training_video_path(v) %>'">
-        <td><%= link_to v.title, training_video_path(v) %></td>
+  <% if training_requirements.any? %>
+    <% training_requirements.each do |tr| %>
+      <tr onclick="window.location='<%= training_requirement_path(tr) %>'">
+        <td><%= link_to tr.title, training_requirement_path(tr) %></td>
       </tr>
     <% end %>
   <% else %>
