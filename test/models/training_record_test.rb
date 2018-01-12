@@ -19,32 +19,29 @@ class TrainingRecordTest < ActiveSupport::TestCase
   
   # Should be deleted when associated video is deleted
   test "delete with video" do
-    video = training_videos(:one)
+    requirement = training_requirements(:one)
     user = users(:admin)
     user.training_records.create({
-      training_video_id: video.id
+      training_requirement_id: requirement.id
     })
     
-    t = TrainingRecord.count
-    
-    video.destroy
-    
-    assert TrainingRecord.count < t
+    assert_difference('TrainingRecord.count', -1) do 
+      requirement.destroy
+    end
     
   end
   
   # Should be deleted when associated user is deleted
   test "delete with user" do
-    video = training_videos(:one)
+    requirement = training_requirements(:one)
     user = users(:admin)
     user.training_records.create({
-      training_video_id: video.id
+      training_requirement_id: requirement.id
     })
-    t = TrainingRecord.count
     
-    user.destroy
-    
-    assert TrainingRecord.count < t
+    assert_difference('TrainingRecord.count', -1) do
+      user.destroy
+    end
     
   end
 end

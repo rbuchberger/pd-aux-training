@@ -3,16 +3,16 @@ class TimecardValidator < ActiveModel::Validator
   
   def validate(timecard)
     
-    timecard.errors[:start] << "Must be present" unless timecard.start
-    timecard.errors[:end] << "Must be present" unless timecard.end
+    timecard.errors[:clock_in] << "Must be present" unless timecard.clock_in
+    timecard.errors[:clock_out] << "Must be present" unless timecard.clock_out
     
     unless timecard.errors.any? # All of this breaks if start and end times aren't supplied. 
-      if timecard.start >= Time.zone.now
-         timecard.errors[:start] << "can't be in the future." 
+      if timecard.clock_in >= Time.zone.now
+         timecard.errors[:clock_in] << "can't be in the future." 
       end
       
-      if timecard.end >= Time.zone.now + 24.hours
-        timecard.errors[:end] << "can't be more than 24 hours in the future." 
+      if timecard.clock_out >= Time.zone.now + 24.hours
+        timecard.errors[:clock_out] << "can't be more than 24 hours in the future." 
       end
       
       # Gonna use length several times. 
@@ -33,7 +33,7 @@ class TimecardValidator < ActiveModel::Validator
       # Check if they overlap the new card
       overlaps_existing = false
       existing_user_timecards.each do |t| 
-        if ( (t[:start]..t[:end]).overlaps? (timecard[:start]..timecard[:end]) ) && t != timecard
+        if ( (t[:clock_in]..t[:clock_out]).overlaps? (timecard[:clock_in]..timecard[:clock_out]) ) && t != timecard
          overlaps_existing = true  
         end
       end

@@ -12,7 +12,7 @@ class TrainingVideoTest < ActiveSupport::TestCase
   # Grabs youtube ID before save which matches the correct pattern
 
   test "grabs yt_id" do
-    t = TrainingRequirement.create(valid_training_video_params) 
+    t = TrainingRequirement.create(valid_training_requirement_params) 
     assert t.training_video.yt_id == "PdDu9T1EbWM"
   end
   

@@ -17,7 +17,7 @@
     <% end %>
     <div class="card col-xl-8 p-3">
       <% unless @last_workday.blank? %>
-        <h5 class="card-title">Your most recent timecard was <%= @last_workday.duration_hours %> hours, on <%= @last_workday.start.strftime("%A, %b %d") %>.</p>
+        <h5 class="card-title">Your most recent timecard was <%= @last_workday.duration_hours %> hours, on <%= @last_workday.clock_in.strftime("%A, %b %d") %>.</p>
     <% else %>
         <h5 class="card-title">You have not logged any timecards.</h5>
       <% end %>

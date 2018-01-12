@@ -11,5 +11,5 @@ class TrainingRequirement < ApplicationRecord
   validates :description, length: {maximum: 1000}
 
   # Scopes
-  default_scope { order: :title }
+  default_scope {order( :title )} 
 end
