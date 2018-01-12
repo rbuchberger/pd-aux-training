@@ -35,7 +35,7 @@
   </div>
 </div>
 <%= form_for @training_requirement do |f| %>
-  <%= fields_for :training_videos do |v| %>
+  <%= fields_for :training_video do |v| %>
     <div class = "form-group">
       <%= v.label "YouTube address" %>
       <%= v.text_field :url, class: "form-control", placeholder: "https://www.youtube.com/watch?v=3VHTUG-VpWA" %>

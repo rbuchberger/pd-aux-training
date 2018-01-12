@@ -28,12 +28,13 @@ class ActiveSupport::TestCase
     }
   end
   
-  def valid_video_params
+  def valid_training_requirement_params
     {
     title: "How to apply handcuffs", 
     description: "I know someone who's into this stuff.", 
+    training_video_attributes: {
     url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
-    }
+    }}
   end
   
   def valid_training_record_params

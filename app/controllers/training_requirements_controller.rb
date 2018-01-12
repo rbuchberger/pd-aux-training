@@ -2,7 +2,7 @@ class TrainingRequirementsController < ApplicationController
   def new
     @training_requirement = TrainingRequirement.new()
     authorize @training_requirement
-    @training_requirement.training_videos.build  
+    @training_requirement.training_video.build  
   end
   
   def create 
