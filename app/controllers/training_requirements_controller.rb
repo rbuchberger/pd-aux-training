@@ -11,7 +11,7 @@ class TrainingRequirementsController < ApplicationController
     
     if @training_requirement.save
       flash[:success] = "Training video created!"
-      redirect_to training_requirement_path(@training_video)
+      redirect_to training_requirement_path(@training_requirement)
     else
       flash[:danger] = "Could not create video."
       render new_training_requirement_path

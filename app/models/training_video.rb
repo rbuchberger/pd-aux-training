@@ -3,11 +3,12 @@ class TrainingVideo < ApplicationRecord
   belongs_to :training_requirement
 
   # Validations
-  validates :title, presence: true, length: {maximum: 50}
   validates :url, presence: true
-  validates :description, length: {maximum: 1000}
   validates_format_of :url, with: @@url_regex, 
     message: ": I'm sorry, I don't know what to do with that address."
+
+  # Scopes
+  default_scope { order: :title }
   
   
   # Custom methods

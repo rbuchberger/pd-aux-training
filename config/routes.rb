@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   
   # Routes for users to register and edit their logins & profiles
   devise_for :users, controllers: {registrations: 'users/registrations'}
-
   
   # Administration related routes for managing other users:
   scope '/admin' do
@@ -16,8 +15,10 @@ Rails.application.routes.draw do
         delete 'reject'
       end
     end
+    
     # Training records index
     resources :training_records, only: :index
+
     # Admin timecard index and filters
     get 'timecards/(:user_id)', to: 'timecards#admindex', as: 'admin_timecards'
   end
