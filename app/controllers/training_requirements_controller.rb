@@ -22,7 +22,7 @@ class TrainingRequirementsController < ApplicationController
     @training_requirement = get_training_requirement
     @user = current_user
     if @user.training_requirement.exists?(@training_requirement.id)
-      @training_record = @user.training_records.where(training_requirement_id: @training_video.id).first
+      @training_record = @user.training_records.where(training_requirement_id: @training_requirement.id).first
     end
   end
   
