@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # Relationships:
   has_many :timecards, dependent: :destroy
   has_many :training_records, dependent: :destroy
-  has_many :training_videos, through: :training_records
+  has_many :training_requirements, through: :training_records
   
   # Validations:
   # (Devise handles most of them. I only need to validate my custom fields) 
