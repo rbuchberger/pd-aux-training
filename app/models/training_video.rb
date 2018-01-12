@@ -1,9 +1,6 @@
 class TrainingVideo < ApplicationRecord
-  has_many :training_records, dependent: :destroy
-  has_many :users, through: :training_records
-  
-  # Class Variables
-  @@url_regex = /(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"'>]+)/
+  # Associations
+  belongs_to :training_requirement
 
   # Validations
   validates :title, presence: true, length: {maximum: 50}
@@ -12,14 +9,11 @@ class TrainingVideo < ApplicationRecord
   validates_format_of :url, with: @@url_regex, 
     message: ": I'm sorry, I don't know what to do with that address."
   
-  # Callbacks
-  before_save :grab_youtube_id
   
-  private
-  
-  def grab_youtube_id
-    # Pulls the youtube video ID out of the url.
-    self.yt_id = @@url_regex.match(self.url)[5] 
+  # Custom methods
+  def yt_id
+    url_regex = /(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"'>]+)/
+    url_regex.match(self.url)[5]
   end
   
 end

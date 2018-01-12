@@ -1,0 +1,2 @@
+class TrainingRequirement < ApplicationRecord
+end
