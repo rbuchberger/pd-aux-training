@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180105213200) do
+ActiveRecord::Schema.define(version: 20180112032947) do
 
   create_table "timecards", force: :cascade do |t|
     t.integer "user_id"
@@ -24,11 +24,19 @@ ActiveRecord::Schema.define(version: 20180105213200) do
 
   create_table "training_records", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "training_video_id"
+    t.integer "training_requirement_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["training_video_id"], name: "index_training_records_on_training_video_id"
+    t.index ["training_requirement_id"], name: "index_training_records_on_training_requirement_id"
     t.index ["user_id"], name: "index_training_records_on_user_id"
+  end
+
+  create_table "training_requirements", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.boolean "required?"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "training_videos", force: :cascade do |t|
@@ -40,6 +48,8 @@ ActiveRecord::Schema.define(version: 20180105213200) do
     t.integer "custom_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "training_requirement_id"
+    t.index ["training_requirement_id"], name: "index_training_videos_on_training_requirement_id"
   end
 
   create_table "users", force: :cascade do |t|
