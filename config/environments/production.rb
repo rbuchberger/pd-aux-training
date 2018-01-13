@@ -49,7 +49,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :warn
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -62,21 +62,21 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "pd-aux-training_#{Rails.env}"
 
   # Mailer config 
-  ActionMailer::Base.smtp_settings = {
-      :port           => ENV['MAILGUN_SMTP_PORT'],
-      :address        => ENV['MAILGUN_SMTP_SERVER'],
-      :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-      :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-      :domain         => 'cryptic-basin-20774.heroku.com',
-      :authentication => :plain,
-  }
-  ActionMailer::Base.delivery_method = :smtp
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default :charset => "utf-8"
-  config.action_mailer.perform_caching = false
-
+  # ActionMailer::Base.smtp_settings = {
+      # :port           => ENV['MAILGUN_SMTP_PORT'],
+      # :address        => ENV['MAILGUN_SMTP_SERVER'],
+      # :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+      # :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+      # :domain         => 'cryptic-basin-20774.heroku.com',
+      # :authentication => :plain,
+  # }
+  # ActionMailer::Base.delivery_method = :smtp
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = false
+  # config.action_mailer.default :charset => "utf-8"
+  # config.action_mailer.perform_caching = false
+# 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
