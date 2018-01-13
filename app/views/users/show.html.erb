@@ -10,7 +10,7 @@
         <p><strong>Last signed in:</strong> <%= @user.current_sign_in_at ? @user.current_sign_in_at.strftime("%b %d, %Y") : "None" %></p>
         <p><strong>Number of times signed in:</strong> <%= @user.sign_in_count %></p>
         <p><strong>Activation status: </strong> <%= @user.deleted_at ? "Deactivated on #{@user.deleted_at.strftime("%b %d, %Y")}" : "Active" %></p> 
-        <p><%= link_to "View user's training", training_videos_user_path(@user) %></p>
+        <p><%= link_to "View user's training", videos_user_path(@user) %></p>
         <p><%= link_to "View user's timecards", admin_timecards_path(@user) %></p> 
       <% else %>
         <%= render "approve_buttons" %>
