@@ -39,9 +39,10 @@ class CompletionTest < ActiveSupport::TestCase
       lesson_id: lesson.id
     })
     
-    t = Completion.count 
-    user.destroy
-    assert t > Completion.count
+    t = user.completions.count * -1 
+    assert_difference('Completion.count', t) do
+      user.destroy
+    end
     
   end
 end
