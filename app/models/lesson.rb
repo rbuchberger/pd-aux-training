@@ -1,10 +1,10 @@
-class TrainingRequirement < ApplicationRecord
+class Lesson < ApplicationRecord
   # Associations
-  has_many :training_records, dependent: :destroy
-  has_many :users, through: :training_records
+  has_many :completions, dependent: :destroy
+  has_many :users, through: :completions
   # It'll be a has_one relationship for now, until I add functionality to support multiple types of training resources
-  has_one :training_video, dependent: :destroy
-  accepts_nested_attributes_for :training_video
+  has_one :video, dependent: :destroy
+  accepts_nested_attributes_for :video
 
   # Validations
   validates :title, presence: true, length: {maximum: 50}
