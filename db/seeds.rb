@@ -8,7 +8,8 @@ User.create([
     email: 'admin@example.com',
     role: :admin,
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    id: 1
   } , {
     first_name: 'Vanessa',
     last_name: 'Kensington',
@@ -16,7 +17,8 @@ User.create([
     email: 'trainer@example.com',
     role: :trainer,
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    id: 2
   } , {
     first_name: 'Scott',
     last_name: 'Evil',
@@ -24,7 +26,8 @@ User.create([
     email: 'deputy@example.com',
     role: :deputy,
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    id: 3
   } , {
     first_name: 'Frau',
     last_name: 'Farbissina',
@@ -32,7 +35,8 @@ User.create([
     email: 'pending@example.com',
     role: :pending,
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    id: 4
   } , {
     first_name: 'Number',
     last_name: 'Two', 
@@ -40,7 +44,8 @@ User.create([
     email: 'deactivated@example.com',
     role: :deputy,
     password: '123456',
-    deleted_at: Time.zone.now - 1.day
+    deleted_at: Time.zone.now - 1.day,
+    id: 5
   } 
 
 ])
@@ -107,6 +112,7 @@ Lesson.create([
     description: ""
   }
 ])
+
 Completion.create([
   {
     user_id: 3,
