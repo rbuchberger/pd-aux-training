@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112033419) do
+ActiveRecord::Schema.define(version: 20180113163342) do
+
+  create_table "completions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "training_requirement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_requirement_id"], name: "index_completions_on_training_requirement_id"
+    t.index ["user_id"], name: "index_completions_on_user_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.boolean "required?"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "timecards", force: :cascade do |t|
     t.integer "user_id"
@@ -20,35 +37,6 @@ ActiveRecord::Schema.define(version: 20180112033419) do
     t.datetime "clock_in"
     t.datetime "clock_out"
     t.index ["user_id"], name: "index_timecards_on_user_id"
-  end
-
-  create_table "training_records", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "training_requirement_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["training_requirement_id"], name: "index_training_records_on_training_requirement_id"
-    t.index ["user_id"], name: "index_training_records_on_user_id"
-  end
-
-  create_table "training_requirements", force: :cascade do |t|
-    t.text "title"
-    t.text "description"
-    t.boolean "required?"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "training_videos", force: :cascade do |t|
-    t.text "title"
-    t.text "description"
-    t.text "url"
-    t.integer "custom_start"
-    t.integer "custom_end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "training_requirement_id"
-    t.index ["training_requirement_id"], name: "index_training_videos_on_training_requirement_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,6 +59,18 @@ ActiveRecord::Schema.define(version: 20180112033419) do
     t.datetime "deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.text "url"
+    t.integer "custom_start"
+    t.integer "custom_end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "training_requirement_id"
+    t.index ["training_requirement_id"], name: "index_videos_on_training_requirement_id"
   end
 
 end
