@@ -1,4 +1,4 @@
-class TrainingRequirementPolicy < ApplicationPolicy
+class LessonPolicy < ApplicationPolicy
   
   def index?
     true
