@@ -14,9 +14,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
       
       # Training Videos
-      test "deputy training_requirements" do
+      test "deputy lessons" do
         sign_in users(:deputy)
-        get training_requirements_user_path(users(:deputy))
+        get lessons_user_path(users(:deputy))
         
         assert_response :success
       end
@@ -51,10 +51,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert flash[:success]
       end
       
-      # someone else's training requirements 
-      test "trainer user requirements" do
+      # someone else's lessons 
+      test "trainer user lessons" do
         sign_in users(:trainer)
-        get training_requirements_user_path(users(:deputy))
+        get lessons_user_path(users(:deputy))
         
         assert_response :success
       end
@@ -149,10 +149,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert flash[:alert]
       end      
       
-      # Someone else's training requirements 
-      test "deputy user requirements" do
+      # Someone else's lessons 
+      test "deputy user lessons" do
         sign_in users(:deputy)
-        get training_requirements_user_path(users(:trainer))
+        get lessons_user_path(users(:trainer))
         
         assert_redirected_to root_path
         assert flash[:alert]
