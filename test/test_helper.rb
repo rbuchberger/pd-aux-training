@@ -22,8 +22,8 @@ class ActiveSupport::TestCase
   def valid_timecard_params
     {
       description: 'Raiding Panties',
-      start: Time.zone.now - 20.days,
-      end: Time.zone.now - 20.days + 5.hours,
+      clock_in: Time.zone.now - 20.days,
+      clock_out: Time.zone.now - 20.days + 5.hours,
     }
   end
   
