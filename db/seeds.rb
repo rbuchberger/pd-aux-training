@@ -79,40 +79,52 @@ Timecard.create([
   }
 ])
   
-TrainingVideo.create([
+Video.create([
   {
-    title: "How to apply handcuffs", 
-    description: "I know someone who's into this stuff.", 
     url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
+    lesson_id: 1
   } , {
-    title: "The Ultimate Hickok45 Montage",
-    description: "Hickock45 here, smokin' some pot.",
     url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw",
+    lesson_id: 2
   } , {
-    title: "Handgun selection",
-    description: "",
     url: "https://www.youtube.com/watch?v=-OSodRtHHmo&index=5&list=FLcGBJ-rifHsKrhvwmmX4VCw",
+    lesson_id: 3
   }
 ])
 
-TrainingRecord.create([
+Lesson.create([
+  {
+    id: 1,
+    title: "How to apply handcuffs", 
+    description: "I know someone who's into this stuff." 
+  } , {
+    id: 2, 
+    title: "The Ultimate Hickok45 Montage",
+    description: "Hickock45 here, smokin' some pot."
+  } , {
+    id: 3,
+    title: "Handgun selection",
+    description: ""
+  }
+])
+Completion.create([
   {
     user_id: 3,
-    training_video_id: 2
+    lesson_id: 2
   } , {
     user_id: 3,
-    training_video_id: 1
+    lesson_id: 1
   } , {
     user_id: 3,
-    training_video_id: 3
+    lesson_id: 3
   } , {
     user_id: 1,
-    training_video_id: 2
+    lesson_id: 2
   } , {
     user_id: 1,
-    training_video_id: 3
+    lesson_id: 3
   } , {
     user_id: 2,
-    training_video_id: 1
+    lesson_id: 1
   } 
 ])
