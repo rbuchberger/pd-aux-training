@@ -24,7 +24,7 @@ class UserPolicy < ApplicationPolicy
     @user.trainer? &&
     @record.pending? &&
     !@record.timecards.any? &&
-    !@record.training_records.any?
+    !@record.completions.any?
   end
   
   def reject?

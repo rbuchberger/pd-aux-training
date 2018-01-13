@@ -91,12 +91,12 @@ class UsersController < ApplicationController
   end
 
 	# Index training requirements by completion status, based on a particular user
-	def training_requirements
+	def lessons
 	  @user = get_user
     authorize @user
-    @training_requirements_complete = @user.training_requirements.all.order(:title)
+    @lessons_complete = @user.lessons.all.order(:title)
     # Surely there's a more efficient way to do this:
-    @training_requirements_incomplete = (TrainingVideo.all.order(:title).to_a - @training_requirements_complete.to_a)  
+    @lessons_incomplete = (Lesson.all.order(:title).to_a - @lessons_complete.to_a)  
 	end
 	
 	private

@@ -12,7 +12,7 @@
     <% if @incomplete_training_count > 0 %>
       <div class="card col-xl-8 p-3">
         <h5 class="card-title"><%="You have #{pluralize(@incomplete_training_count, "incomplete training video")}."%></h5>
-        <%= button_to "Go train", training_requirements_path, method: :get, class: "btn btn-lg btn-primary" %>
+        <%= button_to "Go train", lessons_path, method: :get, class: "btn btn-lg btn-primary" %>
       </div>
     <% end %>
     <div class="card col-xl-8 p-3">

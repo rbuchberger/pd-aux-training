@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   def new
     @lesson = Lesson.new()
     authorize @lesson
-    @lesson.video.new  
+    @lesson.videos.new  
   end
   
   def create 
