@@ -2,8 +2,8 @@ class User < ApplicationRecord
 
   # Relationships:
   has_many :timecards, dependent: :destroy
-  has_many :training_records, dependent: :destroy
-  has_many :training_requirements, through: :training_records
+  has_many :completions, dependent: :destroy
+  has_many :lessons, through: :completions
   
   # Validations:
   # (Devise handles most of them. I only need to validate my custom fields) 
@@ -88,12 +88,12 @@ private
     self.last_name = self.last_name.gsub(/ {2,}/, " ")
     # Remove spaces from the end
     self.last_name = self.last_name.gsub(/ *\z/, "")
-    # Capitalize I, II, IV, etc
+    # Uppercase for I, II, IV, etc
     self.last_name = self.last_name.gsub(/[i,v,x]{1,3}\z/i) {|g| g.upcase}
-    # Capitalize badge number
+    # Uppercase badge number
     self.badge_number = self.badge_number.upcase
     # Add a dash to the badge number, if it's an X-number format. 
-    self.badge_number = self.badge_number.gsub(/(?<X>X)(?<num>\d{2})/, '\k<X>-\k<num>' )
+    self.badge_number = self.badge_number.gsub(/X(?<num>\d{2})/, 'X-\k<num>' )
     # Change NA to N/A for consistency. 
     self.badge_number = self.badge_number.gsub(/NA/, 'N/A')
   end

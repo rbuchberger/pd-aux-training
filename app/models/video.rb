@@ -1,10 +1,10 @@
-class TrainingVideo < ApplicationRecord
+class Video < ApplicationRecord
 
   @@url_regex = /(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"'>]+)/
   
 
   #Associations
-  belongs_to :training_requirement
+  belongs_to :lesson
 
   # Validations
   validates :url, presence: true
