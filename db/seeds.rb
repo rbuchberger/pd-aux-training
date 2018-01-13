@@ -54,62 +54,58 @@ Timecard.create([
   {
     user_id: 1,
     description: 'Raiding Panties',
-    start: Time.zone.now - 5.days,
-    end: Time.zone.now - 5.days + 5.hours,
+    clock_in: Time.zone.now - 5.days,
+    clock_out: Time.zone.now - 5.days + 5.hours,
   } , {
     user_id: 1,
     description: 'Dealing with fembots',
-    start: Time.zone.now - 4.days,
-    end: Time.zone.now - 4.days + 3.hours,
+    clock_in: Time.zone.now - 4.days,
+    clock_out: Time.zone.now - 4.days + 3.hours,
   } , {
     user_id: 2,
     description: 'Spy stuff',
-    start: Time.zone.now - 5.days,
-    end: Time.zone.now - 5.days + 5.hours,
+    clock_in: Time.zone.now - 5.days,
+    clock_out: Time.zone.now - 5.days + 5.hours,
   } , {
     user_id: 3,
     description: 'Getting shushed' ,
-    start: Time.zone.now - 31.days,
-    end: Time.zone.now - 31.days + 9.hours,
+    clock_in: Time.zone.now - 31.days,
+    clock_out: Time.zone.now - 31.days + 9.hours,
   } , {
     user_id: 1,
     description: 'Putting the GRRR in swinger baby',
-    start: Time.zone.now - 7.days,
-    end: Time.zone.now - 7.days + 12.hours,
+    clock_in: Time.zone.now - 7.days,
+    clock_out: Time.zone.now - 7.days + 12.hours,
   } , {
     user_id: 1,
     description: 'Retrieving Mojo',
-    start: Time.zone.now - 3.days + 2.hours,
-    end: Time.zone.now - 3.days + 9.hours,
+    clock_in: Time.zone.now - 3.days + 2.hours,
+    clock_out: Time.zone.now - 3.days + 9.hours,
   }
 ])
   
-Video.create([
-  {
-    url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
-    lesson_id: 1
-  } , {
-    url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw",
-    lesson_id: 2
-  } , {
-    url: "https://www.youtube.com/watch?v=-OSodRtHHmo&index=5&list=FLcGBJ-rifHsKrhvwmmX4VCw",
-    lesson_id: 3
-  }
-])
-
 Lesson.create([
   {
     id: 1,
     title: "How to apply handcuffs", 
-    description: "I know someone who's into this stuff." 
+    description: "I know someone who's into this stuff.",
+    video_attributes: {
+      url: "https://www.youtube.com/watch?v=PdDu9T1EbWM" 
+    }
   } , {
     id: 2, 
     title: "The Ultimate Hickok45 Montage",
-    description: "Hickock45 here, smokin' some pot."
+    description: "Hickock45 here, smokin' some pot.",
+    video_attributes: {
+      url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw"
+    }
   } , {
     id: 3,
     title: "Handgun selection",
-    description: ""
+    description: "",
+    video_attributes: {
+      url: "https://www.youtube.com/watch?v=-OSodRtHHmo&index=5&list=FLcGBJ-rifHsKrhvwmmX4VCw"
+    }
   }
 ])
 

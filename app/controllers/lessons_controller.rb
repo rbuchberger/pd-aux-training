@@ -21,7 +21,7 @@ class LessonsController < ApplicationController
   def show 
     @lesson = get_lesson
     @user = current_user
-    if @user.lesson.exists?(@lesson.id)
+    if @user.lessons.exists?(@lesson.id)
       @completion = @user.completions.where(lesson_id: @lesson.id).first
     end
   end

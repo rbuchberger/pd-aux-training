@@ -23,5 +23,5 @@
   <%= link_to "List users who have completed this video", users_lesson_path(@lesson), class: "text-center mx-auto my-2" if policy(@lesson).users? %>
 </div>
 <div class="row">
-  <%= link_to "Edit Video", edit_lesson_(@lesson), class: "text-center mx-auto my-2" if policy(@lesson).edit? %>
+  <%= link_to "Edit Video", edit_lesson_path(@lesson), class: "text-center mx-auto my-2" if policy(@lesson).edit? %>
 </div>
