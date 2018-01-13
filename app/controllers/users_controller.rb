@@ -90,13 +90,13 @@ class UsersController < ApplicationController
     redirect_to user_path(@user)
   end
 
-	# Index training videos by completion status, based on a particular user
-	def training_videos
+	# Index training requirements by completion status, based on a particular user
+	def training_requirements
 	  @user = get_user
     authorize @user
-    @training_videos_complete = @user.training_videos.all.order(:title)
+    @training_requirements_complete = @user.training_requirements.all.order(:title)
     # Surely there's a more efficient way to do this:
-    @training_videos_incomplete = (TrainingVideo.all.order(:title).to_a - @training_videos_complete.to_a)  
+    @training_requirements_incomplete = (TrainingVideo.all.order(:title).to_a - @training_requirements_complete.to_a)  
 	end
 	
 	private

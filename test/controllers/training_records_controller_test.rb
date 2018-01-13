@@ -9,7 +9,7 @@ class TrainingRecordsControllerTest < ActionDispatch::IntegrationTest
       test "deputy create own" do
         sign_in users(:deputy)
         assert_difference('users(:deputy).training_records.count') do
-          post training_records_training_video_path(training_videos(:four)) 
+          post training_records_training_requirement_path(training_requirements(:four)) 
         end
         assert flash[:success]
         assert_response :redirect

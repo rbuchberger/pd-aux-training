@@ -9,16 +9,16 @@ class TrainingRecordTest < ActiveSupport::TestCase
     assert_not t.save
   end
   
-  # Shouldn't save without a video
-  test "save without video" do
+  # Shouldn't save without a requirement
+  test "save without requirement" do
     t = TrainingRecord.new(valid_training_record_params)
     t.training_requirement_id = ""
     
     assert_not t.save
   end
   
-  # Should be deleted when associated video is deleted
-  test "delete with video" do
+  # Should be deleted when associated requirement is deleted
+  test "delete with requirement" do
     requirement = training_requirements(:one)
     user = users(:admin)
     user.training_records.create({

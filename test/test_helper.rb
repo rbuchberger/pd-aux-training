@@ -40,7 +40,7 @@ class ActiveSupport::TestCase
   def valid_training_record_params
     {
       user_id: 1,
-      training_video_id: 1
+      training_requirement_id: 1
     }
   end
   

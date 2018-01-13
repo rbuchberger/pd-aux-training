@@ -39,7 +39,7 @@ class TrainingRecordsController < ApplicationController
   private
   
   def training_record_params
-    params.require(:training_requirement))
+    params.require(:training_requirement)
   end
   
 end
