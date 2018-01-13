@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180113163342) do
+ActiveRecord::Schema.define(version: 20180113172201) do
 
   create_table "completions", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "training_requirement_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["training_requirement_id"], name: "index_completions_on_training_requirement_id"
+    t.integer "lesson_id"
+    t.index ["lesson_id"], name: "index_completions_on_lesson_id"
     t.index ["user_id"], name: "index_completions_on_user_id"
   end
 
@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 20180113163342) do
     t.integer "custom_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "training_requirement_id"
-    t.index ["training_requirement_id"], name: "index_videos_on_training_requirement_id"
+    t.integer "lessons_id"
+    t.index ["lessons_id"], name: "index_videos_on_lessons_id"
   end
 
 end
