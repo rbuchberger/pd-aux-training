@@ -1,27 +1,27 @@
 require 'test_helper'
 
-class TrainingRecordsControllerTest < ActionDispatch::IntegrationTest
+class CompletionsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   
   # --- Things that should work
     # --- Deputy tests
-      # Create training record
+      # Create completion
       test "deputy create own" do
         sign_in users(:deputy)
-        assert_difference('users(:deputy).training_records.count') do
-          post training_records_training_requirement_path(training_requirements(:four)) 
+        assert_difference('users(:deputy).completions.count') do
+          post completions_lesson_path(lessons(:four)) 
         end
         assert flash[:success]
         assert_response :redirect
       
       end
       
-      # delete training record
+      # delete completion
       test "deputy delete own" do
         sign_in users(:deputy)
         
-        assert_difference('users(:deputy).training_records.count', -1) do
-          delete training_record_path(training_records(:deputy))
+        assert_difference('users(:deputy).completions.count', -1) do
+          delete completion_path(completions(:deputy))
         end
         
         assert flash[:success]
@@ -29,11 +29,11 @@ class TrainingRecordsControllerTest < ActionDispatch::IntegrationTest
       end      
       
     # --- Trainer tests
-      # Training record index
+      # Completion index
       test "trainer index" do
         sign_in users(:trainer)
         
-        get training_records_path
+        get completions_path
         
         assert_response :success
       end
@@ -41,11 +41,11 @@ class TrainingRecordsControllerTest < ActionDispatch::IntegrationTest
   # --- Things that shouldn't work
 
     # --- Deputy tests
-      # Training record index
+      # Completion index
       test "deputy index" do
         sign_in users(:deputy)
         
-        get training_records_path
+        get completions_path
         
         assert flash[:alert]
         assert_redirected_to root_path
@@ -56,8 +56,8 @@ class TrainingRecordsControllerTest < ActionDispatch::IntegrationTest
       test "admin delete else" do
         sign_in users(:admin)
         
-        assert_no_difference('users(:deputy).training_records.count') do
-          delete training_record_path(training_records(:deputy))
+        assert_no_difference('users(:deputy).completions.count') do
+          delete completion_path(completions(:deputy))
         end
         
         assert flash[:alert]
