@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
+class LessonsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   
   # --- Things that should work
@@ -8,7 +8,7 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # show action
       test "deputy show" do
         sign_in users(:deputy)
-        get training_requirements_path(training_requirements(:one))
+        get lessons_path(lessons(:one))
         
         assert_response :success
       end
@@ -16,7 +16,7 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # index action
       test "deputy index" do
         sign_in users(:deputy)
-        get training_requirements_path
+        get lessons_path
         
         assert_response :success
       end
@@ -25,7 +25,7 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # new action
       test "trainer new" do
         sign_in users(:trainer)
-        get new_training_requirement_path
+        get new_lesson_path
         
         assert_response :success
       end
@@ -33,8 +33,8 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # create action
       test "trainer create" do
         sign_in users(:trainer)
-        assert_difference('TrainingRequirement.count') do
-          post training_requirements_path, params: {training_requirement: valid_training_requirement_params}
+        assert_difference('Lesson.count') do
+          post lessons_path, params: {lesson: valid_lesson_params}
         end
         
         assert flash[:success]
@@ -43,8 +43,8 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # update action
       test "trainer update" do
         sign_in users(:trainer)
-        patch training_requirement_path(training_requirements(:one)),  params: {training_requirement: {description: "new description"}}
-        t = TrainingRequirement.find(training_requirements(:one).id)
+        patch lesson_path(lessons(:one)),  params: {lesson: {description: "new description"}}
+        t = Lesson.find(lessons(:one).id)
         assert_equal t.description, "new description"
         assert flash[:success]
         assert_response :redirect
@@ -52,18 +52,18 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # destroy action
       test "trainer destroy" do
         sign_in users(:trainer)
-        assert_difference('TrainingRequirement.count') do
-          post training_requirements_path, params: {training_requirement: valid_training_requirement_params}
+        assert_difference('Lesson.count') do
+          post lessons_path, params: {lesson: valid_lesson_params}
         end
         
         assert flash[:success]
         assert_response :redirect
       end      
       
-      # user index by video action
+      # user index by lesson action
       test "trainer users list" do
         sign_in users(:trainer)
-        get users_training_requirement_path(training_requirements(:one))
+        get users_lesson_path(lessons(:one))
         
         assert_response :success
       end
@@ -73,7 +73,7 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # new action
       test "deputy new" do
         sign_in users(:deputy)
-        get new_training_requirement_path
+        get new_lesson_path
         
         assert flash[:alert]        
         assert_redirected_to root_path
@@ -82,8 +82,8 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # create action
       test "deputy create" do
         sign_in users(:deputy)
-        assert_no_difference('TrainingRequirement.count') do
-          post training_requirements_path, params: {training_requirement: valid_training_requirement_params}
+        assert_no_difference('Lesson.count') do
+          post lessons_path, params: {lesson: valid_lesson_params}
         end
         
         assert flash[:alert]
@@ -92,8 +92,8 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # update action
       test "deputy update" do
         sign_in users(:deputy)
-        patch training_requirement_path(training_requirements(:one)),  params: {description: "new description"}
-        t = TrainingRequirement.find(training_requirements(:one).id)
+        patch lesson_path(lessons(:one)),  params: {description: "new description"}
+        t = Lesson.find(lessons(:one).id)
         assert t.description != "new description"
         assert flash[:alert]
         assert_redirected_to root_path
@@ -101,18 +101,18 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
       # destroy action
       test "deputy destroy" do
         sign_in users(:deputy)
-        assert_no_difference('TrainingRequirement.count') do
-          delete training_requirement_path(training_requirements(:one))
+        assert_no_difference('Lesson.count') do
+          delete lesson_path(lessons(:one))
         end
         
         assert flash[:alert]
         assert_redirected_to root_path
       end      
       
-      # user index by video action
+      # user index by lesson action
       test "deputy users list" do
         sign_in users(:deputy)
-        get users_training_requirement_path(training_requirements(:one))
+        get users_lesson_path(lessons(:one))
         
         assert flash[:alert]        
         assert_redirected_to root_path
@@ -120,7 +120,7 @@ class TrainingRequirementsControllerTest < ActionDispatch::IntegrationTest
     # --- Logged out test
       # Index action
       test "logged out index" do
-        get training_requirements_path
+        get lessons_path
         
         assert flash[:alert]        
         assert_redirected_to new_user_session_path
