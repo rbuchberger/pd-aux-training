@@ -9,7 +9,7 @@
             <strong class="">Clocked in:</strong>
           </td>
           <td>
-            <%= @timecard.start.strftime("%I:%M %p on %A, %B %e, %Y") %>
+            <%= @timecard.clock_in.strftime("%I:%M %p on %A, %B %e, %Y") %>
           </td>
         </tr>
         <tr>
@@ -17,7 +17,7 @@
             <strong>Clocked out:</strong>
           </td>
           <td>
-            <%= @timecard.end.strftime("%I:%M %p") %>
+            <%= @timecard.clock_out.strftime("%I:%M %p") %>
           </td>
         </td>
         <tr>

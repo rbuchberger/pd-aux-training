@@ -24,14 +24,14 @@ class UserPolicy < ApplicationPolicy
     @user.trainer? &&
     @record.pending? &&
     !@record.timecards.any? &&
-    !@record.training_records.any?
+    !@record.completions.any?
   end
   
   def reject?
     approve?
   end
   
-  def training_videos?
+  def lessons?
     own_record? || @user.trainer?
   end
 

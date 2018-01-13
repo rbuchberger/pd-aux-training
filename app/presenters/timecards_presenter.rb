@@ -5,8 +5,6 @@ module TimecardsPresenter
     # Works out which timecards to return based on varying inputs.
     # Implements default values if something isn't specified. 
     
-    # include ActiveModel::Model # (turns out I didn't need it.)
-    
     attr_accessor :range_start, :range_end, :user_id
     attr_reader :list, :title, :selected_user_id, :select_options
      
@@ -32,18 +30,19 @@ module TimecardsPresenter
         @user = user
       elsif !params[:user_id].blank? 
         @user = User.unscoped.find(params[:user_id])
-        @select_options.add(@user) if @user.deleted_at # Select options builder won't include deactivated users, so we have to manually include them when selected specifically.  
+        # Select options builder won't include deactivated users by default:  
+        @select_options.add(@user) if @user.deleted_at
       end
       
       range = (@range_start .. @range_end)
       
       if !@user # If no user specified, return all users. 
         @selected_user_id = ""
-        @list = Timecard.where(start: range).order(start: :desc)
+        @list = Timecard.where(clock_in: range).order(clock_in: :desc)
         @title = "All Users"
       else 
         @selected_user_id = @user.id
-        @list = @user.timecards.where(start: range).order(start: :desc)
+        @list = @user.timecards.where(clock_in: range).order(clock_in: :desc)
         @title = @user.first_last
       end
 

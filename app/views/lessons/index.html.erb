@@ -1,0 +1,4 @@
+<h4 class="display-4 text-center my-4">My Training</h4>
+<%= render partial: 'index_table', locals: {which_listing: "Not Complete", lessons: @lessons_incomplete} %>
+<%= render partial: 'index_table', locals: {which_listing: "Complete", lessons: @lessons_complete} %>
+<%= link_to "Add Video", new_lesson_path, class: "btn btn-primary text-center my-2"  if policy(Lesson).new? %>

@@ -21,25 +21,25 @@ class ActiveSupport::TestCase
   
   def valid_timecard_params
     {
-      # user_id: users(:deputy).id,
       description: 'Raiding Panties',
-      start: Time.zone.now - 20.days,
-      end: Time.zone.now - 20.days + 5.hours,
+      clock_in: Time.zone.now - 20.days,
+      clock_out: Time.zone.now - 20.days + 5.hours,
     }
   end
   
-  def valid_video_params
+  def valid_lesson_params
     {
     title: "How to apply handcuffs", 
     description: "I know someone who's into this stuff.", 
+    video_attributes: {
     url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
-    }
+    }}
   end
   
-  def valid_training_record_params
+  def valid_completion_params
     {
       user_id: 1,
-      training_video_id: 1
+      lesson_id: 1
     }
   end
   

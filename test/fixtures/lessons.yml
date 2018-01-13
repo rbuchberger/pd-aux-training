@@ -1,0 +1,24 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one: 
+  id: 1
+  title: "How to apply handcuffs" 
+  description: "I know someone who's into this stuff." 
+
+two: 
+  id: 2
+  title: "The Ultimate Hickok45 Montage"
+  description: "Hickock45 here smokin' some pot."
+
+
+three:
+  id: 3
+  title: "How to be an operator"
+  description: ""
+
+
+four:
+  id: 4
+  title: "Handgun selection"
+  description: ""
+

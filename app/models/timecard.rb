@@ -6,8 +6,8 @@ class Timecard < ApplicationRecord
   
   # Validations
   validates :description, presence: true, length: {maximum: 250}
-  validates :start, presence: true 
-  validates :end, presence: true
+  validates :clock_in, presence: true 
+  validates :clock_out, presence: true
   validates :user, presence: true
   validates_with TimecardValidator #Defined in concerns/timecard_validator.rb
 
@@ -15,7 +15,7 @@ class Timecard < ApplicationRecord
   
   # Length of workday 
   def duration
-    self.end - self.start  
+    self.clock_out - self.clock_in  
   end
   
   # Length of workday, in hours rounded to the nearest decimal place.

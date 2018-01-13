@@ -1,0 +1,12 @@
+<h5><%= which_listing %>:</h5>
+<table class="table table-hover my-4">
+  <% if lessons.any? %>
+    <% lessons.each do |l| %>
+      <tr onclick="window.location='<%= lesson_path(l) %>'">
+        <td><%= link_to l.title, lesson_path(l) %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr><td>None</td><tr>
+  <% end %>
+</table>

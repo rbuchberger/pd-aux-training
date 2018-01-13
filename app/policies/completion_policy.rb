@@ -1,4 +1,4 @@
-class TrainingRecordPolicy < ApplicationPolicy
+class CompletionPolicy < ApplicationPolicy
   def index?
     @user.trainer?
   end

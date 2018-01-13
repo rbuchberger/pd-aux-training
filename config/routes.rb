@@ -3,32 +3,33 @@ Rails.application.routes.draw do
   
   # Routes for users to register and edit their logins & profiles
   devise_for :users, controllers: {registrations: 'users/registrations'}
-
   
   # Administration related routes for managing other users:
   scope '/admin' do
     resources :users, except: [:new, :create] do
       member do
-        get 'training_videos'
+        get 'lessons'
         patch 'deactivate'
         patch 'reactivate'
         patch 'approve'
         delete 'reject'
       end
     end
-    # Training records index
-    resources :training_records, only: :index
+    
+    # Training completions index
+    resources :completions, only: :index
+
     # Admin timecard index and filters
     get 'timecards/(:user_id)', to: 'timecards#admindex', as: 'admin_timecards'
   end
   
   # Routes for users to CRUD their own timecards:
   resources :timecards
-  resources :training_records, only: :destroy
-  # Routes for training videos
-  resources :training_videos do
+  # Routes for lessons
+  resources :completions, only: :destroy
+  resources :lessons do
     member do
-      post 'training_records', to: 'training_records#create'
+      post 'completions', to: 'completions#create'
       get 'users'
     end
   end

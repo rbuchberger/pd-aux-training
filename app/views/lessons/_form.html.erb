@@ -1,10 +1,10 @@
-<% if @training_video.errors.any? %>
+<% if @lesson.errors.any? %>
   <div class="card border-danger">
     <div class="card-header bg-danger text-white">
-     <%= "#{pluralize(@training_video.errors.count, "error")} prevented this timecard from being saved: " %>
+     <%= "#{pluralize(@lesson.errors.count, "error")} prevented this video from being saved: " %>
     </div>
     <ul class="list-group list-group-flush">
-      <% @training_video.errors.full_messages.each do |m| %>
+      <% @lesson.errors.full_messages.each do |m| %>
         <li class="list-group-item"><%= "#{m}" %></li>
       <% end %>
     </ul>
@@ -34,14 +34,16 @@
     </div>
   </div>
 </div>
-<%= form_for @training_video do |f| %>
-  <div class = "form-group">
-    <%= f.label "YouTube address" %>
-    <%= f.text_field :url, class: "form-control", placeholder: "https://www.youtube.com/watch?v=3VHTUG-VpWA" %>
-    <small id="urlHelp" class="form-text text-muted">
-      Pull up the youtube video you want to add, copy and paste its address here. 
-    </small>
-  </div>
+<%= form_for @lesson do |f| %>
+  <%= fields_for @lesson.video do |v| %>
+    <div class = "form-group">
+      <%= v.label "YouTube address" %>
+      <%= v.text_field :url, class: "form-control", placeholder: "https://www.youtube.com/watch?v=3VHTUG-VpWA" %>
+      <small id="urlHelp" class="form-text text-muted">
+        Pull up the youtube video you want to add, copy and paste its address here. 
+      </small>
+    </div>
+  <% end %>
   <div class = "form-group">
     <%= f.label :title %>
     <%= f.text_field :title, class: "form-control form-control-lg", placeholder: "The Ultimate Hickock45 Montage" %>

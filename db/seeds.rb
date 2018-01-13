@@ -8,7 +8,8 @@ User.create([
     email: 'admin@example.com',
     role: :admin,
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    id: 1
   } , {
     first_name: 'Vanessa',
     last_name: 'Kensington',
@@ -16,7 +17,8 @@ User.create([
     email: 'trainer@example.com',
     role: :trainer,
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    id: 2
   } , {
     first_name: 'Scott',
     last_name: 'Evil',
@@ -24,7 +26,8 @@ User.create([
     email: 'deputy@example.com',
     role: :deputy,
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    id: 3
   } , {
     first_name: 'Frau',
     last_name: 'Farbissina',
@@ -32,7 +35,8 @@ User.create([
     email: 'pending@example.com',
     role: :pending,
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    id: 4
   } , {
     first_name: 'Number',
     last_name: 'Two', 
@@ -40,7 +44,8 @@ User.create([
     email: 'deactivated@example.com',
     role: :deputy,
     password: '123456',
-    deleted_at: Time.zone.now - 1.day
+    deleted_at: Time.zone.now - 1.day,
+    id: 5
   } 
 
 ])
@@ -49,70 +54,79 @@ Timecard.create([
   {
     user_id: 1,
     description: 'Raiding Panties',
-    start: Time.zone.now - 5.days,
-    end: Time.zone.now - 5.days + 5.hours,
+    clock_in: Time.zone.now - 5.days,
+    clock_out: Time.zone.now - 5.days + 5.hours,
   } , {
     user_id: 1,
     description: 'Dealing with fembots',
-    start: Time.zone.now - 4.days,
-    end: Time.zone.now - 4.days + 3.hours,
+    clock_in: Time.zone.now - 4.days,
+    clock_out: Time.zone.now - 4.days + 3.hours,
   } , {
     user_id: 2,
     description: 'Spy stuff',
-    start: Time.zone.now - 5.days,
-    end: Time.zone.now - 5.days + 5.hours,
+    clock_in: Time.zone.now - 5.days,
+    clock_out: Time.zone.now - 5.days + 5.hours,
   } , {
     user_id: 3,
     description: 'Getting shushed' ,
-    start: Time.zone.now - 31.days,
-    end: Time.zone.now - 31.days + 9.hours,
+    clock_in: Time.zone.now - 31.days,
+    clock_out: Time.zone.now - 31.days + 9.hours,
   } , {
     user_id: 1,
     description: 'Putting the GRRR in swinger baby',
-    start: Time.zone.now - 7.days,
-    end: Time.zone.now - 7.days + 12.hours,
+    clock_in: Time.zone.now - 7.days,
+    clock_out: Time.zone.now - 7.days + 12.hours,
   } , {
     user_id: 1,
     description: 'Retrieving Mojo',
-    start: Time.zone.now - 3.days + 2.hours,
-    end: Time.zone.now - 3.days + 9.hours,
+    clock_in: Time.zone.now - 3.days + 2.hours,
+    clock_out: Time.zone.now - 3.days + 9.hours,
   }
 ])
   
-TrainingVideo.create([
+Lesson.create([
   {
+    id: 1,
     title: "How to apply handcuffs", 
-    description: "I know someone who's into this stuff.", 
-    url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
+    description: "I know someone who's into this stuff.",
+    video_attributes: {
+      url: "https://www.youtube.com/watch?v=PdDu9T1EbWM" 
+    }
   } , {
+    id: 2, 
     title: "The Ultimate Hickok45 Montage",
     description: "Hickock45 here, smokin' some pot.",
-    url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw",
+    video_attributes: {
+      url: "https://www.youtube.com/watch?v=3VHTUG-VpWA&index=3&list=FLcGBJ-rifHsKrhvwmmX4VCw"
+    }
   } , {
+    id: 3,
     title: "Handgun selection",
     description: "",
-    url: "https://www.youtube.com/watch?v=-OSodRtHHmo&index=5&list=FLcGBJ-rifHsKrhvwmmX4VCw",
+    video_attributes: {
+      url: "https://www.youtube.com/watch?v=-OSodRtHHmo&index=5&list=FLcGBJ-rifHsKrhvwmmX4VCw"
+    }
   }
 ])
 
-TrainingRecord.create([
+Completion.create([
   {
     user_id: 3,
-    training_video_id: 2
+    lesson_id: 2
   } , {
     user_id: 3,
-    training_video_id: 1
+    lesson_id: 1
   } , {
     user_id: 3,
-    training_video_id: 3
+    lesson_id: 3
   } , {
     user_id: 1,
-    training_video_id: 2
+    lesson_id: 2
   } , {
     user_id: 1,
-    training_video_id: 3
+    lesson_id: 3
   } , {
     user_id: 2,
-    training_video_id: 1
+    lesson_id: 1
   } 
 ])
