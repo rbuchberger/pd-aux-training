@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   scope '/admin' do
     resources :users, except: [:new, :create] do
       member do
-        get 'training_requirements'
+        get 'lessons'
         patch 'deactivate'
         patch 'reactivate'
         patch 'approve'
@@ -16,8 +16,8 @@ Rails.application.routes.draw do
       end
     end
     
-    # Training records index
-    resources :training_records, only: :index
+    # Training completions index
+    resources :completions, only: :index
 
     # Admin timecard index and filters
     get 'timecards/(:user_id)', to: 'timecards#admindex', as: 'admin_timecards'
@@ -25,11 +25,11 @@ Rails.application.routes.draw do
   
   # Routes for users to CRUD their own timecards:
   resources :timecards
-  resources :training_records, only: :destroy
-  # Routes for training videos
-  resources :training_requirements do
+  # Routes for lessons
+  resources :completions, only: :destroy
+  resources :lessons do
     member do
-      post 'training_records', to: 'training_records#create'
+      post 'completions', to: 'completions#create'
       get 'users'
     end
   end
