@@ -1,4 +1,4 @@
-<h4 class="display-4 text-center my-4"><%= @training_requirement.title %></h4>
+<h4 class="display-4 text-center my-4"><%= @lesson.title %></h4>
 <h5 class="mt-4">Complete:</h5>
 <% if @users_complete.any? %>
   <ul>
@@ -22,5 +22,5 @@
 <% end %>
 <hr>
 <div class="row">
-  <%= link_to "View video", training_requirement_path(@training_requirement), class: "mx-auto" %>
+  <%= link_to "View video", lesson_path(@lesson), class: "mx-auto" %>
 </div>
