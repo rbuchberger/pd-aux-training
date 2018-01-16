@@ -3,7 +3,7 @@ class Lesson < ApplicationRecord
   has_many :completions, dependent: :destroy
   has_many :users, through: :completions
   # It'll be a has_one relationship for now, until I add functionality to support multiple types of training resources
-  has_one :video, dependent: :destroy, autosave: true
+  has_one :video, dependent: :destroy, autosave: true, inverse_of: :lesson 
   accepts_nested_attributes_for :video
 
   # Validations
