@@ -4,7 +4,7 @@ class Video < ApplicationRecord
   
 
   #Associations
-  belongs_to :lesson
+  belongs_to :lesson, inverse_of: :video
 
   # Validations
   validates :url, presence: true

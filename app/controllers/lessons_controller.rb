@@ -6,15 +6,14 @@ class LessonsController < ApplicationController
   end
   
   def create 
-    @lesson = Lesson.new(lesson_params)
+    @lesson = Lesson.new(lesson_params[:lesson])
     authorize @lesson
-    
-    if @lesson.save
+    if @lesson.save 
       flash[:success] = "Training video created!"
       redirect_to lesson_path(@lesson)
     else
       flash[:danger] = "Could not create video."
-      render new_lesson_path
+      render action: 'new' 
     end
   end
   
@@ -32,7 +31,7 @@ class LessonsController < ApplicationController
   
   def update
     @lesson = get_lesson
-    if @lesson.update(lesson_params)
+    if @lesson.update(lesson_params[:lesson])
       flash[:success] = "Training video updated!"
       redirect_to lesson_path(@lesson)
     else
@@ -76,7 +75,11 @@ class LessonsController < ApplicationController
   end
   
   def lesson_params
-    params.require(:lesson).permit(:title, :description, video_attributes: [ :custom_start, :custom_end, :url])
+    params.permit(lesson: [:title, :description, video_attributes: [ :url ] ])
+    # params.require(:lesson)
+      # .permit( :title, :description, 
+              # video_attributes: [ :custom_start, :custom_end, :url] 
+             # )
   end
   
 end

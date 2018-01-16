@@ -1,6 +1,6 @@
 <% if @lesson.errors.any? %>
-  <div class="card border-danger">
-    <div class="card-header bg-danger text-white">
+  <div class="card border-danger m-3">
+    <div class="card-header">
      <%= "#{pluralize(@lesson.errors.count, "error")} prevented this video from being saved: " %>
     </div>
     <ul class="list-group list-group-flush">
@@ -34,29 +34,29 @@
     </div>
   </div>
 </div>
-<%= form_for @lesson do |f| %>
-  <%= fields_for @lesson.video do |v| %>
+<%= form_for @lesson do |lesson| %>
+  <%= lesson.fields_for :video, @lesson.video do |video| %>
     <div class = "form-group">
-      <%= v.label "YouTube address" %>
-      <%= v.text_field :url, class: "form-control", placeholder: "https://www.youtube.com/watch?v=3VHTUG-VpWA" %>
+      <%= video.label "YouTube address" %>
+      <%= video.text_field :url, class: "form-control"  %>
       <small id="urlHelp" class="form-text text-muted">
         Pull up the youtube video you want to add, copy and paste its address here. 
       </small>
     </div>
   <% end %>
   <div class = "form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: "form-control form-control-lg", placeholder: "The Ultimate Hickock45 Montage" %>
+    <%= lesson.label :title %>
+    <%= lesson.text_field :title, class: "form-control form-control-lg" %>
     <small id="titleHelp" class="form-text text-muted">
       This will be the name used for this video on this website. It's unrelated to the YouTube title.  
     </small>
   </div>
   <div class = "form-group">
-    <%= f.label :description %>
-    <%= f.text_area :description, class: "form-control", rows: "5", placeholder: "This old grandpa shoots better than all my friends." %>
+    <%= lesson.label :description %>
+    <%= lesson.text_area :description, class: "form-control", rows: "5" %>
     <small id="descriptionHelp" class="form-text text-muted">
       This will show up below the video when people watch it. It's unrelated to the description on YouTube.
     </small>
   </div>
-  <%= f.submit "Save!", class: "btn btn-lg btn-success my-4" %>
+  <%= lesson.submit "Save!", class: "btn btn-lg btn-success my-4" %>
 <% end %>
