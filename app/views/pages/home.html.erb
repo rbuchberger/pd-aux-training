@@ -1,48 +1,8 @@
 <h4 class="display-4 text-center my-4">Monroe County Sheriff's Office</h4>
-<div class="row justify-content-center">
-  <div class="col-xl-8">
-    <div class="card border-warning">
-      <h4 class="card-header">Under Construction</h4>
-      <p class="card-body card-text">This website is not ready for real-world use yet. It is not currently guaranteed to be secure, and all data entered here will be deleted before it goes live. <strong>Do not enter real world information yet.</strong> It's here for testing and evaluation only!</p>
-    </div>
-  </div>
-</div>
-<div class="row my-5 mx-1 justify-content-center">
+<div class="row align-items-start">
   <% if user_signed_in? %>
-    <% if @incomplete_training_count > 0 %>
-      <div class="card col-xl-8 p-3">
-        <h5 class="card-title"><%="You have #{pluralize(@incomplete_training_count, "incomplete training video")}."%></h5>
-        <%= button_to "Go train", lessons_path, method: :get, class: "btn btn-lg btn-primary" %>
-      </div>
-    <% end %>
-    <div class="card col-xl-8 p-3">
-      <% unless @last_workday.blank? %>
-        <h5 class="card-title">Your most recent timecard was <%= @last_workday.duration_hours %> hours, on <%= @last_workday.clock_in.strftime("%A, %b %d") %>.</p>
-    <% else %>
-        <h5 class="card-title">You have not logged any timecards.</h5>
-      <% end %>
-        <%= button_to "Log a workday", new_timecard_path,  class: "btn btn-lg btn-primary", method: :get %>
-    </div>
-    <% if policy(User).index? && @pending_count > 0 %>
-      <div class="card col-xl-8 p-3">
-        <h5 class="card-title"><%= pluralize(@pending_count, "user") %> awaiting approval.</h5>
-        <p class="card-text">These users will not be able to sign in until they are approved by either a trainer or an administrator.</p>
-        <%= button_to "Manage Users", users_path(anchor: 'Pending'), class: "btn btn-lg btn-primary", method: :get %>
-      </div>
-    <% end %>
+    <%= render 'logged_in' %>
   <% else %>
-    <div class="card col-xl-8 p-3">
-      <h5 class="card-title">You are not currently logged in.</h5>
-      <div class="container">
-        <div class="row justify-content-between m-3">
-          <div class="col-5">
-            <%= button_to "Sign up", new_user_registration_path, class: "btn btn-primary mx-2 btn-block", method: :get %>
-          </div>
-          <div class="col-5">
-            <%= button_to "Log in", new_user_session_path, class: "btn btn-success mx-2 btn-block", method: :get %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render 'logged_out' %>
   <% end %>
 </div>

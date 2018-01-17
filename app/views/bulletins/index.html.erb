@@ -1,8 +1,0 @@
-<h4 class="display-4 my-4 text-center">All Bulletins</h4>
-<%= button_to "Post New Bulletin", new_bulletin_path, method: :get, class: "btn btn-primary m-3" %>
-<% if @bulletins.any? %>
-  <%= render partial: 'bulletin', collection: @bulletins %>
-<% else %>
-  <h4>No bulletins to display.</h4>
-<% end %>
-

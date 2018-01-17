@@ -1,0 +1,34 @@
+<div class="col-4">
+  <% if @incomplete_training_count > 0 %>
+    <div class="m-3">
+    <h6><%="You have #{pluralize(@incomplete_training_count, "incomplete training video")}."%></h6>
+      <%= button_to "Go train", lessons_path, method: :get, class: "btn btn-block btn-dark my-2" %>
+      <hr>
+    </div>
+  <% end %>
+  <div class="m-3">
+    <% unless @last_workday.blank? %>
+      <h6>Your most recent timecard was <%= @last_workday.duration_hours %> hours, on <%= @last_workday.clock_in.strftime("%A, %b %d") %>.</h6>
+    <% else %>
+      <h6>You have not logged any timecards.</h6>
+    <% end %>
+    <%= button_to "Log a workday", new_timecard_path,  class: "btn btn-block btn-dark", method: :get %>
+      <hr>
+  </div>
+  <% if policy(User).index? && @pending_count > 0 %>
+    <div class="m-3">
+      <h6><%= pluralize(@pending_count, "user") %> awaiting approval.</h6>
+      <p>These users will not be able to sign in until they are approved by either a trainer or an administrator.</p>
+      <%= button_to "Manage Users", users_path(anchor: 'Pending'), class: "btn btn-block btn-primary my-2", method: :get %>
+      <hr>
+    </div>
+  <% end %>
+</div>
+<div class="col-8">
+    <div class="card border-warning my-3">
+      <h4 class="card-header">Under Construction</h4>
+      <p class="card-body card-text">This website is not ready for real-world use yet. It is not currently guaranteed to be secure, and all data entered here will be deleted before it goes live. <strong>Do not enter real world information yet.</strong> It's here for testing and evaluation only!</p>
+    </div>
+  <%= render partial: 'bulletins/bulletin', collection: @bulletins %>
+  <%= button_to "Post new bulletin", new_bulletin_path, method: :get, class: "btn btn-block btn-outline-primary my-2" %>
+</div>

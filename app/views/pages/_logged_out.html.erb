@@ -1,0 +1,14 @@
+<h4 class="m-4 text-center">If you are looking for the Monroe County Sheriff's public website, it can be found <a href= "http://monroetnsheriff.com/">here.</a></h4>
+<div class="card col-xl-8 p-3">
+  <h5 class="card-title">You are not currently logged in.</h5>
+  <div class="container">
+    <div class="row justify-content-between m-3">
+      <div class="col-5">
+        <%= button_to "Sign up", new_user_registration_path, class: "btn btn-primary mx-2 btn-block", method: :get %>
+      </div>
+      <div class="col-5">
+        <%= button_to "Log in", new_user_session_path, class: "btn btn-success mx-2 btn-block", method: :get %>
+      </div>
+    </div>
+  </div>
+</div>
