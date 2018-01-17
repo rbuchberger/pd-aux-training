@@ -3,7 +3,9 @@
   <div class="card-body">
     <div class="row">
       <div class="col-10">
-        <h6 class="card-subtitle text-muted mb-3"><%= "Posted by #{bulletin.user.first_last} on #{bulletin.updated_at.strftime("%A, %b %d")}"%></h6>
+        <% if bulletin.user %>
+          <h6 class="card-subtitle text-muted mb-3"><%= "Posted by #{bulletin.user.first_last} on #{bulletin.updated_at.strftime("%A, %b %d")}"%></h6>
+        <% end %>
         <p class="card-text"><%= bulletin.body %></p>
       </div>
       <div class="col-md-2">

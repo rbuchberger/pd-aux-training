@@ -9,7 +9,7 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.trainer?
+    @user.trainer? && own_record?
   end
 
   def destroy?
