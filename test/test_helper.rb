@@ -42,6 +42,14 @@ class ActiveSupport::TestCase
       lesson_id: 1
     }
   end
+
+  def valid_bulletin_params
+    { 
+      user_id: 1,
+      title: "Hello World",
+      body: "I have a body."
+    }
+  end
   
 end
 

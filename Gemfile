@@ -53,5 +53,6 @@ end
 group :production do
   # Heroku needs postgres
   gem 'pg', '~> 0.18.4'
+  # Mailgun for sending emails
 end
 

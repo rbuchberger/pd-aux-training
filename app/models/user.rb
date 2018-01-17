@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :timecards, dependent: :destroy
   has_many :completions, dependent: :destroy
   has_many :lessons, through: :completions
+  has_many :bulletins
   
   # Validations:
   # (Devise handles most of them. I only need to validate my custom fields) 

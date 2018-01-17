@@ -130,3 +130,19 @@ Completion.create([
     lesson_id: 1
   } 
 ])
+
+Bulletin.create([
+  {
+    user_id: 1,
+    title: "Watch out for fembots!"
+    body: "We have new intelligence indicating that Dr. Evil has implemented machine-gun jublies with the newest models. Exercise extreme caution."
+  } , {
+    user_id: 2
+    title: "Don't worry about the fembots."
+    body: "They aren't real, austin is making things up. Trust me."
+  } , {
+    user_id: 3
+    title: "Pardon me for being rude."
+    body: "It was not me it was my food, it just popped up to say hello, but now it's gone back down below."
+  }
+])
