@@ -9,7 +9,7 @@ class BulletinsController < ApplicationController
     authorize @bulletin
     if @bulletin.save
       flash[:success] = "Bulletin created!"
-      redirect_to bulletins_path
+      redirect_to root_path
     else
       flash[:alert] = "Could not save bulletin"
       render new_bulletin_path
@@ -26,7 +26,7 @@ class BulletinsController < ApplicationController
     authorize @bulletin
     if @bulletin.update(bulletin_params)
       flash[:success] = 'Bulletin updated!'
-      redirect_to bulletins_path
+      redirect_to root_path
     else
       flash[:alert] = 'Could not update bulletin'
       render edit_bulletin_path(@bulletin)
@@ -38,10 +38,10 @@ class BulletinsController < ApplicationController
     authorize @bulletin
     if @bulletin.destroy
       flash[:success] = 'Bulletin deleted!'
-      redirect_to bulletins_path
+      redirect_to root_path
     else
       flash[:alert] = 'Could not delete bulletin'
-      redirect_to bulletins_path
+      redirect_to root_path
     end
   end
 
