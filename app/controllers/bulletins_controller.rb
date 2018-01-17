@@ -1,10 +1,12 @@
 class BulletinsController < ApplicationController
   def new
     @bulletin = current_user.bulletins.build
+    authorize @bulletin
   end
 
   def create
     @bulletin = current_user.bulletins.build(bulletin_params)
+    authorize @bulletin
     if @bulletin.save
       flash[:success] = "Bulletin created!"
       redirect_to bulletins_path
@@ -16,10 +18,12 @@ class BulletinsController < ApplicationController
 
   def edit
     @bulletin = get_bulletin
+    authorize @bulletin
   end
 
   def update
     @bulletin = get_bulletin
+    authorize @bulletin
     if @bulletin.update(bulletin_params)
       flash[:success] = 'Bulletin updated!'
       redirect_to bulletins_path
@@ -31,6 +35,7 @@ class BulletinsController < ApplicationController
 
   def destroy
     @bulletin = get_bulletin
+    authorize @bulletin
     if @bulletin.destroy
       flash[:success] = 'Bulletin deleted!'
       redirect_to bulletins_path
@@ -42,6 +47,7 @@ class BulletinsController < ApplicationController
 
   def show
     @bulletin = get_bulletin
+    authorize @bulletin
   end
 
   private
