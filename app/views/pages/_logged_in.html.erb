@@ -1,4 +1,4 @@
-<div class="col-4">
+<div class="col-md-4">
   <% if @incomplete_training_count > 0 %>
     <div class="m-3">
     <h6><%="You have #{pluralize(@incomplete_training_count, "incomplete training video")}."%></h6>
@@ -24,11 +24,19 @@
     </div>
   <% end %>
 </div>
-<div class="col-8">
+<div class="col-md-8">
     <div class="card border-warning my-3">
       <h4 class="card-header">Under Construction</h4>
-      <p class="card-body card-text">This website is not ready for real-world use yet. It is not currently guaranteed to be secure, and all data entered here will be deleted before it goes live. <strong>Do not enter real world information yet.</strong> It's here for testing and evaluation only!</p>
+      <div class="card-body">
+        <h6 class="card-subtitle text-muted mb-3">Robert Buchberger, Site Builder</h6>
+      <p class="card-text">This website is under active development. Basic functionality is all there, but it's not complete yet and things will be changing. I apologize if I break anything when you need it!</p>
+      <p class="card-text">Whatever you do, don't forget your password. Right now this site can't send email, which means there's no simple way to reset them. This will be fixed ASAP.</p>
+      <p class="card-text">Please understand that I'm building this site on a volunteer basis, during my free time, while working another job and preparing for a very out-of-town move. I'll get to things as quickly as I can, but it might take a few days or weeks! I'd love to hear feedback; if something is inconvenient, or could be presented better, or if there are any other changes you'd like to see please tell me! <a href="mailto:rbuchberger@gmail.com">rbuchberger@gmail.com</a></p>
+      </div>
     </div>
   <%= render partial: 'bulletins/bulletin', collection: @bulletins %>
-  <%= button_to "Post new bulletin", new_bulletin_path, method: :get, class: "btn btn-block btn-outline-primary my-2" %>
+  <% if policy(Bulletin).create? %>
+    <%= button_to "Post new bulletin", new_bulletin_path, method: :get, class: "btn btn-block btn-outline-primary my-2" %>
+    <p class="text-muted text-center"><small>Bulletins are sorted by date modified, in reverse-chronological order.</small></p>
+  <% end %>
 </div>

@@ -6,7 +6,7 @@
         <h6 class="card-subtitle text-muted mb-3"><%= "Posted by #{bulletin.user.first_last} on #{bulletin.updated_at.strftime("%A, %b %d")}"%></h6>
         <p class="card-text"><%= bulletin.body %></p>
       </div>
-      <div class="col-2">
+      <div class="col-md-2">
       <%= button_to "Edit", edit_bulletin_path(bulletin), class: "btn btn-sm my-1 btn-secondary btn-block", method: :get if policy(bulletin).edit? %>
       <%= button_to "Delete", bulletin_path(bulletin), data: { confirm: "Are you sure?" }, class: "btn btn-sm my-1 btn-danger btn-block", method: :delete if policy(bulletin).destroy? %>
       </div>
