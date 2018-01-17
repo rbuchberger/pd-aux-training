@@ -1,14 +1,18 @@
 class BulletinsController < ApplicationController
   def new
-    @bulletin = current_user.build_bulletin
+    @bulletin = current_user.bulletins.build
+  end
+
+  def index
+    @bulletins = Bulletin.all
   end
 
   def create
-    @bulletin = current_user.build_bulletin(bulletin_params)
+    @bulletin = current_user.bulletins.build(bulletin_params)
     if @bulletin.save
-      flash [:success] = "Bulletin created!"
+      flash[:success] = "Bulletin created!"
     else
-      flash [:alert] = "Could not save bulletin"
+      flash[:alert] = "Could not save bulletin"
     end
   end
 
@@ -41,7 +45,7 @@ class BulletinsController < ApplicationController
   private
 
   def get_bulletin
-    Bulletin.where(params[:id])
+    Bulletin.find(params[:id])
   end
 
   def bulletin_params

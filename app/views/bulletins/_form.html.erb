@@ -1,0 +1,7 @@
+<%= form_for @bulletin do |b| %>
+  <%= b.label :title %>
+  <%= b.text_field :title, class: "form-control" %>
+  <%= b.label :body %>
+  <%= b.text_area :body, class: "form-control", rows: "5" %>
+  <%= b.submit "Save!", class: "btn btn-lg btn-success my-4" %> 
+<% end %>

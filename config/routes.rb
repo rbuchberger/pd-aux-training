@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     get 'timecards/(:user_id)', to: 'timecards#admindex', as: 'admin_timecards'
 
     # Bulletin management
-    resources :bulletins, except: [:index, :show]
+    resources :bulletins, except: [:show]
   end
   
   # Routes for users to CRUD their own timecards:

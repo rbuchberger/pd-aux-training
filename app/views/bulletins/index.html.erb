@@ -1,0 +1,4 @@
+<h4 class="display-4 my-4 text-center">All Bulletins</h4>
+<%= button_to "Post New Bulletin", new_bulletin_path, method: :get, class: "btn btn-primary m-3" %>
+<%= render partial: 'bulletin', collection: @bulletins %>
+
