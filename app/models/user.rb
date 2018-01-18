@@ -93,8 +93,10 @@ private
     self.last_name = self.last_name.gsub(/[i,v,x]{1,3}\z/i) {|g| g.upcase}
     # Uppercase badge number
     self.badge_number = self.badge_number.upcase
-    # Add a dash to the badge number, if it's an X-number format. 
+    # Add a dash to the badge number (X01 -> X-01)
     self.badge_number = self.badge_number.gsub(/X(?<num>\d{1,2})/, 'X-\k<num>' )
+    # Strip leading 0s from X-Badges (i.e. X-01 -> X-1)
+    self.badge_number = self.badge_number.gsub(/X-0(?<num>\d)/, 'X-\k<num>' )
     # Change NA to N/A for consistency. 
     self.badge_number = self.badge_number.gsub(/NA/, 'N/A')
   end
