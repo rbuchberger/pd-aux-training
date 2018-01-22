@@ -1,3 +1,4 @@
+require 'mail'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -67,7 +68,7 @@ Rails.application.configure do
       :address        => ENV['MAILGUN_SMTP_SERVER'],
       :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
       :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-      :domain         => 'monroetnsheriff.org',
+      :domain         => 'mg.monroetnsheriff.org',
       :authentication => :plain,
   }
   ActionMailer::Base.delivery_method = :smtp
