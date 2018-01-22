@@ -1,3 +1,4 @@
+require 'mail'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -62,24 +63,20 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "pd-aux-training_#{Rails.env}"
 
   # Mailer config 
-  # ActionMailer::Base.smtp_settings = {
-      # :port           => ENV['MAILGUN_SMTP_PORT'],
-      # :address        => ENV['MAILGUN_SMTP_SERVER'],
-      # :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-      # :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-      # :domain         => 'cryptic-basin-20774.heroku.com',
-      # :authentication => :plain,
-  # }
-  # ActionMailer::Base.delivery_method = :smtp
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.raise_delivery_errors = false
-  # config.action_mailer.default :charset => "utf-8"
-  # config.action_mailer.perform_caching = false
-# 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  ActionMailer::Base.smtp_settings = {
+      :port           => ENV['MAILGUN_SMTP_PORT'],
+      :address        => ENV['MAILGUN_SMTP_SERVER'],
+      :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+      :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+      :domain         => 'mg.monroetnsheriff.org',
+      :authentication => :plain,
+  }
+  ActionMailer::Base.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.perform_caching = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
