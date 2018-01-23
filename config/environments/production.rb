@@ -1,4 +1,3 @@
-require 'mail'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -50,7 +49,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :info
+  config.log_level = :warn
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -63,13 +62,14 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "pd-aux-training_#{Rails.env}"
 
   # Mailer config 
+  # Copied this from the upskill tutorial. 
   ActionMailer::Base.smtp_settings = {
-      :port           => ENV['MAILGUN_SMTP_PORT'],
-      :address        => ENV['MAILGUN_SMTP_SERVER'],
-      :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-      :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-      :domain         => 'mg.monroetnsheriff.org',
-      :authentication => :plain,
+    port:            ENV['MAILGUN_SMTP_PORT'],
+    address:         ENV['MAILGUN_SMTP_SERVER'],
+    user_name:       ENV['MAILGUN_SMTP_LOGIN'],
+    password:        ENV['MAILGUN_SMTP_PASSWORD'],
+    domain:          'mg.monroetnsheriff.org',
+    authentication:  :plain
   }
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.delivery_method = :smtp

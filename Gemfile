@@ -33,7 +33,7 @@ gem 'jquery-rails', '4.3.1'
 # Hirb gem for database convenience
 gem 'hirb', '~> 0.7.3'
 # Mailgun
-gem 'mail', '~> 2.6', '>= 2.6.4'
+# gem 'mail', '~> 2.6', '>= 2.6.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

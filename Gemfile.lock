@@ -202,7 +202,6 @@ DEPENDENCIES
   hirb (~> 0.7.3)
   jbuilder (~> 2.5)
   jquery-rails (= 4.3.1)
-  mail (~> 2.6, >= 2.6.4)
   pg (~> 0.18.4)
   puma (~> 3.7)
   pundit (= 1.1.0)
