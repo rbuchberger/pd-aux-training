@@ -3,5 +3,6 @@
   <%= b.text_field :title, class: "form-control" %>
   <%= b.label :body %>
   <%= b.text_area :body, class: "form-control", rows: "5" %>
+  <small class="form-text text-muted">Bulletins are formatted with markdown. Google knows all about it, and wordpress has a pretty good quick reference <a href="https://en.support.wordpress.com/markdown-quick-reference/">here</a></small>
   <%= b.submit "Save!", class: "btn btn-lg btn-success my-4" %> 
 <% end %>
