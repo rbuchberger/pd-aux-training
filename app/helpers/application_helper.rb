@@ -14,6 +14,9 @@ module ApplicationHelper
   end
   
   # Instantiates redcarpet to render markdown
-  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true)
+  def markdown 
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true)
+  end
+    
 
 end
