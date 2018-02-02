@@ -13,5 +13,7 @@ module ApplicationHelper
     BOOTSTRAP_FLASH_MSG.fetch(flash_type.to_sym, flash_type)
   end
   
+  # Instantiates redcarpet to render markdown
+  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true)
 
 end
