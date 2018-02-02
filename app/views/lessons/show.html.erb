@@ -6,7 +6,7 @@
 </div>
 <div class="card my-3 p-3">
     <h4 class="card-title"><%= @lesson.title %></h4>
-     <p class="card-text"><%= @lesson.description %></p>
+     <p class="card-text"><%= render inline: markdown.render(@lesson.description) %></p>
 </div>
 <div class="col card p-3 my-4">
   <% if @completion %>
