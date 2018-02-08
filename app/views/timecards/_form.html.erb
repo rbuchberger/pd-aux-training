@@ -1,6 +1,6 @@
 <%= form_for @timecard do |f| %>
   <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-xl-8 mx-1">
       <div class = "form-group">
         <%= f.label :description %>
         <%= f.text_area :description, class: "form-control", rows: "3" %><br>
@@ -8,13 +8,13 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-xl-4 text-center">
+    <div class="col-xl-4 text-center mx-1">
       <div class = "form-group">
         <%= f.label :clock_in %><br>
         <%= f.datetime_select :clock_in, class: "form-control" %><br>
       </div>
     </div>
-    <div class="col-xl-4 text-center">
+    <div class="col-xl-4 text-center mx-1">
       <div class = "form-group">
         <%= f.label :clock_out %><br>
         <%= f.datetime_select :clock_out, class: "form-control" %><br>
@@ -22,7 +22,7 @@
     </div>  
   </div>
   <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-lg-8 mx-1">
       <%= f.submit "Log it!", class: "btn btn-success btn-block my-4" %>
     </div>
   </div>
