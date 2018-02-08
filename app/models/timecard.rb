@@ -19,7 +19,7 @@ class Timecard < ApplicationRecord
   end
   
   # Length of workday, in hours rounded to the nearest decimal place.
-  def duration_hours(l=1)
+  def duration_hours(l=2)
    ( self.duration / 1.hour ).round(l)
   end
     

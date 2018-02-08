@@ -2,11 +2,11 @@
 <div class="row mx-1 form-group justify-content-center">
   <%= form_tag({}, {method: :get, class: "form-inline"})  do %>
     <%= label_tag "Display workdays for " %>
-    <%= select_tag(:user_id, options_for_select(@select_options.list, selected= @timecards.selected_user_id ), class: "form-control mb-2") %>
+    <%= select_tag(:user_id, options_for_select(@select_options.list, selected= @timecards.selected_user_id ), class: "form-control mb-2 mx-2") %>
     <%= label_tag "From: " %>
-    <%= date_field_tag :range_start, value = @timecards.range_start.strftime("%Y-%m-%d"), class: "form-control mb-2" %>
+    <%= date_field_tag :range_start, value = @timecards.range_start.strftime("%Y-%m-%d"), class: "form-control mb-2 mx-2" %>
     <%= label_tag "Through: "%>
-    <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%d"), class: "form-control mb-2" %>
+    <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%d"), class: "form-control mb-2 mx-2" %>
     <%= submit_tag "Go!", class: "btn btn-info mx-auto my-2" %>
   <% end %>
 </div>
@@ -29,7 +29,7 @@
               <td><%= t.user.last_first  %></td>
               <td><%= link_to t.clock_in.strftime("%A, %b %d"), timecard_path(t) %></td>
               <td><%= t.duration_hours %></td>
-              <td><%= t.description.truncate(40, omission: "...") %></td>
+              <td><%= t.description.truncate(30, omission: "...") %></td>
             </tr>
           <% end %>
         <% else %>
