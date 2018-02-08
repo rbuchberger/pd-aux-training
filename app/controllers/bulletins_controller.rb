@@ -12,7 +12,7 @@ class BulletinsController < ApplicationController
       redirect_to root_path
     else
       flash[:alert] = "Could not save bulletin"
-      render new_bulletin_path
+      redirect_to new_bulletin_path
     end
   end
 
