@@ -8,20 +8,14 @@
   <div class="row justify-content-center">
     <div class="col-xl-5">
       <div class="form-group form-inline">
-        <div class="col">
-          <%= f.label "Clock in:", class: "mr-auto" %>
-        </div>
-        <div class="col">
-          <%= f.date_field :clock_in, class: "form-control mx-1" %>
-        </div>
-        <div class="col">
-          <%= f.time_select :clock_in, {ignore_date: true, minute_step: 15}, class: "form-control mx-1" %>
-        </div>
+        <%= f.label "Clock in:", class: "mr-auto" %>
+        <%= f.date_field :clock_in, class: "form-control mx-1" %>
+        <%= f.time_select :clock_in, {ignore_date: true, minute_step: 15}, class: "form-control mx-1" %>
       </div>
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-md-5">
+    <div class="col-xl-5">
       <div class="form-group form-inline">
         <%= f.label "Clock out:", class: "mr-auto" %>
         <%= f.time_select :clock_out, {minute_step: 15}, class: "form-control mx-1" %>
@@ -29,7 +23,7 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-lg-5 mx-1">
+    <div class="col-xl-5 mx-1">
       <%= f.submit "Log it!", class: "btn btn-success btn-block my-4" %>
     </div>
   </div>
