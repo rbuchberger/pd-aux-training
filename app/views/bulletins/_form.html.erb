@@ -2,7 +2,7 @@
   <%= b.label :title %>
   <%= b.text_field :title, class: "form-control" %>
   <%= b.label :body %>
-  <%= b.text_area :body, class: "form-control", rows: "5" %>
-  <small class="form-text text-muted">Bulletins are formatted with markdown. Google knows all about it, and wordpress has a pretty good quick reference <a href="https://en.support.wordpress.com/markdown-quick-reference/">here</a>. Links will be automatically linkified, and it'll even render HTML (if you're into that sort of thing).</small>
+  <%= b.text_area :body, class: "form-control", rows: "15" %>
+  <p class="form-text text-muted">Bulletins are formatted with markdown. Google knows all about it, and wordpress has a pretty good quick reference <a href="https://en.support.wordpress.com/markdown-quick-reference/">here</a>. Links will be automatically linkified, and it'll even render HTML (if you're into that sort of thing).</p>
   <%= b.submit "Save!", class: "btn btn-lg btn-success my-4" %> 
 <% end %>
