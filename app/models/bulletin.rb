@@ -4,7 +4,7 @@ class Bulletin < ApplicationRecord
 
   # Validations
   validates :title, presence: true, length: {maximum: 50}
-  validates :body, length: {maximum: 1000}
+  validates :body, presence: true
 
   # Default Scope
   default_scope { order(updated_at: :desc) }
