@@ -1,5 +1,8 @@
 class Timecard < ApplicationRecord
   include ActiveModel::Validations
+
+  # Use custom attributes to split datetimes into dates and times
+  attr_accessor :field_clock_in_date, :field_clock_in_time, :field_clock_out_date, :field_clock_out_time
   
   # Relationships:
   belongs_to :user
@@ -11,7 +14,33 @@ class Timecard < ApplicationRecord
   validates :user, presence: true
   validates_with TimecardValidator #Defined in concerns/timecard_validator.rb
 
-  # Custom methods:
+  # Callbacks
+  before_validation :combine_fields
+
+  def combine_fields
+    # self.clock_in = parse and combine field_clock_in_date and _time
+    # work out which day the clock out date should be (clock in day, or +1 if it goes over midnight)
+    # parse clock out times and set self.clock_out 
+  end
+
+  # Custom attributes:
+
+  def field_clock_in_date
+    # :clock_in ? self.clock_in.strftime("") : Time.zone.today.strftime("")
+  end
+
+  def field_clock_in_time
+    # :clock_in ? self.clock_in.strftime("") : Time.zone.today.strftime("")
+  end
+
+  def field_clock_out_date
+    # :clock_out ? self.clock_out.strftime("") : Time.zone.today.strftime("")
+  end
+
+  def field clock_out_time
+    # :clock_out ? self.clock_out.strftime("") : Time.zone.today.strftime("")
+  end
+
   
   # Length of workday 
   def duration
