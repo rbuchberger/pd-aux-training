@@ -26,19 +26,19 @@ class Timecard < ApplicationRecord
   # Custom attributes:
 
   def field_clock_in_date
-    # :clock_in ? self.clock_in.strftime("") : Time.zone.today.strftime("")
+    self.clock_in ? self.clock_in.strftime("%Y-%m-%d") : Time.zone.now.strftime("%Y-%m-%d")
   end
 
   def field_clock_in_time
-    # :clock_in ? self.clock_in.strftime("") : Time.zone.today.strftime("")
+    # :clock_in ? self.clock_in.strftime("") : Time.zone.now.strftime("")
   end
 
   def field_clock_out_date
-    # :clock_out ? self.clock_out.strftime("") : Time.zone.today.strftime("")
+    self.clock_out ? self.clock_out.strftime("%Y-%m-%d") : Time.zone.now.strftime("")
   end
 
-  def field clock_out_time
-    # :clock_out ? self.clock_out.strftime("") : Time.zone.today.strftime("")
+  def field_clock_out_time
+    # :clock_out ? self.clock_out.strftime("") : Time.zone.now.strftime("")
   end
 
   
