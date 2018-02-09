@@ -19,8 +19,8 @@ class Timecard < ApplicationRecord
 
   def combine_fields
     # self.clock_in = parse and combine field_clock_in_date and _time
-    # work out which day the clock out date should be (clock in day, or +1 if it goes over midnight)
     # parse clock out times and set self.clock_out 
+    self.clock_out += 1.day if self.clock_in > self.clock_out
   end
 
   # Custom attributes:
@@ -30,15 +30,15 @@ class Timecard < ApplicationRecord
   end
 
   def field_clock_in_time
-    # :clock_in ? self.clock_in.strftime("") : Time.zone.now.strftime("")
+    self.clock_in ? self.clock_in.strftime("%I:%M") : Time.zone.now.strftime("%I:%M")
   end
 
   def field_clock_out_date
-    self.clock_out ? self.clock_out.strftime("%Y-%m-%d") : Time.zone.now.strftime("")
+    self.clock_out ? self.clock_out.strftime("%Y-%m-%d") : Time.zone.now.strftime("%Y-%m-%d")
   end
 
   def field_clock_out_time
-    # :clock_out ? self.clock_out.strftime("") : Time.zone.now.strftime("")
+    self.clock_out ? self.clock_out.strftime("%I:%M") : Time.zone.now.strftime("%I:%M")
   end
 
   
