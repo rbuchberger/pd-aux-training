@@ -30,7 +30,8 @@ class Timecard < ApplicationRecord
   end
 
   def field_clock_in_time
-    self.clock_in ? self.clock_in.strftime("%I:%M") : Time.zone.now.strftime("%I:%M")
+    # TODO: make these round to the nearest 15 minutes. 
+    self.clock_in ? self.clock_in : Time.zone.now
   end
 
   def field_clock_out_date
@@ -38,7 +39,7 @@ class Timecard < ApplicationRecord
   end
 
   def field_clock_out_time
-    self.clock_out ? self.clock_out.strftime("%I:%M") : Time.zone.now.strftime("%I:%M")
+    self.clock_out ? self.clock_out : Time.zone.now
   end
 
   
