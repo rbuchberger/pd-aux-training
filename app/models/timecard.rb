@@ -42,7 +42,6 @@ class Timecard < ApplicationRecord
     self.clock_out ? self.clock_out : Time.zone.now
   end
 
-  
   # Length of workday 
   def duration
     self.clock_out - self.clock_in  
