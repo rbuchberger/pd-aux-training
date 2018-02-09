@@ -18,8 +18,8 @@ class Timecard < ApplicationRecord
   before_validation :combine_fields
 
   def combine_fields
-    # self.clock_in = parse and combine field_clock_in_date and _time
-    # parse clock out times and set self.clock_out 
+    self.clock_in = Time.parse("#{self.field_clock_in_date} #{self.field_clock_in_time.strftime("%I:%M")}") 
+    self.clock_out = Time.parse("#{self.field_clock_in_date} #{self.field_clock_out_time.strftime("%I:%M")}") 
     self.clock_out += 1.day if self.clock_in > self.clock_out
   end
 
