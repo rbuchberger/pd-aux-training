@@ -2,7 +2,7 @@ class Timecard < ApplicationRecord
   include ActiveModel::Validations
 
   # Use custom attributes to split datetimes into dates and times
-  attr_accessor :field_clock_in_date, :field_clock_in_time, :field_clock_out_date, :field_clock_out_time
+  attr_writer :field_clock_in_date, :field_clock_in_time, :field_clock_out_date, :field_clock_out_time
   
   # Relationships:
   belongs_to :user
@@ -18,9 +18,15 @@ class Timecard < ApplicationRecord
   before_validation :combine_fields
 
   def combine_fields
-    self.clock_in = Time.zone.parse("#{self.field_clock_in_date} #{self.field_clock_in_time.strftime("%h:%M")}") 
-    self.clock_out = Time.zone.parse("#{self.field_clock_in_date} #{self.field_clock_in_time.strftime("%h:%M")}") 
+    puts "Field clock in date and time: "
+    puts @field_clock_in_date
+    puts @field_clock_in_time
+    self.clock_in = Time.zone.parse("#{@field_clock_in_date} #{@field_clock_in_time[4]}:#{@field_clock_in_time[5]}") 
+    self.clock_out = Time.zone.parse("#{@field_clock_in_date} #{@field_clock_out_time[4]}:#{@field_clock_out_time[5]}") 
     self.clock_out += 1.day if self.clock_in > self.clock_out
+    puts "results: "
+    puts self.clock_in
+    puts self.clock_out
   end
 
   # Custom attributes:
