@@ -1,14 +1,17 @@
 class Timecard < ApplicationRecord
   include ActiveModel::Validations
 
-  # Use custom attributes to split datetimes into dates and times
-  attr_writer :field_clock_in_date, :field_clock_in_time, :field_clock_out_date, :field_clock_out_time
+  # There's no easy rails way to split up dates & times in form fields, so the web forms are wired to
+  # virtual attributes, and those values get parsed and combined for the actual database entries in a
+  # before_validation callback. Clock out date is calculated based on the clock in date and common sense. 
+  # Read values for these fields (so the form default values reflect database values) have custom methods.
+  attr_writer :field_clock_in_date, :field_clock_in_time, :field_clock_out_time
   
   # Relationships:
   belongs_to :user
   
   # Validations
-  validates :description, presence: true, length: {maximum: 250}
+  validates :description, presence: true, length: {maximum: 1000}
   validates :clock_in, presence: true 
   validates :clock_out, presence: true
   validates :user, presence: true
@@ -17,16 +20,20 @@ class Timecard < ApplicationRecord
   # Callbacks
   before_validation :combine_fields
 
+  # This method turns the form field inputs into usable datetimes for the database. 
   def combine_fields
-    puts "Field clock in date and time: "
-    puts @field_clock_in_date
-    puts @field_clock_in_time
-    self.clock_in = Time.zone.parse("#{@field_clock_in_date} #{@field_clock_in_time[4]}:#{@field_clock_in_time[5]}") 
-    self.clock_out = Time.zone.parse("#{@field_clock_in_date} #{@field_clock_out_time[4]}:#{@field_clock_out_time[5]}") 
+    self.clock_in = Time.zone.parse(
+      "#{@field_clock_in_date} #{@field_clock_in_time[4]}:#{@field_clock_in_time[5]}"
+    ) 
+   
+    # Note that clock_out date is initially assumed to be the same as clock_in date.
+    self.clock_out = Time.zone.parse(
+      "#{@field_clock_in_date} #{@field_clock_out_time[4]}:#{@field_clock_out_time[5]}"
+    ) 
+   
+    # Timecards will never be more than 24 hours long. If clock_out is earlier than clock_in 
+    # we assume the user worked past midnight. 
     self.clock_out += 1.day if self.clock_in > self.clock_out
-    puts "results: "
-    puts self.clock_in
-    puts self.clock_out
   end
 
   # Custom attributes:
@@ -36,12 +43,7 @@ class Timecard < ApplicationRecord
   end
 
   def field_clock_in_time
-    # TODO: make these round to the nearest 15 minutes. 
     self.clock_in ? self.clock_in : Time.zone.now
-  end
-
-  def field_clock_out_date
-    self.clock_out ? self.clock_out.strftime("%Y-%m-%d") : Time.zone.now.strftime("%Y-%m-%d")
   end
 
   def field_clock_out_time
