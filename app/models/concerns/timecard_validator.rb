@@ -27,6 +27,10 @@ class TimecardValidator < ActiveModel::Validator
         timecard.errors[:base] << 
         "Don't log days shorter than 30 minutes."
       end
+
+      # Enables users to log subsequent timecards without overlap rejection.
+      timecard[:clock_in] += 1.second
+      timecard[:clock_out] -= 1.second
       
       # Get all the user's timecards 
       existing_user_timecards = Timecard.where(user_id: timecard.user_id)
