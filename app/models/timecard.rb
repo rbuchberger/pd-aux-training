@@ -5,7 +5,9 @@ class Timecard < ApplicationRecord
   # virtual attributes, and those values get parsed and combined for the actual database entries in a
   # before_validation callback. Clock out date is calculated based on the clock in date and common sense. 
   # Read values for these fields (so the form default values reflect database values) have custom methods.
-  attr_writer :field_clock_in_date, :field_clock_in_time, :field_clock_out_time
+  attribute :field_clock_in_date, :datetime, default: Time.zone.now.strftime("%Y-%m-%d") 
+  attribute :field_clock_in_time, :hash   
+  attribute :field_clock_out_time, :hash 
   
   # Relationships:
   belongs_to :user
@@ -22,18 +24,20 @@ class Timecard < ApplicationRecord
 
   # This method turns the form field inputs into usable datetimes for the database. 
   def combine_fields
-    self.clock_in = Time.zone.parse(
-      "#{@field_clock_in_date} #{@field_clock_in_time[4]}:#{@field_clock_in_time[5]}"
-    ) 
-   
-    # Note that clock_out date is initially assumed to be the same as clock_in date.
-    self.clock_out = Time.zone.parse(
-      "#{@field_clock_in_date} #{@field_clock_out_time[4]}:#{@field_clock_out_time[5]}"
-    ) 
-   
-    # Timecards will never be more than 24 hours long. If clock_out is earlier than clock_in 
-    # we assume the user worked past midnight. 
-    self.clock_out += 1.day if self.clock_in > self.clock_out
+    if @field_clock_in_date && @field_clock_in_time && @field_clock_out_time
+      self.clock_in = Time.zone.parse(
+        "#{@field_clock_in_date} #{@field_clock_in_time[:hour]}:#{@field_clock_in_time[:minute]}"
+      ) 
+     
+      # Note that clock_out date is initially assumed to be the same as clock_in date.
+      self.clock_out = Time.zone.parse(
+        "#{@field_clock_in_date} #{@field_clock_out_time[:hour]}:#{@field_clock_out_time[:minute]}"
+      ) 
+     
+      # Timecards will never be more than 24 hours long. If clock_out is earlier than clock_in 
+      # we assume the user worked past midnight. 
+      self.clock_out += 1.day if self.clock_in >= self.clock_out
+    end
   end
 
   # Custom attributes:

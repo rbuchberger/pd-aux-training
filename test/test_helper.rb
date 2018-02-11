@@ -22,8 +22,9 @@ class ActiveSupport::TestCase
   def valid_timecard_params
     {
       description: 'Raiding Panties',
-      clock_in: Time.zone.now - 20.days,
-      clock_out: Time.zone.now - 20.days + 5.hours,
+      field_clock_in_date: '2018-01-01',
+      field_clock_in_time: {4 => 01, 5 => 00},
+      field_clock_out_time: {4 => 05, 5 => 00}
     }
   end
   

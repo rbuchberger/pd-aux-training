@@ -4,7 +4,7 @@
       <div class="form-group form-inline">
         <%= f.label "Clock in:", class: "mr-auto" %>
         <%= f.date_field :field_clock_in_date, value: @timecard.field_clock_in_date, class: "form-control mx-1" %>
-        <%= f.time_select :field_clock_in_time, {ignore_date: true, ampm: true, minute_step: 15}, value: @timecard.field_clock_in_time, class: "form-control mx-1" %>
+        <%= f.select_time @timecard.field_clock_in_time, {prefix: field_clock_in_time, ignore_date: true, ampm: true, minute_step: 15}, class: "form-control mx-1" %>
       </div>
     </div>
   </div>
@@ -12,7 +12,7 @@
     <div class="col-xl-5">
       <div class="form-group form-inline">
         <%= f.label "Clock out:", class: "mr-auto" %>
-        <%= f.time_select :field_clock_out_time, {ignore_date: true, ampm: true, minute_step: 15}, value: @timecard.field_clock_out_time, class: "form-control mx-1" %>
+        <%= f.time_select @timecard.field_clock_out_time, {prefix: field_clock_out_time, ignore_date: true, ampm: true, minute_step: 15}, class: "form-control mx-1" %>
       </div>
     </div>
   </div>

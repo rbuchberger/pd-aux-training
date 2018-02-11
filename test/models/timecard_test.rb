@@ -3,7 +3,7 @@ require 'test_helper'
 class TimecardTest < ActiveSupport::TestCase
   # Timecard should not save without a description
   test "Timecard save without description" do
-    t = Timecard.new(valid_timecard_params)
+    t = Timecard.create(valid_timecard_params)
     t.description =  ""
 
     assert_not t.save
@@ -11,7 +11,7 @@ class TimecardTest < ActiveSupport::TestCase
   
   # should not save without clock in time
   test "Timecard save without clock in" do
-    t = Timecard.new(valid_timecard_params)
+    t = Timecard.create(valid_timecard_params)
     t.clock_in = nil 
 
     assert_not t.save
@@ -19,7 +19,7 @@ class TimecardTest < ActiveSupport::TestCase
   
   # should not save without clock out time
     test "Timecard save without clock out" do
-    t = Timecard.new(valid_timecard_params)
+    t = Timecard.create(valid_timecard_params)
     t.clock_out = nil
 
     assert_not t.save
@@ -27,7 +27,7 @@ class TimecardTest < ActiveSupport::TestCase
   
   # should not save without a user
   test "Timecard save without user" do
-    t = Timecard.new(valid_timecard_params)
+    t = Timecard.create(valid_timecard_params)
     t.user_id = nil
     
     assert_not t.save
@@ -41,7 +41,7 @@ class TimecardTest < ActiveSupport::TestCase
       description: 'Test 1',
       user_id: 1 
     })
-    t2 = Timecard.new({
+    t2 = Timecard.create({
       clock_in: Time.zone.now - 30.days + 1.hour,
       clock_out: Time.zone.now - 30.days + 7.hours,
       description: 'Test 2',
@@ -53,7 +53,7 @@ class TimecardTest < ActiveSupport::TestCase
     
   # should not save if more than 24 hours
   test "Timecard over 24 hours" do
-    t = Timecard.new(valid_timecard_params)
+    t = Timecard.create(valid_timecard_params)
     t.clock_out = t.clock_in + 25.hours
 
     assert_not t.save
@@ -61,7 +61,7 @@ class TimecardTest < ActiveSupport::TestCase
   
   # should not save if less than 30 minutes
   test "Timecard less than 30 minutes" do
-    t = Timecard.new(valid_timecard_params)
+    t = Timecard.create(valid_timecard_params)
     t.clock_out = t.clock_in + 29.minutes
 
       assert_not t.save
