@@ -24,7 +24,11 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-xl-5 mb-1">
-      <%= f.submit "Log it!", class: "btn btn-success btn-block" %>
+      <%= f.submit "Log it!", class: "btn btn-success btn-block mb-3" %>
+      <p>Timecards cannot be shorter than 30 minutes, or longer than 24 hours.</p>
+      <p>All timecards must have <i>something</i> in the description.</p>
+      <p>If you worked past midnight, use the date you started work and just plug the times in; it'll work out the end date using common sense.</p>
+      <p>You can now log subsequent timecards, so for example you could have one from 0800-1200, and another from 1200-1600 that same day. (The old version would reject this as overlapping with an existing timecard)</p>
     </div>
   </div>
 <% end %>
