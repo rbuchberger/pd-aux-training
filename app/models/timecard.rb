@@ -21,47 +21,41 @@ class Timecard < ApplicationRecord
 
   # Callbacks
 
-  # This method turns the form field inputs into usable datetimes for the database. 
-  def combine_fields
-    puts 'Inputs to the combine_fields method, clock in date, clock in time, clock out time'
-    self.clock_in = Time.zone.parse(
-      "#{self.field_clock_in_date} #{self.field_clock_in_time.hour}:#{self.field_clock_in_time.min}"
-    ) 
-   
-    # Note that clock_out date is initially assumed to be the same as clock_in date.
-    self.clock_out = Time.zone.parse(
-      "#{self.field_clock_in_date} #{self.field_clock_out_time.hour}:#{self.field_clock_out_time.min}"
-    ) 
-   
-    # Timecards will never be more than 24 hours long. If clock_out is earlier than clock_in 
-    # we assume the user worked past midnight. 
-    self.clock_out += 1.day if self.clock_in >= self.clock_out
-
-  end
-
   # Custom attributes:
 
+  # This is a workaround until I can get activerecord to realize that these params are datetimes
+  def params_to_datetime(params)
+     DateTime.new(params[1],
+                  params[2],
+                  params[3],
+                  params[4],
+                  params[5],
+                  0)
+  end
   # Custom setters:
   def field_clock_in_date=(value)
-    new = Time.zone.parse(value)
+    new = Time.zone.parse(super(value))
     self.clock_in = self.clock_in.change(year: new.year, month: new.month, day: new.day)
   end
 
   def field_clock_in_time=(value)
-    self.clock_in = self.clock_in.change(hour: value.hour, minute: value.minute)
+    new = params_to_datetime(super(value))
+    self.clock_in = self.clock_in.change(hour: new.hour, min: new.minute)
   end
 
   def field_clock_out_time=(value)
-    self.clock_out = self.clock_out.change(hour: value.hour, minute: value.minute)
+    new = params_to_datetime(super(value))
+    self.clock_out = self.clock_out.change(hour: new.hour, min: new.minute)
   end
 
   # Custom getters: 
-  def field_clock_in_time
-    self.clock_in ? self.clock_in : super
-  end
 
   def field_clock_in_date
      self.clock_in ? self.clock_in.strftime("%Y-%m-%d") : super
+  end
+
+  def field_clock_in_time
+    self.clock_in ? self.clock_in : super
   end
 
   def field_clock_out_time
@@ -82,5 +76,6 @@ class Timecard < ApplicationRecord
   def user
     User.unscoped{ super }
   end
+
 end
 
