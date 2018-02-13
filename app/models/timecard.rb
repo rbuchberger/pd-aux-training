@@ -20,10 +20,10 @@ class Timecard < ApplicationRecord
   validates_with TimecardValidator #Defined in concerns/timecard_validator.rb
 
   # Callbacks
-  before_validation :combine_fields
 
   # This method turns the form field inputs into usable datetimes for the database. 
   def combine_fields
+    puts 'Inputs to the combine_fields method, clock in date, clock in time, clock out time'
     self.clock_in = Time.zone.parse(
       "#{self.field_clock_in_date} #{self.field_clock_in_time.hour}:#{self.field_clock_in_time.min}"
     ) 
@@ -36,16 +36,32 @@ class Timecard < ApplicationRecord
     # Timecards will never be more than 24 hours long. If clock_out is earlier than clock_in 
     # we assume the user worked past midnight. 
     self.clock_out += 1.day if self.clock_in >= self.clock_out
+
   end
 
   # Custom attributes:
 
-  def field_clock_in_date
-    self.clock_in ? self.clock_in.strftime("%Y-%m-%d") : super
+  # Custom setters:
+  def field_clock_in_date=(value)
+    new = Time.zone.parse(value)
+    self.clock_in = self.clock_in.change(year: new.year, month: new.month, day: new.day)
   end
 
+  def field_clock_in_time=(value)
+    self.clock_in = self.clock_in.change(hour: value.hour, minute: value.minute)
+  end
+
+  def field_clock_out_time=(value)
+    self.clock_out = self.clock_out.change(hour: value.hour, minute: value.minute)
+  end
+
+  # Custom getters: 
   def field_clock_in_time
     self.clock_in ? self.clock_in : super
+  end
+
+  def field_clock_in_date
+     self.clock_in ? self.clock_in.strftime("%Y-%m-%d") : super
   end
 
   def field_clock_out_time

@@ -29,14 +29,14 @@ class TimecardValidator < ActiveModel::Validator
       end
 
       # Enables users to log subsequent timecards without overlap rejection.
-      timecard[:clock_in] += 1.second
-      timecard[:clock_out] -= 1.second
+      # clock_in = timecard.clock_in + 1.second
+      # clock_out -= timecard.clock_out - 1.second
       
       # Get all the user's timecards 
       existing_user_timecards = Timecard.where(user_id: timecard.user_id)
       # Check if they overlap the new card
       existing_user_timecards.each do |t| 
-        if ( (t[:clock_in]..t[:clock_out]).overlaps? (timecard[:clock_in]..timecard[:clock_out]) ) && t != timecard
+        if ( (t.clock_in...t.clock_out).overlaps? (timecard.clock_in...timecard.clock_out) ) && t != timecard
           timecard.errors[:base] << "These times overlap with an existing workday."
         end
       end
