@@ -46,6 +46,8 @@ class Timecard < ApplicationRecord
   def field_clock_out_time=(value)
     new = params_to_datetime(super(value))
     self.clock_out = self.clock_out.change(hour: new.hour, min: new.minute)
+    # If clock_out comes before clock_in, add 1 day.
+    self.clock_out += 1.day if self.clock_out < self.clock_in
   end
 
   # Custom getters: 
