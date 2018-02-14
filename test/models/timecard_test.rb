@@ -7,20 +7,18 @@ class TimecardTest < ActiveSupport::TestCase
     t = Timecard.new(valid_timecard_params)
     
     assert t.save
-    assert_equal t.clock_in, Time.zone.new(2017,12,31,12,30)
-    assert_equal t.clock_out, Time.zone.new(2018,01,01,2,30)
+    assert_equal t.clock_in, Time.new(2015,12,31,12,30)
+    assert_equal t.clock_out, Time.zone.new(2015,01,01,2,30)
 
   end
 
   # Update existing timecard
   test "Timecard update" do
     
-    t = Timecard.new(valid_timecard_params)
-    puts t
-    t.save
-    t.field_clock_in_date = ('2016-11-20')
-    t.field_clock_in_time = {1 => 2018,2 => 02,3 => 01, 4 => 15, 5 => 15}
-    t.field_clock_out_time = {1 => 2018, 2 => 02, 3 => 01, 4 => 19, 5 => 45 }
+    t = Timecard.create(valid_timecard_params)
+    t.field_clock_in_date = Date.new(2016,11,20) 
+    t.field_clock_in_time = Time.new(2018,01,01,15,15)
+    t.field_clock_out_time = Time.new(2018,01,01,19,45)
 
     assert t.update
     assert_equal t.clock_in, Time.zone.new(2016,11,20,15,15)
@@ -36,22 +34,6 @@ class TimecardTest < ActiveSupport::TestCase
     assert_not t.save
   end
   
-  # should not save without clock in time
-  test "Timecard save without clock in" do
-    t = Timecard.new(valid_timecard_params)
-    t.clock_in = nil 
-
-    assert_not t.save
-  end
-  
-  # should not save without clock out time
-    test "Timecard save without clock out" do
-    t = Timecard.new(valid_timecard_params)
-    t.clock_out = nil
-
-    assert_not t.save
-  end
-  
   # should not save without a user
   test "Timecard save without user" do
     t = Timecard.new(valid_timecard_params)
@@ -63,7 +45,7 @@ class TimecardTest < ActiveSupport::TestCase
   # should not save if overlaps another timecard
   test "Timecard overlap" do
     t1 = Timecard.create({
-      clock_in: Time.zone.now - 30.days,
+      clock_in:  Time.zone.now - 30.days,
       clock_out: Time.zone.now - 30.days + 8.hours,
       description: 'Test 1',
       user_id: 1 

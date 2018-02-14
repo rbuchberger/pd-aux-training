@@ -2,12 +2,11 @@ class Timecard < ApplicationRecord
   include ActiveModel::Validations
 
   # There's no easy rails way to split up dates & times in form fields, so the web forms are wired to
-  # virtual attributes, and those values get parsed and combined for the actual database entries in a
+  # virtual attributes, and those values get combined for the actual database entries in a
   # before_validation callback. Clock out date is calculated based on the clock in date and common sense. 
-  # Read values for these fields (so the form default values reflect database values) have custom methods.
-  attribute :field_clock_in_date, :date, default: Date.today
-  attribute :field_clock_in_time, :time, default: Time.zone.now   
-  attribute :field_clock_out_time, :time, default: Time.zone.now 
+  attribute :field_clock_in_date, :date
+  attribute :field_clock_in_time, :time
+  attribute :field_clock_out_time, :time
   
   # Relationships:
   belongs_to :user
@@ -20,22 +19,23 @@ class Timecard < ApplicationRecord
   validates_with TimecardValidator #Defined in concerns/timecard_validator.rb
 
   # Callbacks
-  after_find  :set_field_values
+  after_initialize :set_field_values
   before_validation :set_db_values 
 
   # Sets up virtual attributes for use by the form
   def set_field_values
-    self.field_clock_in_date = self.clock_in.to_date
-    self.field_clock_in_time = self.clock_in
-    self.field_clock_out_time = self.clock_out
+    self.field_clock_in_date  ||= self.clock_in?  ? self.clock_in.to_date : Date.today 
+    self.field_clock_in_time  ||= self.clock_in?  ? self.clock_in         : Time.zone.now
+    self.field_clock_out_time ||= self.clock_out? ? self.clock_out        : Time.zone.now
   end
 
   # Assembles virtual attributes to useful values
   def set_db_values
 
     # For convenience: 
-    in_date = self.field_clock_in_date
-    in_time = self.field_clock_in_time
+
+    in_date  = self.field_clock_in_date
+    in_time  = self.field_clock_in_time
     out_time = self.field_clock_out_time
 
     # First we assume they happen on the same day. 
@@ -44,21 +44,10 @@ class Timecard < ApplicationRecord
     
     # If clock out happens before clock in, we assume the user worked past midnight. 
     self.clock_out += 1.day if self.clock_out < self.clock_in
+
+    puts self.clock_in
+    puts self.clock_out
   end
-
-  # Custom getters: 
-
-  # def field_clock_in_date
-    # self.clock_in ? self.clock_in.to_date : super
-  # end
- # 
-  # def field_clock_in_time
-    # self.clock_in ? self.clock_in : super
-  # end
- # 
-  # def field_clock_out_time
-    # self.clock_out ? self.clock_out : super
-  # end
 
   # Length of workday 
   def duration
