@@ -22,10 +22,13 @@ class ActiveSupport::TestCase
   def valid_timecard_params
     {
       description: 'Raiding Panties',
-      field_clock_in_date:  Time.zone.now.strftime("%Y-%m-%d"),
-      field_clock_in_time:  Time.zone.now, 
-      field_clock_out_time: Time.zone.now + 2.hours
+      field_clock_in_date: '2015-12-31', 
+      # field_clock_in_time:  Time.zone.now, 
+      # field_clock_out_time: Time.zone.now + 2.hours
+      field_clock_in_time: { 1 => 2017, 2 => 12, 3 => 31, 4 => 12, 5 => 30},
+      field_clock_out_time: {1 => 2018, 2 => 1, 3 =>1, 4 => 2, 5 => 30}
     }
+
   end
   
   def valid_lesson_params

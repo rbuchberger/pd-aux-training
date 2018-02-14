@@ -1,6 +1,33 @@
 require 'test_helper'
 
 class TimecardTest < ActiveSupport::TestCase
+  # Create new timecard
+  test "Timecard create" do
+
+    t = Timecard.new(valid_timecard_params)
+    
+    assert t.save
+    assert_equal t.clock_in, Time.zone.new(2017,12,31,12,30)
+    assert_equal t.clock_out, Time.zone.new(2018,01,01,2,30)
+
+  end
+
+  # Update existing timecard
+  test "Timecard update" do
+    
+    t = Timecard.new(valid_timecard_params)
+    puts t
+    t.save
+    t.field_clock_in_date = ('2016-11-20')
+    t.field_clock_in_time = {1 => 2018,2 => 02,3 => 01, 4 => 15, 5 => 15}
+    t.field_clock_out_time = {1 => 2018, 2 => 02, 3 => 01, 4 => 19, 5 => 45 }
+
+    assert t.update
+    assert_equal t.clock_in, Time.zone.new(2016,11,20,15,15)
+    assert_equal t.clock_out, Time.zone.new(2016,11,20,19,45)
+  end
+
+
   # Timecard should not save without a description
   test "Timecard save without description" do
     t = Timecard.new(valid_timecard_params)

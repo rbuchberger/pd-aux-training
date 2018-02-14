@@ -5,9 +5,9 @@ class Timecard < ApplicationRecord
   # virtual attributes, and those values get parsed and combined for the actual database entries in a
   # before_validation callback. Clock out date is calculated based on the clock in date and common sense. 
   # Read values for these fields (so the form default values reflect database values) have custom methods.
-  attribute :field_clock_in_date, :string, default: Time.zone.now.strftime("%Y-%m-%d") 
-  attribute :field_clock_in_time, :datetime   
-  attribute :field_clock_out_time, :datetime 
+  attribute :field_clock_in_date, :date, default: Date.today
+  attribute :field_clock_in_time, :time, default: Time.zone.now   
+  attribute :field_clock_out_time, :time, default: Time.zone.now 
   
   # Relationships:
   belongs_to :user
@@ -20,49 +20,45 @@ class Timecard < ApplicationRecord
   validates_with TimecardValidator #Defined in concerns/timecard_validator.rb
 
   # Callbacks
+  after_find  :set_field_values
+  before_validation :set_db_values 
 
-  # Custom attributes:
-
-  # This is a workaround until I can get activerecord to realize that these params are datetimes
-  def params_to_datetime(params)
-     DateTime.new(params[1],
-                  params[2],
-                  params[3],
-                  params[4],
-                  params[5],
-                  0)
-  end
-  # Custom setters:
-  def field_clock_in_date=(value)
-    new = Time.zone.parse(super(value))
-    self.clock_in = self.clock_in.change(year: new.year, month: new.month, day: new.day)
+  # Sets up virtual attributes for use by the form
+  def set_field_values
+    self.field_clock_in_date = self.clock_in.to_date
+    self.field_clock_in_time = self.clock_in
+    self.field_clock_out_time = self.clock_out
   end
 
-  def field_clock_in_time=(value)
-    new = params_to_datetime(super(value))
-    self.clock_in = self.clock_in.change(hour: new.hour, min: new.minute)
-  end
+  # Assembles virtual attributes to useful values
+  def set_db_values
 
-  def field_clock_out_time=(value)
-    new = params_to_datetime(super(value))
-    self.clock_out = self.clock_out.change(hour: new.hour, min: new.minute)
-    # If clock_out comes before clock_in, add 1 day.
+    # For convenience: 
+    in_date = self.field_clock_in_date
+    in_time = self.field_clock_in_time
+    out_time = self.field_clock_out_time
+
+    # First we assume they happen on the same day. 
+    self.clock_in  = Time.new(in_date.year, in_date.month, in_date.day, in_time.hour, in_time.min)
+    self.clock_out = Time.new(in_date.year, in_date.month, in_date.day, out_time.hour, out_time.min)
+    
+    # If clock out happens before clock in, we assume the user worked past midnight. 
     self.clock_out += 1.day if self.clock_out < self.clock_in
   end
 
   # Custom getters: 
 
-  def field_clock_in_date
-     self.clock_in ? self.clock_in.strftime("%Y-%m-%d") : super
-  end
-
-  def field_clock_in_time
-    self.clock_in ? self.clock_in : super
-  end
-
-  def field_clock_out_time
-    self.clock_out ? self.clock_out : super
-  end
+  # def field_clock_in_date
+    # self.clock_in ? self.clock_in.to_date : super
+  # end
+ # 
+  # def field_clock_in_time
+    # self.clock_in ? self.clock_in : super
+  # end
+ # 
+  # def field_clock_out_time
+    # self.clock_out ? self.clock_out : super
+  # end
 
   # Length of workday 
   def duration
