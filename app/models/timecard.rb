@@ -45,8 +45,6 @@ class Timecard < ApplicationRecord
     # If clock out happens before clock in, we assume the user worked past midnight. 
     self.clock_out += 1.day if self.clock_out < self.clock_in
 
-    puts self.clock_in
-    puts self.clock_out
   end
 
   # Length of workday 

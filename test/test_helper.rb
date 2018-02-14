@@ -6,6 +6,16 @@ require 'capybara/minitest'
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+
+  def compare_datetimes(a,b)
+    are_equal = true
+    are_equal = false unless a.year == b.year
+    are_equal = false unless a.month == b.month
+    are_equal = false unless a.day == b.day
+    are_equal = false unless a.hour == b.hour
+    are_equal = false unless a.min== b.min
+    return are_equal
+  end
   
   def valid_user_params
     {
@@ -21,8 +31,9 @@ class ActiveSupport::TestCase
   
   def valid_timecard_params
     {
+      user_id: 1,
       description: 'Raiding Panties',
-      field_clock_in_date:  Date.new(2015-12-31), 
+      field_clock_in_date:  Date.new(2015,12,31), 
       field_clock_in_time:  Time.new(2017,12,31,12,30), 
       field_clock_out_time: Time.new(2018,1,1,2,30)
     }
