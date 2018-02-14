@@ -58,14 +58,6 @@ class TimecardTest < ActiveSupport::TestCase
 
     assert_not t2.save
   end
-    
-  # should not save if more than 24 hours
-  # test "Timecard over 24 hours" do
-    # t = Timecard.new(valid_timecard_params)
-    # t.field_clock_out_time = t.field_clock_in_time + 25.hours
-# 
-    # assert_not t.save
-  # end
   
   # should not save if less than 30 minutes
   test "Timecard less than 30 minutes" do
