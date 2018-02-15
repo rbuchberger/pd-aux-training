@@ -24,7 +24,7 @@ class Timecard < ApplicationRecord
 
   # Sets up virtual attributes for use by the form
   def set_field_values
-    self.field_clock_in_date  ||= self.clock_in?  ? self.clock_in.to_date : Date.today 
+    self.field_clock_in_date  ||= self.clock_in?  ? self.clock_in.to_date : Time.zone.now.to_date 
     self.field_clock_in_time  ||= self.clock_in?  ? self.clock_in         : Time.zone.now
     self.field_clock_out_time ||= self.clock_out? ? self.clock_out        : Time.zone.now
   end
@@ -44,6 +44,14 @@ class Timecard < ApplicationRecord
     
     # If clock out happens before clock in, we assume the user worked past midnight. 
     self.clock_out += 1.day if self.clock_out < self.clock_in
+
+    # Set timezones. This is a hack to get the production site working again until I can figure
+    # out how to do it properly. 
+    self.clock_in = self.clock_in.in_time_zone
+    self.clock_in -= self.clock_in.utc_offset
+
+    self.clock_out = self.clock_out.in_time_zone
+    self.clock_out -= self.clock_in.utc_offset
 
   end
 
