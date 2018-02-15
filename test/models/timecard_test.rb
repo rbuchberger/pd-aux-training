@@ -15,13 +15,13 @@ class TimecardTest < ActiveSupport::TestCase
   test "Timecard update" do
     
     t = Timecard.create(valid_timecard_params)
-    t.field_clock_in_date = Date.new(2016,11,20) 
-    t.field_clock_in_time = Time.new(2018,01,01,15,15)
-    t.field_clock_out_time = Time.new(2018,01,01,19,45)
+    t.clock_in_date = Date.new(2016,11,20) 
+    t.clock_in_time = Time.zone.parse('2018-01-01 15:15')
+    t.clock_out_time = Time.zone.parse('2018-01-01 19:45')
 
     assert t.save
-    assert compare_datetimes t.clock_in, Time.new(2016,11,20,15,15)
-    assert compare_datetimes t.clock_out, Time.new(2016,11,20,19,45)
+    assert compare_datetimes t.clock_in, Time.zone.parse('2016-11-20 15:15')
+    assert compare_datetimes t.clock_out, Time.zone.parse('2016-11-20 19:45')
   end
 
 
@@ -62,7 +62,7 @@ class TimecardTest < ActiveSupport::TestCase
   # should not save if less than 30 minutes
   test "Timecard less than 30 minutes" do
     t = Timecard.new(valid_timecard_params)
-    t.field_clock_out_time = t.field_clock_in_time + 29.minutes
+    t.clock_out_time = t.clock_in_time + 29.minutes
 
       assert_not t.save
   end

@@ -33,9 +33,9 @@ class ActiveSupport::TestCase
     {
       user_id: 1,
       description: 'Raiding Panties',
-      field_clock_in_date:  Date.new(2015,12,31), 
-      field_clock_in_time:  Time.new(2017,12,31,12,30), 
-      field_clock_out_time: Time.new(2018,1,1,2,30)
+      clock_in_date:  Date.new(2015,12,31), 
+      clock_in_time:  Time.zone.parse('2017-12-31 12:30'),
+      clock_out_time: Time.zone.parse('2018-1-1 02:30')
     }
 
   end

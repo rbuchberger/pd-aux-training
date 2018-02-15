@@ -82,7 +82,7 @@ class TimecardsController < ApplicationController
   end
 
   def timecard_params
-    params.require(:timecard).permit(:field_clock_in_time, :field_clock_in_date, :field_clock_out_time, :description)
+    params.require(:timecard).permit(:clock_in_time, :clock_in_date, :clock_out_time, :description)
   end
 
   def timecards_filter_params
