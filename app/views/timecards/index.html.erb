@@ -4,13 +4,21 @@
     <%= button_to "Log new workday", new_timecard_path, class: "btn btn-success btn-lg btn-block py-2 my-5", id: "logtimecardbutton", method: :get if policy(Timecard).new? %>
   </div>
 </div>
-<div class="row justify-content-center form-group">
-  <%= form_tag({}, {method: :get, class: "form-inline"})  do %>
-    <%= label_tag "Display workdays from: " %>
-    <%= date_field_tag :range_start, value = @timecards.range_start.strftime("%Y-%m-%d"), class: "form-control mx-2" %>
-    <%= label_tag "through: "%>
-    <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%d"), class: "form-control mx-2" %>
-    <%= submit_tag "Go!", class: "btn btn-info" %>
+<div class="form-group mx-2">
+  <%= form_tag({}, {method: :get, class: ''})  do %>
+    <div class="form-row justify-content-center">
+      <div class="col-md-3 mb-3">
+        <%= label_tag "Display workdays from: ", nil, class: 'control-label' %>
+        <%= date_field_tag :range_start, value = @timecards.range_start.strftime("%Y-%m-%d"), class: "form-control" %>
+      </div>
+      <div class="col-md-3 mb-3">
+        <%= label_tag "through: ", nil, class: 'control-label' %>
+        <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%d"), class: "form-control" %>
+      </div>
+      <div class="col-md-2 mb-3 align-self-end">
+        <%= submit_tag "Go!", class: "btn btn-block btn-primary" %>
+      </div>
+    </div>
   <% end %>
 </div>
 <div class="row justify-content-center">
