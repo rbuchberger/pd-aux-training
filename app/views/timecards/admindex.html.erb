@@ -1,35 +1,44 @@
 <h4 class="display-4 text-center my-4">Timecards for <%= @timecards.title %></h4>
-<div class="row mx-1 form-group justify-content-center">
-  <%= form_tag({}, {method: :get, class: "form-inline"})  do %>
-    <%= label_tag "Display workdays for " %>
-    <%= select_tag(:user_id, options_for_select(@select_options.list, selected= @timecards.selected_user_id ), class: "form-control mb-2 mx-2") %>
-    <%= label_tag "From: " %>
-    <%= date_field_tag :range_start, value = @timecards.range_start.strftime("%Y-%m-%d"), class: "form-control mb-2 mx-2" %>
-    <%= label_tag "Through: "%>
-    <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%d"), class: "form-control mb-2 mx-2" %>
-    <%= submit_tag "Go!", class: "btn btn-info mx-auto my-2" %>
+<div class="form-group mx-2">
+  <%= form_tag({}, {method: :get})  do %>
+    <div class="form-row justify-content-center">
+      <div class="col-md-3 mb-3">
+        <%= label_tag "Display workdays for: " %>
+        <%= select_tag(:user_id, options_for_select(@select_options.list, selected= @timecards.selected_user_id ), class: "form-control") %>
+      </div>
+      <div class="col-md-2 mb-3">
+        <%= label_tag "From: " %>
+        <%= date_field_tag :range_start, value = @timecards.range_start.strftime("%Y-%m-%d"), class: "form-control" %>
+      </div>
+      <div class="col-md-2 mb-3">
+        <%= label_tag "Through: "%>
+        <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%d"), class: "form-control" %>
+      </div>
+      <div class="col-md-1 mb-3 align-self-end">
+      <%= submit_tag "Go!", class: "btn btn-block btn-primary" %>
+      </div>
+    </div>
   <% end %>
 </div>
-
 <div class="row justify-content-center">
   <div class="col-lg-8">
-    <table class=" table table-hover my-4">
-     <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Date</th>
-          <th scope="col">Hours</th>
-          <th scope="col">Description</th>
+    <table class="table table-sm table-hover">
+      <thead>
+        <tr class="row">
+          <th class="col-3">Name</th>
+          <th class="col-3">Date</th>
+          <th class="col-2">Hours</th>
+          <th class="col-4">Description</th>
         </tr>
       </thead>
       <tbody>
         <% if @timecards.list.any? %>
           <% @timecards.list.each do |t| %>
-            <tr onclick="window.location='<%= timecard_path(t) %>'">
-              <td><%= t.user.last_first  %></td>
-              <td><%= link_to t.clock_in.strftime("%A, %b %d"), timecard_path(t) %></td>
-              <td><%= t.duration_hours %></td>
-              <td><%= t.description.truncate(30, omission: "...") %></td>
+            <tr onclick="window.location='<%= timecard_path(t) %>'" class="row">
+              <td class="col-3 text-truncate"><%= t.user.last_first  %></td>
+              <td class="col-3 text-truncate"><%= link_to t.clock_in.strftime("%a, %b %d"), timecard_path(t) %></td>
+              <td class="col-2 text-truncate"><%= t.duration_hours %></td>
+              <td class="col-4 text-truncate"><%= t.description.truncate(50) %></td>
             </tr>
           <% end %>
         <% else %>
