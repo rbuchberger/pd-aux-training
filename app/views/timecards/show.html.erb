@@ -1,49 +1,29 @@
 <div class="row justify-content-center">
-  <div class="card">
+  <div class="card mx-1">
     <div class="card-body">
       <h4 class="card-title"><%= @user.first_last(30) %>'s workday:</h4>
       <h6 class="card-subtitle mb-5"><%= @timecard.description %></h6>
       <table class="table">
         <tr>
-          <td>
-            <strong class="">Clocked in:</strong>
-          </td>
-          <td>
-            <%= @timecard.clock_in.strftime("%I:%M %p on %A, %B %e, %Y") %>
-          </td>
+          <td><strong class="">Clocked in:</strong></td>
+          <td><%= @timecard.clock_in.strftime("%I:%M %p on %A, %B %e, %Y") %></td>
         </tr>
         <tr>
-          <td>
-            <strong>Clocked out:</strong>
-          </td>
-          <td>
-            <%= @timecard.clock_out.strftime("%I:%M %p") %>
-          </td>
-        </td>
+          <td><strong>Clocked out:</strong></td>
+          <td><%= @timecard.clock_out.strftime("%I:%M %p") %></td>
+        </tr>
         <tr>
-          <td>
-            <strong>Hours:</strong>
-          </td>
-          <td>
-            <%= @timecard.duration_hours %> 
-          </td>
-        </td>
+          <td><strong>Hours:</strong></td>
+          <td><%= @timecard.duration_hours %></td>
+        </tr>
         <tr>
-          <td>
-            <strong>First entered:</strong>
-          </td>
-          <td>
-            <%= @timecard.created_at.strftime("%I:%M %p on %A, %B %e, %Y") %>
-          </td>
-        </td>
+          <td><strong>First entered:</strong></td>
+          <td><%= @timecard.created_at.strftime("%I:%M %p on %A, %B %e, %Y") %></td>
+        </tr>
         <tr>
-          <td>
-            <strong>Last edited:</strong>
-          </td>
-          <td>
-            <%= @timecard.updated_at.strftime("%I:%M %p on %A, %B %e, %Y") %>
-          </td>
-        </td>
+          <td><strong>Last edited:</strong></td>
+          <td><%= @timecard.updated_at.strftime("%I:%M %p on %A, %B %e, %Y") %></td>
+        </tr>
       </table>
       <%= link_to "Edit timecard", edit_timecard_path(@timecard), class: "col mx-auto my-3" if policy(@timecard).edit? %>
       <%= button_to "Delete timecard", timecard_path, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger my-3" if policy(@timecard).destroy? %>
