@@ -51,7 +51,7 @@ module TimecardsPresenter
     def total_duration
       time = 0
       @list.each { |t| time += t.duration_hours } 
-      time
+      time.round(2)
     end
 
   end
