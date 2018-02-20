@@ -26,7 +26,7 @@
         </tr>
       </table>
       <%= link_to "Edit timecard", edit_timecard_path(@timecard), class: "col mx-auto my-3" if policy(@timecard).edit? %>
-      <%= button_to "Delete timecard", timecard_path, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger my-3" if policy(@timecard).destroy? %>
+      <%= button_to "Delete timecard", timecard_path, data: { confirm: "Are you sure you want to irreversibly delete this timecard?" }, method: :delete, class: "btn btn-danger my-3" if policy(@timecard).destroy? %>
     </div>
   </div>
 </div>

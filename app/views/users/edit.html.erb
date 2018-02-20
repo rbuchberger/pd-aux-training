@@ -78,7 +78,7 @@
         <h4 class="card-title">Account Deletion</h4>
         <p class="card-text">Warning: This cannot be undone. All of this person's training records and timecards will be irreversibly deleted. If this was a real account used by a real person, you shouldn't do this; use the deactivate button above instead.</p>
         <div class="row justify-content-center">
-            <%= button_to "Delete user", user_path, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-sm" %>
+            <%= button_to "Delete user", user_path, data: { confirm: "Are you sure you want to delete this user account?" }, method: :delete, class: "btn btn-danger btn-sm" %>
         </div>
     </div>
   </div>

@@ -10,7 +10,7 @@
       </div>
       <div class="col-md-2">
       <%= button_to "Edit", edit_bulletin_path(bulletin), class: "btn btn-sm my-1 btn-secondary btn-block", method: :get if policy(bulletin).edit? %>
-      <%= button_to "Delete", bulletin_path(bulletin), data: { confirm: "Are you sure?" }, class: "btn btn-sm my-1 btn-danger btn-block", method: :delete if policy(bulletin).destroy? %>
+      <%= button_to "Delete", bulletin_path(bulletin), data: { confirm: "Are you sure you want to delete this bulletin?" }, class: "btn btn-sm my-1 btn-danger btn-block", method: :delete if policy(bulletin).destroy? %>
       </div>
     </div>
   </div>
