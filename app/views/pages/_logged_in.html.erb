@@ -1,11 +1,4 @@
 <div class="col-md-3">
-  <% if @incomplete_training_count > 0 %>
-    <div class="m-1">
-    <h6><%="You have #{pluralize(@incomplete_training_count, "incomplete training video")}."%></h6>
-      <%= button_to "Go train", lessons_path, method: :get, class: "btn btn-block btn-dark my-2" %>
-      <hr>
-    </div>
-  <% end %>
   <div class="m-1">
     <% unless @last_workday.blank? %>
       <h6>Your most recent timecard was <%= @last_workday.duration_hours %> hours, on <%= @last_workday.clock_in.strftime("%A, %b %d") %>.</h6>
