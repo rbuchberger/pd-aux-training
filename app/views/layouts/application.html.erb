@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html>
+
   <head>
+
     <title>Aux Officer Tools</title>
+
     <%= csrf_meta_tags %>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
     <!-- Bootstrap required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Font Awesome CDN -->
+
+    <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/81c0a4bef2.js"></script>
     <%= favicon_link_tag %>
+
   </head>
+
   <body>
+
     <%= render "/layouts/navbar" %>
     <%= render "/layouts/flash" %>
+
     <div class="container">
       <%= yield %>
     </div>
   </body>
+
 </html>
