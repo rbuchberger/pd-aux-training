@@ -15,13 +15,7 @@
   </head>
   <body>
     <%= render "/layouts/navbar" %>
-    <div class="container flash-container m-3">
-      <% flash.each do |type, message| %>
-        <div class="alert alert-<%= bootstrap_class_for(type) %>">
-          <%= message %>
-        </div>
-      <% end %>
-    </div>
+    <%= render "/layouts/flash" %>
     <div class="container">
       <%= yield %>
     </div>
