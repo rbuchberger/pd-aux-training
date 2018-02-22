@@ -7,25 +7,25 @@
           <%= f.label "Date:", class: "text-right mx-2 timecard-form-label" %>
         </div>
         <div class="col-s mb-4">
-          <%= f.date_field :clock_in_date, value: @timecard.clock_in_date, class: "timecard-form-field d-inline w-auto form-control" %>
+          <%= f.date_field :clock_in_date, value: @timecard.clock_in_date, class: "timecard-form-field d-inline w-auto form-control", required: true %>
         </div>
         <div class="w-100"></div>
         <div class="col-s">
-          <%= f.label "Clock in:", class: "text-right mx-2 timecard-form-label" %>
+          <%= f.label "Clock in:", class: "text-right mx-2 timecard-form-label", required: true %>
         </div>
         <div class="col-s timecard-form-field">
-          <%= f.time_select :clock_in_time, {ampm: true, minute_step: 15}, class: "d-inline w-auto form-control" %>
+          <%= f.time_select :clock_in_time, {ampm: true, minute_step: 15}, class: "d-inline w-auto form-control", required: true %>
         </div>
         <div class="w-100 mt-2"></div>
         <div class="col-s">
-          <%= f.label "Clock out:", class: "text-right mx-2 timecard-form-label"  %>
+          <%= f.label "Clock out:", class: "text-right mx-2 timecard-form-label", required: true  %>
         </div>
         <div class="col-s mb-4 timecard-form-field">
-          <%= f.time_select :clock_out_time, {ampm: true, minute_step: 15}, class: "d-inline w-auto form-control" %>
+          <%= f.time_select :clock_out_time, {ampm: true, minute_step: 15}, class: "d-inline w-auto form-control", required: true %>
         </div>
       </div>
       <%= f.label "Description:" %>
-      <%= f.text_area :description, class: "form-control", rows: "3" %><br>
+      <%= f.text_area :description, class: "form-control", rows: "3", required: true %><br>
       <%= f.submit "Log it!", class: "btn btn-success btn-block mb-3" %>
     <% end %>
     <p>Timecards cannot be shorter than 30 minutes, or longer than 24 hours.</p>

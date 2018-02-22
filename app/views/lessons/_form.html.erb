@@ -27,7 +27,7 @@
   <%= lesson.fields_for :video, @lesson.video do |video| %>
     <div class = "form-group">
       <%= video.label "YouTube address" %>
-      <%= video.text_field :url, class: "form-control"  %>
+      <%= video.text_field :url, class: "form-control", required: true  %>
       <small id="urlHelp" class="form-text text-muted">
         Pull up the youtube video you want to add, copy and paste its address here. 
       </small>
@@ -35,14 +35,14 @@
   <% end %>
   <div class = "form-group">
     <%= lesson.label :title %>
-    <%= lesson.text_field :title, class: "form-control form-control-lg" %>
+    <%= lesson.text_field :title, class: "form-control form-control-lg", required: true %>
     <small id="titleHelp" class="form-text text-muted">
       This will be the name used for this video on this website. It's unrelated to the YouTube title.  
     </small>
   </div>
   <div class = "form-group">
     <%= lesson.label :description %>
-    <%= lesson.text_area :description, class: "form-control", rows: "5" %>
+    <%= lesson.text_area :description, class: "form-control", rows: "5", required: true %>
     <small id="descriptionHelp" class="form-text text-muted">
       This will show up below the video when people watch it. It's unrelated to the description on YouTube.
       It's formatted using <a href="https://en.support.wordpress.com/markdown-quick-reference/">markdown</a>.
