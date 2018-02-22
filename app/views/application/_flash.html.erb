@@ -1,5 +1,4 @@
-
-<div class="container flash-container m-3">
+<div class="container flash-container m-3 mx-auto">
   <% flash.each do |type, message| %>
     <div class="alert alert-<%= bootstrap_class_for(type) %>">
       <%= message %>

@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
   def new
-    @lesson = Lesson.new()
+    @lesson ||= Lesson.new()
     authorize @lesson
     @lesson.build_video  
   end
@@ -12,8 +12,8 @@ class LessonsController < ApplicationController
       flash[:success] = "Training video created!"
       redirect_to lesson_path(@lesson)
     else
-      flash[:danger] = "Could not create video."
-      render action: 'new' 
+      flash.now[:danger] = "Could not create video."
+      render :new 
     end
   end
   
@@ -26,7 +26,7 @@ class LessonsController < ApplicationController
   end
   
   def edit
-    @lesson = get_lesson
+    @lesson ||= get_lesson
   end
   
   def update
@@ -35,8 +35,8 @@ class LessonsController < ApplicationController
       flash[:success] = "Training video updated!"
       redirect_to lesson_path(@lesson)
     else
-      flash[:danger] = "Could not update video"
-      render edit_lesson_path(@lesson)
+      flash.now[:danger] = "Could not update video"
+      render :edit
     end
   end
 
@@ -53,8 +53,8 @@ class LessonsController < ApplicationController
       flash[:success] = "Video deleted!"
       redirect_to lessons_path
     else
-      flash[:danger] = "Could not delete video."
-      redirect_to lesson_path(@lesson)
+      flash.now[:danger] = "Could not delete video."
+      render :edit
     end
   end
   

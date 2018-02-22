@@ -1,6 +1,6 @@
 class TimecardsController < ApplicationController
 
-  # This index action is only used for viewing a single users' timecards. 
+  # This index action is for a user to view their own timecards
   def index
     authorize Timecard
     @user = current_user
@@ -9,9 +9,7 @@ class TimecardsController < ApplicationController
     @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params, @user)
   end
   
-  # Admins need their own action. Tried to combine it with the regular index
-  # view, but "view all users' timecards" needed too many hacks. 
-  # Maybe one day when I'm smarter I'll combine the two for more RESTfulness.
+  # This allows administrators to view and filter timecards
   def admindex
     # Not passing a user argument to the presenter returns all users. If params
     # includes a user_id, it will return timecards for that user. 
@@ -22,7 +20,7 @@ class TimecardsController < ApplicationController
   
   def new
     @user = current_user
-    @timecard = Timecard.new
+    @timecard ||= Timecard.new
     authorize @timecard
   end
   
@@ -34,9 +32,8 @@ class TimecardsController < ApplicationController
       flash[:success] = "Timecard logged!"
       redirect_to timecards_path
     else
-      flash[:danger] = "Could not log timecard!"
-      @timecard.errors.full_messages.each {|m| flash[:danger] = m}
-      render new_timecard_path
+      flash.now[:danger] = "Could not log timecard!"
+      render :new
     end
   end
   
@@ -46,7 +43,7 @@ class TimecardsController < ApplicationController
   end
   
   def edit
-    @timecard = get_timecard
+    @timecard ||= get_timecard
     @user = @timecard.user
   end
     
@@ -55,10 +52,10 @@ class TimecardsController < ApplicationController
     @user = @timecard.user
     if @timecard.update(timecard_params)
       flash[:success] = "Timecard Updated!"
-      redirect_to timecard_path(@timecard)
+      redirect_to  timecard_path(@timecard)
     else
-      flash[:danger] = "Could not update timecard!"
-      redirect_to edit_timecard_path(@timecard)
+      flash.now[:danger] = "Could not update timecard!"
+      render :edit
     end
   end
   
@@ -68,8 +65,8 @@ class TimecardsController < ApplicationController
       flash[:success] = "Timecard deleted!"
       redirect_to timecards_path
     else
-      flash[:danger] = "Could not delete timecard."
-      redirect_to timecard_path(@timecard)
+      flash.now[:danger] = "Could not delete timecard."
+      render :show 
     end
   end
   

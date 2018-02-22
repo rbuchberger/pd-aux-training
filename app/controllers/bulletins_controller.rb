@@ -1,6 +1,6 @@
 class BulletinsController < ApplicationController
   def new
-    @bulletin = current_user.bulletins.build
+    @bulletin ||= current_user.bulletins.build
     authorize @bulletin
   end
 
@@ -8,11 +8,11 @@ class BulletinsController < ApplicationController
     @bulletin = current_user.bulletins.build(bulletin_params)
     authorize @bulletin
     if @bulletin.save
-      flash[:success] = "Bulletin created!"
+      flash[:success] = 'Bulletin created!'
       redirect_to root_path
     else
-      flash[:alert] = "Could not save bulletin"
-      redirect_to new_bulletin_path
+      flash.now[:alert] = 'Could not save bulletin.'
+      render :new 
     end
   end
 
@@ -28,8 +28,8 @@ class BulletinsController < ApplicationController
       flash[:success] = 'Bulletin updated!'
       redirect_to root_path
     else
-      flash[:alert] = 'Could not update bulletin'
-      render edit_bulletin_path(@bulletin)
+      flash.now[:alert] = 'Could not update bulletin'
+      render :edit
     end
   end
 
@@ -45,10 +45,10 @@ class BulletinsController < ApplicationController
     end
   end
 
-  def show
-    @bulletin = get_bulletin
-    authorize @bulletin
-  end
+  # def show
+    # @bulletin = get_bulletin
+    # authorize @bulletin
+  # end
 
   private
 
