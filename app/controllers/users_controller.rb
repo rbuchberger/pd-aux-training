@@ -18,11 +18,12 @@ class UsersController < ApplicationController
 	def update
 		@user = get_user
 		if @user.update(user_params)
-			flash[:success] = "User updated!"
-			redirect_to users_path
+			flash[:success] = 'User updated!'
+			redirect_to user_path(@user)
 		else 
-			flash[:danger] = "Could not update user!"
-			render edit_user_path(@user)
+      flash.now[:danger] = 'Could not update user!'
+      puts 'inside the else statement'
+			render :edit
 		end
 	end
 	
@@ -61,6 +62,7 @@ class UsersController < ApplicationController
 				redirect_to users_path
 			else
 				flash[:danger] = "Could not reject user."
+        redirect_to user_path(@user)
 			end
 		end
 	end

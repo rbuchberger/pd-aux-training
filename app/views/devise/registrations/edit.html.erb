@@ -7,7 +7,7 @@
 </div>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+  <%= devise_error_messages!(@user) %>
   <div class="row justify-content-center">
     <div class="col-md-4 field form-group">
       <%= f.label :first_name %><br />
