@@ -5,8 +5,7 @@ module TimecardsPresenter
     # Works out which timecards to return based on varying inputs.
     # Implements default values if something isn't specified. 
     
-    attr_accessor :range_start, :range_end, :user_id
-    attr_reader :list, :title, :selected_user_id, :select_options
+    attr_reader :list, :title, :selected_user_id, :select_options, :range_start, :range_end, :user_id
      
     def initialize(params = {}, user = nil)
       default_start = Time.zone.today.beginning_of_day - 30.days
@@ -26,9 +25,10 @@ module TimecardsPresenter
         @range_end = params[:range_end].to_date.end_of_day
       end
       
+      # Class can accept a user directly, or a user ID from a form
       if user
         @user = user
-      elsif !params[:user_id].blank? 
+      elsif !params[:user_id].blank? # Note the !  
         @user = User.unscoped.find(params[:user_id])
         # Select options builder won't include deactivated users by default:  
         @select_options.add(@user) if @user.deleted_at
@@ -38,11 +38,11 @@ module TimecardsPresenter
       
       if !@user # If no user specified, return all users. 
         @selected_user_id = ""
-        @list = Timecard.where(clock_in: range).order(clock_in: :desc)
+        @list = Timecard.where(clock_in: range)
         @title = "All Users"
       else 
         @selected_user_id = @user.id
-        @list = @user.timecards.where(clock_in: range).order(clock_in: :desc)
+        @list = @user.timecards.where(clock_in: range)
         @title = @user.first_last
       end
 

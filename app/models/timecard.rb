@@ -25,8 +25,10 @@ class Timecard < ApplicationRecord
   after_initialize :set_field_values
   before_validation :set_db_values 
 
-  # Callback Definitions: 
+  # Scopes:
+  default_scope { order clock_in: :desc }
 
+  # Callback Definitions: 
   
   def set_field_values # Sets up virtual attributes for use by the web form
 
