@@ -7,4 +7,8 @@ class PagesController < ApplicationController
       @bulletins = Bulletin.all_cached
     end
   end
+
+  def about
+    
+  end
 end

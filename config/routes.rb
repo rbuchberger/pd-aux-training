@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
+  get 'about', to: 'pages#about'
   
   # Routes for users to register and edit their logins & profiles
   devise_for :users, controllers: {registrations: 'users/registrations'}
