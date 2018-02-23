@@ -21,7 +21,6 @@ class Bulletin < ApplicationRecord
   private
 
   def clear_cache
-    puts 'clearing bulletin cache'
     Rails.cache.delete('bulletins')
   end
 

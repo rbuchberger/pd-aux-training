@@ -73,7 +73,7 @@ class TimecardsController < ApplicationController
   private
   
   def get_timecard
-    timecard = Timecard.find(params[:id])
+    timecard = Timecard.includes(:user).find(params[:id])
     authorize timecard
     timecard
   end

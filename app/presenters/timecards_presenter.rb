@@ -38,7 +38,7 @@ module TimecardsPresenter
       
       if !@user # If no user specified, return all users. 
         @selected_user_id = ""
-        @list = Timecard.where(clock_in: range)
+        @list = Timecard.includes(:user).where(clock_in: range)
         @title = "All Users"
       else 
         @selected_user_id = @user.id
