@@ -2,8 +2,8 @@ class CompletionsController < ApplicationController
   
   def index
     authorize Completion
-    @lessons = Lesson.all.order(:title).includes(:completions)
-    @users = User.all.order(:last_name).includes(:completions)
+    @lessons = Lesson.includes(:completions, :users).all.order(:title)
+    @users = User.includes(:completions, :lessons).all.order(:last_name)
   end
   
   def create
