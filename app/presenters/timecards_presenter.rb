@@ -11,7 +11,8 @@ module TimecardsPresenter
       default_start = Time.zone.today.beginning_of_day - 30.days
       default_end   = Time.zone.today.end_of_day
 
-      @select_options = SelectOptions.new 
+      # If a user is passed in, it's coming from the non-admin page. 
+      @select_options = SelectOptions.new unless user 
 
       if params[:range_start].blank?
         @range_start = default_start 
