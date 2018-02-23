@@ -69,7 +69,7 @@ class LessonsController < ApplicationController
   private
   
   def get_lesson
-    lesson = Lesson.find(params[:id])
+    lesson = Lesson.includes(:video).find(params[:id])
     authorize lesson
     lesson
   end
