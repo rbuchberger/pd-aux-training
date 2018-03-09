@@ -78,9 +78,4 @@ through hoops on the back end to ensure the front end behaves in a way that is
 best for the user, not for the developer. 
 
 The purpose of all this isn't to show how much I know, it's to show how much I
-can learn. If you're considering me for a job, I can't promise that I know 
-everything you need me to know. I'll even say I probably don't know some of it.
-I have an appetite for this wrok. I've gone from zero to capable in 4 months, 
-while working another job and preparing for a very long distance move; what I do 
-promise is to continue learning ferociously. I'll make mistakes and ask 
-questions, but never the same one twice. 
+can learn. 
