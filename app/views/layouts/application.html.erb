@@ -26,12 +26,12 @@
     <%= render "/application/flash" %>
 
     <!-- Here comes the main content! -->
-    <div class="container">
+    <main class="container">
 
       <%= yield %>
 
       <%= link_to "About", about_path, class: 'text-muted d-block text-center my-4' unless current_page?('/about') %>
     </div>
-  </body>
+  </main>
 
 </html>
