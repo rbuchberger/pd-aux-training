@@ -4,6 +4,7 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
+
 # Lock in current version of ruby. 
 ruby '2.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -34,6 +35,9 @@ gem 'jquery-rails', '4.3.1'
 gem 'hirb', '~> 0.7.3'
 # Redcarpet to enable markdown rendering
 gem 'redcarpet'
+# Paperclip gem for file uploads
+gem 'paperclip', '~> 6.0.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -45,8 +49,6 @@ group :development, :test do
 end
 
 group :development do
-  # Use Capistrano for deployment
-  # gem 'capistrano-rails', group: :development
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
 end
@@ -54,6 +56,5 @@ end
 group :production do
   # Heroku needs postgres
   gem 'pg', '~> 0.18.4'
-  
 end
 
