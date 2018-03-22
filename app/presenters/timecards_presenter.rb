@@ -1,50 +1,39 @@
 module TimecardsPresenter
   
   class FilteredTimecards
-    # Middleman, stands between the model and controller.
-    # Works out which timecards to return based on varying inputs.
-    # Implements default values if something isn't specified. 
+    # This is a stand-in object which acts as a collection of timecards in
+    # various circumstances. It is used by both the normal timecard index (where
+    # a user can view their own timecards), and the admindex where admins &
+    # trainers can view any single user's records, or all records together. It
+    # handles setting default values, and parsing strings into datetimes. 
     
-    attr_reader :list, :title, :selected_user_id, :select_options, :range_start, :range_end, :user_id
+    attr_reader :list, :select_options, :range_start, :range_end, :user
      
-    def initialize(params = {}, user = nil)
-      default_start = Time.zone.today.beginning_of_day - 30.days
-      default_end   = Time.zone.today.end_of_day
+    def initialize(params: {}, user: nil, admindex: false)
 
-      # If a user is passed in, it's coming from the non-admin page. 
-      @select_options = SelectOptions.new unless user 
+      unless user || admindex
+        raise ArgumentError, "Must either specify a user or set admindex true"
+      end
 
-      if params[:range_start].blank?
-        @range_start = default_start 
-      else
-        @range_start = params[:range_start].to_date.beginning_of_day
-      end
-      
-      if params[:range_end].blank?
-        @range_end = default_end
-      else
-        @range_end = params[:range_end].to_date.end_of_day
-      end
-      
-      # Class can accept a user directly, or a user ID from a form
-      if user
-        @user = user
-      elsif !params[:user_id].blank? # Note the !  
-        @user = User.unscoped.find(params[:user_id])
-        # Select options builder won't include deactivated users by default:  
-        @select_options.add(@user) if @user.deleted_at
-      end
-      
-      range = (@range_start .. @range_end)
-      
-      if !@user # If no user specified, return all users. 
-        @selected_user_id = ""
+      # List of users for the admindex select dropdown:
+      @select_options = SelectOptions.new if admindex  
+
+      # Build the date range:
+      set_range(params[:range_start], params[:range_end])
+
+      if admindex && params[:user_id].blank?
+        # Return all users: 
+        @user = AllUsers.new() # Stand-in class, defined below. 
         @list = Timecard.includes(:user).where(clock_in: range)
-        @title = "All Users"
-      else 
-        @selected_user_id = @user.id
+      elsif admindex 
+        # Return user in params
+        @user = User.unscoped.find(params[:user_id])
         @list = @user.timecards.where(clock_in: range)
-        @title = @user.first_last
+        # If viewing a deactivated user, manually add them to select list:
+        @select_options.add(@user) if @user.deleted_at
+      else
+        # Regular index action:
+        @list = user.timecards.where(clock_in: range)
       end
 
     end
@@ -55,21 +44,65 @@ module TimecardsPresenter
       time.round(2)
     end
 
+    # The forms want dates formatted a certain way:
+    def formatted_range_start
+      @range_start.strftime("%Y-%m-%d")
+    end
+
+    def formatted_range_end
+      @range_end.strftime("%Y-%m-%d")
+    end
+
+    private
+
+    def range
+      (@range_start .. @range_end)
+    end
+
+    def set_range(start, finish)
+      # Params will give an empty string if nothing is entered, which is truthy.
+      # We have to use .blank? to test for user input. 
+      if start.blank?
+        @range_start = Time.zone.today.beginning_of_day - 30.days
+      else
+        @range_start = start.to_date.beginning_of_day
+      end
+
+      if finish.blank?
+        @range_end = Time.zone.today.end_of_day
+      else
+        @range_end = finish.to_date.end_of_day
+      end
+    end
+
   end
   
   class SelectOptions
-    # Build a list of options for the user select box on the admindex.
-    attr_accessor :list
+    # This class is used to list users for the admindex selection form.
+    attr_reader :list
+
     def initialize
       @list = {'All Users' => ''}
       User.all.each do |u|
-        @list[u.last_first(20)] = u.id 
+        add(u)
       end
     end
 
     def add(user)
       @list[user.last_first(20)] = user.id
     end
+
+  end
+
+  class AllUsers
+    # This is a stand in 'user' for the admindex form
+    attr_reader :first_last, :id
+
+    def initialize
+      @first_last = 'All Users'
+      @id = ''
+    end
+
   end
   
 end

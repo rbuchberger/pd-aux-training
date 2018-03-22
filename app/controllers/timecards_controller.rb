@@ -1,20 +1,17 @@
 class TimecardsController < ApplicationController
+  include TimecardsPresenter
 
-  # This index action is for a user to view their own timecards
+  # This index action is for a user to view their own timecards:
   def index
     authorize Timecard
     @user = current_user
-    # Passing current_user to the presenter will only return that user's
-    # records, even if some other user_id is specified in params. 
-    @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params, @user)
+    @timecards = FilteredTimecards.new(params: timecards_filter_params, user: @user, admindex: false)
   end
   
-  # This allows administrators to view and filter timecards
+  # This allows administrators to view and filter timecards:
   def admindex
-    # Not passing a user argument to the presenter returns all users. If params
-    # includes a user_id, it will return timecards for that user. 
     authorize Timecard
-    @timecards = TimecardsPresenter::FilteredTimecards.new(timecards_filter_params)
+    @timecards = FilteredTimecards.new(params: timecards_filter_params, admindex: true)
     @select_options = @timecards.select_options
   end
   
@@ -85,6 +82,5 @@ class TimecardsController < ApplicationController
   def timecards_filter_params
    params.permit(:user_id, :range_start, :range_end)
   end
-
 
 end
