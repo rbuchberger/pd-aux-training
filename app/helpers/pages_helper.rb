@@ -9,7 +9,14 @@ module PagesHelper
   end
 
   def last_workday
-    render 'last_workday'
+    if @last_workday.blank?
+      message = 'You have not logged any timecards.'
+    else
+      message = "Your most recent timecard was #{@last_workday.duration_hours} hours, on #{@last_workday.clock_in.strftime("%A, %b %d")}
+      "
+    end
+
+    render partial: 'last_workday', locals: {message: message}
   end
 
   def pending_users
