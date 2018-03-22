@@ -2,9 +2,9 @@ module PagesHelper
 
   def dynamic_homepage_content
     if user_signed_in?
-      render 'logged_in'
+      render 'pages/home/logged_in'
     else
-      render 'logged_out'
+      render 'pages/home/logged_out'
     end
   end
 
@@ -12,16 +12,18 @@ module PagesHelper
     if @last_workday.blank?
       message = 'You have not logged any timecards.'
     else
-      message = "Your most recent timecard was #{@last_workday.duration_hours} hours, on #{@last_workday.clock_in.strftime("%A, %b %d")}
+      message = "
+      Your most recent timecard was #{@last_workday.duration_hours} hours, on
+      #{@last_workday.clock_in.strftime("%A, %b %d")}
       "
     end
 
-    render partial: 'last_workday', locals: {message: message}
+    render partial: 'pages/home/last_workday', locals: {message: message}
   end
 
   def pending_users
     if policy(User).index? && @pending_count > 0
-      render 'pending_users'
+      render 'pages/home/pending_users'
     end
   end
 
@@ -30,11 +32,11 @@ module PagesHelper
   end
 
   def create_bulletin
-    render 'create_bulletin' if policy(Bulletin).create?
+    render 'pages/home/create_bulletin' if policy(Bulletin).create?
   end
 
   def under_construction
-    render 'under_construction'
+    render 'pages/home/under_construction'
   end
 
 end
