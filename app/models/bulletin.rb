@@ -1,19 +1,18 @@
 class Bulletin < ApplicationRecord
-  # Associations
+  # Associations:
   belongs_to :user
 
-  # Validations
+  # Validations:
   validates :title, presence: true, length: {maximum: 50}
   validates :body, presence: true
 
-  # Callbacks
+  # Callbacks:
   after_commit :clear_cache
 
-  # Default Scope
+  # Scopes:
   default_scope { order(updated_at: :desc) }
-
   
-  # Cached list of bulletins for the front page
+  # Cached list of bulletins for the front page:
   def self.all_cached
     Rails.cache.fetch('bulletins') {Bulletin.includes(:user).last(30)}
   end
