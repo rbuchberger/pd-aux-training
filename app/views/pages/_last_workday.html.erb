@@ -1,0 +1,9 @@
+<div class="m-1">
+  <% unless @last_workday.blank? %>
+    <h6>Your most recent timecard was <%= @last_workday.duration_hours %> hours, on <%= @last_workday.clock_in.strftime("%A, %b %d") %>.</h6>
+  <% else %>
+    <h6>You have not logged any timecards.</h6>
+  <% end %>
+  <%= button_to "Log a workday", new_timecard_path, class: "btn btn-block btn-dark", method: :get %>
+  <hr>
+</div>

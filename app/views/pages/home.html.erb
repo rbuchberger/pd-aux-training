@@ -1,9 +1,5 @@
 <h4 class="display-4 text-center my-4">Monroe County Sheriff's Office</h4>
 <h4 class="text-center my-4">Aux Officer Toolbox</h4>
 <div class="row align-items-start">
-  <% if @current_user %>
-    <%= render 'logged_in' %>
-  <% else %>
-    <%= render 'logged_out' %>
-  <% end %>
+  <%= dynamic_homepage_content %>
 </div>

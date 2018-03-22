@@ -1,0 +1,6 @@
+<div class="m-1">
+  <h6><%= pluralize(@pending_count, "user") %> awaiting approval.</h6>
+  <p>These users will not be able to sign in until they are approved by either a trainer or an administrator.</p>
+  <%= button_to "Manage Users", users_path(anchor: 'Pending'), class: "btn btn-block btn-primary my-2", method: :get %>
+  <hr>
+</div>
