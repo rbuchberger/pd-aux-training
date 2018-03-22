@@ -4,14 +4,16 @@ class TimecardsController < ApplicationController
   # This index action is for a user to view their own timecards:
   def index
     authorize Timecard
-    @user = current_user
-    @timecards = FilteredTimecards.new(params: timecards_filter_params, user: @user, admindex: false)
+    # FilteredTimecards is a stand-in class, defined in app/presenters/timecards_presenter.rb
+    @timecards = FilteredTimecards.new(params: timecards_filter_params, user: current_user, admindex: false)
   end
   
   # This allows administrators to view and filter timecards:
   def admindex
     authorize Timecard
+    # FilteredTimecards is a stand-in class, defined in app/presenters/timecards_presenter.rb
     @timecards = FilteredTimecards.new(params: timecards_filter_params, admindex: true)
+    @user = @timecards.user
     @select_options = @timecards.select_options
   end
   
