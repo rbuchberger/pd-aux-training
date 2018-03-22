@@ -15,24 +15,3 @@
   */
  
 @import "bootstrap";
-
-.navbar-brand .fa-shield {
-  color: white;
-  padding: 0 10px;
-  font-size: 32px;
-}
-
-// Typography Styles
-h1, h2, h3 {
-  font-family: 'PT Sans', sans-serif;
-}
-
-.validation-errors {
-  max-width: 700px;
-}
-
-@media (max-width: 700px) {
-  .mobile-hidden {
-    display: none !important;
-  }
-}
