@@ -9,7 +9,7 @@ module TimecardsPresenter
     
     attr_reader :list, :select_options, :range_start, :range_end, :user
      
-    def initialize(params: {}, user: nil, admindex: false)
+    def initialize(params: {user_id: '', range_start: '', range_end: ''}, user: nil, admindex: false)
 
       unless user || admindex
         raise ArgumentError, "Must either specify a user or set admindex true"
