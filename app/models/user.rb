@@ -69,9 +69,32 @@ class User < ApplicationRecord
   end
 
   # Soft delete method, used to overwrite the default destroy method and stop
-  # users from deleting their accounts. 
-  def soft_delete
-	  update_attribute(:deleted_at, Time.zone.now)
+  # users from deleting their accounts. Ensures the last admin can't deactivate
+  # themselves. 
+  def deactivate
+    if self.admin? && User.where(role: :admin).count <= 1
+      self.errors[:role] << 
+        "Please create another administrator before deactivating this account."  
+      false
+    else
+      update_attributes({ deleted_at: Time.zone.now, role: :deputy })
+    end
+  end
+
+  def reactivate
+    update_attribute(:deleted_at, nil)
+  end
+
+  # Override the default destroy method to ensure the last admin doesn't delete
+  # their account:
+  def destroy
+    if self.admin? && User.where(role: :admin).count <= 1
+      self.errors[:role] << 
+        "Please create another administrator before deleting this account."  
+      false
+    else
+      super
+    end
   end
 
   private

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  # All of these actions are part of the admin menu. Normal account management is handled by Devise. 
 	
 	def index
     authorize User
@@ -67,11 +68,10 @@ class UsersController < ApplicationController
 		end
 	end
   
-  # Preferred method for turning people off.
+  # Preferred method for turning people off:
   def deactivate
     @user = get_user
-    @user.deleted_at = Time.zone.now
-    @user.role = :deputy
+    @user.deactivate
     if @user.save
       flash[:success] = "User deactivated."
     else
@@ -83,9 +83,8 @@ class UsersController < ApplicationController
   # because it lets you turn them back on again. 
   def reactivate
     @user = get_user
-    @user.deleted_at = nil
-    if @user.save
-      flash[:success] = "User reactivated"
+    if @user.reactivate
+      flash[:success] = "User reactivated! Their role has been set to deputy."
     else
       flash[:alert] = "Could not reactivate user."
     end
@@ -97,7 +96,6 @@ class UsersController < ApplicationController
 	  @user = get_user
     authorize @user
     @lessons_complete = @user.lessons.all.order(:title)
-    # Surely there's a more efficient way to do this:
     @lessons_incomplete = (Lesson.all.order(:title).to_a - @lessons_complete.to_a)  
 	end
 	

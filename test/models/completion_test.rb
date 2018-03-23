@@ -20,7 +20,7 @@ class CompletionTest < ActiveSupport::TestCase
   # Should be deleted when associated lesson is deleted
   test "delete with lesson" do
     lesson = lessons(:one)
-    user = users(:admin)
+    user = users(:deputy)
     user.completions.create({
       lesson_id: lesson.id
     })
@@ -34,7 +34,7 @@ class CompletionTest < ActiveSupport::TestCase
   # Should be deleted when associated user is deleted
   test "delete with user" do
     lesson = lessons(:one)
-    user = users(:admin)
+    user = users(:deputy)
     user.completions.create({
       lesson_id: lesson.id
     })
