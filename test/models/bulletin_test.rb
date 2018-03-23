@@ -5,8 +5,9 @@ class BulletinTest < ActiveSupport::TestCase
   # I'm not writing tests for basic rails functionality such as validations. 
 
   test "Cache fetch" do
+    Rails.cache.delete('bulletins')
+
     t = Bulletin.all_cached.count
-    # Test case only has 3 bulletins
     last_30 = Bulletin.last(30).count
 
     assert_equal t, last_30

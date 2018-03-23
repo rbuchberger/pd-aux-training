@@ -5,7 +5,7 @@ class Lesson < ApplicationRecord
   # Associations:
   has_many :completions, dependent: :destroy
   has_many :users, through: :completions
-  has_one :video, dependent: :destroy, autosave: true, inverse_of: :lesson 
+  has_one :video, dependent: :destroy, autosave: true, inverse_of: :lesson
   accepts_nested_attributes_for :video
 
   # Validations:
