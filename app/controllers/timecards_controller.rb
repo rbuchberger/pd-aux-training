@@ -5,14 +5,21 @@ class TimecardsController < ApplicationController
   def index
     authorize Timecard
     # FilteredTimecards is a stand-in class, defined in app/presenters/timecards_presenter.rb
-    @timecards = FilteredTimecards.new(params: timecards_filter_params, user: current_user, admindex: false)
+    @timecards = FilteredTimecards.new(
+      params:   timecards_filter_params, 
+      user:     current_user, 
+      admindex: false
+    )
   end
   
   # This allows administrators to view and filter timecards:
   def admindex
     authorize Timecard
     # FilteredTimecards is a stand-in class, defined in app/presenters/timecards_presenter.rb
-    @timecards = FilteredTimecards.new(params: timecards_filter_params, admindex: true)
+    @timecards = FilteredTimecards.new(
+      params:   timecards_filter_params,
+      admindex: true
+    )
     @user = @timecards.user
     @select_options = @timecards.select_options
   end

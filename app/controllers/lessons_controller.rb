@@ -1,4 +1,5 @@
 class LessonsController < ApplicationController
+
   def new
     @lesson ||= Lesson.new()
     authorize @lesson
@@ -62,7 +63,6 @@ class LessonsController < ApplicationController
     @lesson = get_lesson
     authorize @lesson
     @users_complete = @lesson.users.all
-    # Surely there's a more efficient way to do this:
     @users_incomplete = (User.all.to_a - @users_complete.to_a)  
   end
   
@@ -76,10 +76,6 @@ class LessonsController < ApplicationController
   
   def lesson_params
     params.permit(lesson: [:title, :description, video_attributes: [ :url ] ])
-    # params.require(:lesson)
-      # .permit( :title, :description, 
-              # video_attributes: [ :custom_start, :custom_end, :url] 
-             # )
   end
   
 end
