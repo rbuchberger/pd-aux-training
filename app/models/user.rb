@@ -7,12 +7,11 @@ class User < ApplicationRecord
   has_many :bulletins
   
   # Validations:
-  # (Devise handles most of them. I only need to validate my custom fields) 
+  # (Devise handles most of them. I only need to validate my custom fields)
   # Validates first and last names, 30 characters, a-z/A-Z, hyphens, and spaces.
-  # Fix casing afterwards
-  name_regex = /\A[a-z,\-, ]{1,30}\z/i
-  validates_format_of :first_name, with: name_regex 
-  validates_format_of :last_name,  with: name_regex
+  NAME_REGEX = /\A[a-z,\-, ]{1,30}\z/i
+  validates_format_of :first_name, with: NAME_REGEX 
+  validates_format_of :last_name,  with: NAME_REGEX
   # Validates badge number, Either X-(2 digits) with or without dash. If no
   # dash, add it later. 
   validates_format_of :badge_number, with: /\A(x\-?\d{1,2}|7\d{2}|N\/?A)\z/i 
@@ -31,8 +30,8 @@ class User < ApplicationRecord
     User.where(deleted_at: nil).order(:last_name)
   end
 
-  # Enumerate roles for rails convenience.
-  # They're stored in the database as integers. 
+  # Enumerate roles for convenience. They're stored in the database as
+  # integers. 
   enum role: [:pending, :deputy, :trainer, :admin]
 
   # Custom methods:
@@ -75,7 +74,7 @@ class User < ApplicationRecord
     if self.admin? && User.where(role: :admin).count <= 1
       false
     else
-      update_attributes({ deleted_at: Time.zone.now, role: :deputy })
+      update_attributes(deleted_at: Time.zone.now, role: :deputy)
     end
   end
 
@@ -118,28 +117,34 @@ class User < ApplicationRecord
   
   # Callback: Fixes capitalization and formatting. 
   def format_string_fields
+    self.first_name   = format_name(self.first_name, false)
+    self.last_name    = format_name(self.last_name, true)
+    self.badge_number = format_badge(self.badge_number)
+  end
+
+  def format_name(name, is_last = false)
     # Capitalization:
-    self.first_name = self.first_name.downcase.split.map{|w| w.capitalize}.join(' ')
+    name = name.downcase.split.map{|w| w.capitalize}.join(' ')
     # replace multiple spaces with a single one:
-    self.first_name = self.first_name.gsub(/ {2,}/, " ")
+    name = name.gsub(/ {2,}/, " ")
     # remove spaces from the end:
-    self.first_name = self.first_name.gsub(/ \z/, "")
-    # Capitalize last name:
-    self.last_name = self.last_name.downcase.split.map{|w| w.capitalize}.join(' ')
-    # Replace multiple spaces with a single one:
-    self.last_name = self.last_name.gsub(/ {2,}/, " ")
-    # Remove spaces from the end:
-    self.last_name = self.last_name.gsub(/ *\z/, "")
-    # Uppercase for I, II, IV, etc:
-    self.last_name = self.last_name.gsub(/[i,v,x]{1,3}\z/i) {|g| g.upcase}
+    name = name.gsub(/ \z/, "")
+    if is_last
+      # Uppercase for I, II, IV, etc:
+      name = name.gsub(/[i,v,x]{1,3}\z/i) {|g| g.upcase}
+    end
+    name
+  end
+
+  def format_badge(badge)
     # Uppercase badge number:
-    self.badge_number = self.badge_number.upcase
+    badge = badge.upcase
     # Add a dash to the badge number (X01 -> X-01):
-    self.badge_number = self.badge_number.gsub(/X(?<num>\d{1,2})/, 'X-\k<num>' )
+    badge = badge.gsub(/X(?<num>\d{1,2})/, 'X-\k<num>' )
     # Strip leading 0s from X-Badges (i.e. X-01 -> X-1):
-    self.badge_number = self.badge_number.gsub(/X-0(?<num>\d)/, 'X-\k<num>' )
+    badge = badge.gsub(/X-0(?<num>\d)/, 'X-\k<num>' )
     # Change NA to N/A for consistency:
-    self.badge_number = self.badge_number.gsub(/NA/, 'N/A')
+    badge = badge.gsub(/NA/, 'N/A')
   end
 
 end
