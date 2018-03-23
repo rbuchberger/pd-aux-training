@@ -12,5 +12,4 @@ class TrainingRecordsTest < ApplicationSystemTestCase
    assert_text "Timecard logged!"
  end
  
- 
 end

@@ -64,6 +64,13 @@ class ActiveSupport::TestCase
     }
   end
   
+  def blank_timecard_presenter_params
+    {
+      user_id: "",
+      range_start: "",
+      range_end: "",
+    }
+  end
 end
 
 class ActionDispatch::IntegrationTest

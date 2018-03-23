@@ -1,0 +1,14 @@
+<table id="admindex-table">
+  <thead>
+    <tr>
+      <th class="name-col">Name</th>
+      <th class="date-col">Date</th>
+      <th class="hours-col">Hours</th>
+      <th class="description-col mobile-hidden">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= admindex_table_rows %>
+  </tbody>
+</table>
+<p class="text-center"><strong>Total Time for these days:</strong> <%= @timecards.total_duration %> hours</p>

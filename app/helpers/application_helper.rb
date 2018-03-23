@@ -17,6 +17,12 @@ module ApplicationHelper
   def markdown 
     Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true)
   end
-    
+
+  # Validation fails
+  def validation_fails(record)
+    if record.errors.any?
+      render partial: 'application/validation_fails.html.erb', locals: {record: record}
+    end
+  end
 
 end

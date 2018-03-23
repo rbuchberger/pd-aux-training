@@ -1,15 +1,18 @@
 class Lesson < ApplicationRecord
-  # Associations
+  # Master class, defines one training requirement. Various resources can belong
+  # to it. 
+
+  # Associations:
   has_many :completions, dependent: :destroy
   has_many :users, through: :completions
-  # It'll be a has_one relationship for now, until I add functionality to support multiple types of training resources
-  has_one :video, dependent: :destroy, autosave: true, inverse_of: :lesson 
+  has_one :video, dependent: :destroy, autosave: true, inverse_of: :lesson
   accepts_nested_attributes_for :video
 
-  # Validations
+  # Validations:
   validates :title, presence: true, length: {maximum: 50}
   validates :description, length: {maximum: 1000}
 
-  # Scopes
+  # Scopes:
   default_scope {order( :title )} 
+
 end

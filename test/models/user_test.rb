@@ -41,6 +41,7 @@ class UserTest < ActiveSupport::TestCase
     t.last_name = "Buchberger 534"
     assert_not t.save
   end 
+
   # Should have a badge number
   test "has badge number" do
     t = User.new(valid_user_params)
@@ -119,6 +120,49 @@ class UserTest < ActiveSupport::TestCase
     t = users(:admin)
     
     assert t.trainer?
+  end
+
+  # Deactivate account
+  test "deactivate" do
+    t = users(:trainer)
+    t.deactivate
+
+    assert t.deleted_at
+    assert t.deputy?
+  end
+
+  # Reactivate account
+  test "reactivate" do
+    t = users(:trainer)
+
+    t.deactivate
+    t.reactivate
+
+    assert_not t.deleted_at
+    assert t.deputy?
+
+  end
+
+  # Last admin account can't be deactivated
+  test "last admin deactivate" do
+    User.where(role: :admin).each do |u|
+      u.deactivate
+    end
+
+    t = User.where(role: :admin)
+
+    assert_not_empty t
+  end
+ 
+  # Last admin can't be deleted
+  test "last admin destroy" do
+    User.where(role: :admin).each do |u|
+      u.destroy
+    end
+
+    t = User.where(role: :admin)
+
+    assert_not_empty t
   end
   
 end

@@ -1,18 +1,18 @@
-<h4 class="display-4 text-center my-4">Timecards for <%= @timecards.title %></h4>
+<h4 class="display-4 text-center my-4">Timecards for <%= @user.first_last %></h4>
 <div class="form-group mx-2">
   <%= form_tag({}, {method: :get})  do %>
     <div class="form-row justify-content-center">
       <div class="col-md-3 mb-3">
         <%= label_tag "Display workdays for: " %>
-        <%= select_tag(:user_id, options_for_select(@select_options.list, selected= @timecards.selected_user_id ), class: "form-control") %>
+        <%= select_tag(:user_id, options_for_select(@select_options.list, selected= @user.id ), class: "form-control") %>
       </div>
       <div class="col-md-2 mb-3">
         <%= label_tag "From: " %>
-        <%= date_field_tag :range_start, value = @timecards.range_start.strftime("%Y-%m-%d"), class: "form-control" %>
+        <%= date_field_tag :range_start, value = @timecards.formatted_range_start, class: "form-control" %>
       </div>
       <div class="col-md-2 mb-3">
         <%= label_tag "Through: "%>
-        <%= date_field_tag :range_end, value = @timecards.range_end.strftime("%Y-%m-%d"), class: "form-control" %>
+        <%= date_field_tag :range_end, value = @timecards.formatted_range_end, class: "form-control" %>
       </div>
       <div class="col-md-1 mb-3 align-self-end">
       <%= submit_tag "Go!", class: "btn btn-block btn-primary" %>
@@ -20,34 +20,5 @@
     </div>
   <% end %>
 </div>
-<div class="row justify-content-center">
-  <div class="col-lg-8">
-    <table class="table table-sm table-hover">
-      <thead>
-        <tr class="row">
-          <th class="col-3">Name</th>
-          <th class="col-3">Date</th>
-          <th class="col-2">Hours</th>
-          <th class="col-4">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% if @timecards.list.any? %>
-          <% @timecards.list.each do |t| %>
-            <tr onclick="window.location='<%= timecard_path(t) %>'" class="row">
-              <td class="col-3 text-truncate"><%= t.user.last_first  %></td>
-              <td class="col-3 text-truncate"><%= link_to t.clock_in.strftime("%a, %b %d"), timecard_path(t) %></td>
-              <td class="col-2 text-truncate"><%= t.duration_hours %></td>
-              <td class="col-4 text-truncate"><%= t.description.truncate(50) %></td>
-            </tr>
-          <% end %>
-        <% else %>
-          <tr><td>No timecards found for these dates</td></tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-<div class="row">
-  <p class="mx-auto"><strong>Total Time for these days:</strong> <%= @timecards.total_duration %> hours</p>
-</div>
+
+<%= admindex_table %>

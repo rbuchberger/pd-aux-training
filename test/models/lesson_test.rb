@@ -22,4 +22,5 @@ class LessonTest < ActiveSupport::TestCase
   
     assert_not t.save
   end
+
 end

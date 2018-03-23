@@ -1,4 +1,4 @@
-<%= render partial: "application/validation_fails", locals: { record: @bulletin } %>
+<%= validation_fails @bulletin %>
 <%= form_for @bulletin do |b| %>
   <%= b.label :title %>
   <%= b.text_field :title, class: "form-control", required: true %>

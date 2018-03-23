@@ -1,0 +1,6 @@
+<tr>
+  <td class="name-col"><%= timecard.user.last_first  %></td>
+  <td class="date-col"><%= link_to timecard.clock_in.strftime("%a, %b %d"), timecard_path(timecard) %></td>
+  <td class="hours-col"><%= timecard.duration_hours %></td>
+  <td class="mobile-hidden description-col"><%= timecard.description.truncate(50) %></td>
+</tr>
