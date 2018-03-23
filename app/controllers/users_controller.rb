@@ -23,7 +23,6 @@ class UsersController < ApplicationController
 			redirect_to user_path(@user)
 		else 
       flash.now[:danger] = 'Could not update user!'
-      puts 'inside the else statement'
 			render :edit
 		end
 	end
@@ -34,7 +33,8 @@ class UsersController < ApplicationController
 			flash[:success] = "User deleted!"
 			redirect_to users_path
 		else
-			flash[:danger] = "Could not delete user."
+			flash[:danger] = 
+        "Could not delete user. Please create another administrator account first."
 			redirect_to user_path(@user)
 		end
 	end
@@ -42,42 +42,42 @@ class UsersController < ApplicationController
 	# Custom action allowing trainers to approve pending users
 	def approve
 		@user = get_user
-		if @user.pending?
-			@user.role = :deputy
-			if @user.save
-				flash[:success] = "User approved!"
-				redirect_to user_path(@user)
-			else
-				flash[:danger] = "Could not approve user."
-				redirect_to user_path(@user)
-			end
-		end
+    if @user.approve
+      flash[:success] = 
+        "User approved! Their role has been set to deputy, and they can now
+        log in."
+      redirect_to user_path(@user)
+    else
+      flash[:danger] = "Could not approve user."
+      redirect_to user_path(@user)
+    end
 	end
 	
 	# Custom action allowing trainers to reject pending users. 
 	def reject
 		@user = get_user
-		if @user.pending?
-			if @user.destroy
-				flash[:success] = "User rejected!"
-				redirect_to users_path
-			else
-				flash[:danger] = "Could not reject user."
-        redirect_to user_path(@user)
-			end
-		end
+    if @user.reject
+      flash[:success] = 
+        "User rejected! Their account has been deleted, and they will not be
+        able to log in."
+      redirect_to users_path
+    else
+      flash[:danger] = "Could not reject user."
+      redirect_to user_path(@user)
+    end
 	end
   
   # Preferred method for turning people off:
   def deactivate
     @user = get_user
-    @user.deactivate
-    if @user.save
+    if @user.deactivate
       flash[:success] = "User deactivated."
+      redirect_to user_path(@user)
     else
-      flash[:danger] = "Could not deactivate user."
+      flash[:danger] = 
+        "Please create another administrator before deactivating this account."  
+      redirect_to edit_user_path(@user)
     end
-    redirect_to user_path(@user)
   end
 
   # because it lets you turn them back on again. 
@@ -85,10 +85,11 @@ class UsersController < ApplicationController
     @user = get_user
     if @user.reactivate
       flash[:success] = "User reactivated! Their role has been set to deputy."
+      redirect_to user_path(@user)
     else
       flash[:alert] = "Could not reactivate user."
+      redirect_to edit_user_path(@user)
     end
-    redirect_to user_path(@user)
   end
 
 	# Index training requirements by completion status, based on a particular user

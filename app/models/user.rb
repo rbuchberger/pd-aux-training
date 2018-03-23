@@ -73,8 +73,6 @@ class User < ApplicationRecord
   # themselves. 
   def deactivate
     if self.admin? && User.where(role: :admin).count <= 1
-      self.errors[:role] << 
-        "Please create another administrator before deactivating this account."  
       false
     else
       update_attributes({ deleted_at: Time.zone.now, role: :deputy })
@@ -89,12 +87,27 @@ class User < ApplicationRecord
   # their account:
   def destroy
     if self.admin? && User.where(role: :admin).count <= 1
-      self.errors[:role] << 
-        "Please create another administrator before deleting this account."  
       false
     else
       super
     end
+  end
+
+  def approve
+    if self.pending?
+      self.update(role: :deputy)
+    else
+      false
+    end
+  end
+
+  def reject
+    if self.pending?
+      self.destroy
+    else
+      false
+    end
+
   end
 
   private
