@@ -29,6 +29,9 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
 
+  # Use encrypted secrets file
+  config.read_encrypted_secrets = true
+
   config.action_mailer.perform_caching = false
   # Setting the default_url
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
