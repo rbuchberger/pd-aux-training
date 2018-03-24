@@ -53,7 +53,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
-group :production do
+group :production, :staging do
   # Heroku needs postgres
   gem 'pg', '~> 0.18.4'
 end
