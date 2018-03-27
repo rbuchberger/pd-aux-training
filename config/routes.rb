@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   
   # Routes for users to CRUD their own timecards:
   resources :timecards
+
+  # Routes for the document library
+  resources :document do
+    get 'download', on: :member
+  end
+
   # Routes for lessons
   resources :completions, only: :destroy
   resources :lessons do
@@ -17,7 +23,7 @@ Rails.application.routes.draw do
   end
 
   # Show a specific bulletin
-  resources :bulletins, only: [:show]
+  # resources :bulletins, only: [:show]
 
   # Administration related routes for managing other users:
   scope '/admin' do
