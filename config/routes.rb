@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :timecards
 
   # Routes for the document library
-  resources :document do
+  resources :documents do
     get 'download', on: :member
   end
 
