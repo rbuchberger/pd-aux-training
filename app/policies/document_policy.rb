@@ -20,7 +20,7 @@ class DocumentPolicy < ApplicationPolicy
     @user.trainer?
   end
 
-  def download
+  def download?
     true
   end
 
