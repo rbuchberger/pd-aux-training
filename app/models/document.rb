@@ -12,11 +12,17 @@ class Document < ApplicationRecord
     s3_protocol: 'https'            # Use HTTPS to upload files
 
   # Validations:
-  validates :file, attachment_presence: true
+  # Ensure attachment is present:
   validates_with AttachmentPresenceValidator, attributes: :file
+  # Ensure attachment is an acceptable filetype, defined below:
+  validates_with AttachmentContentTypeValidator,
+    attributes: file,
+    content_type: allowed_file_types,
+    message: "That is not an allowed file type. Currently you can upload .pdf,
+    word, powerpoint, excel, image, and text files. It's simple to enable new file
+    types; send me an email and I'll take care of it! rbuchberger@gmail.com"
 
-  validates_with AttachmentPresenceValidator
-  validates_with AttachmentContentTypeValidator
+  # Make sure they don't blow up my S3 account:
   validates_with AttachmentSizeValidator, attributes: :file, less_than: 100.megabytes
 
   # Callbacks:
@@ -32,6 +38,35 @@ class Document < ApplicationRecord
       access_key_id: Rails.application.secrets.aws_acces_key_id,
       secret_access_key: Rails.application.secrets.aws_secret_key 
     }
+  end
+
+  def allowed_file_types
+    # Array of acceptable MIME types, for the paperclip attachment content type
+    # validator. May want to extract this to a config file. 
+
+    [
+      # PDF
+      /\Aapplication\/pdf/,
+
+      # Text Files
+      /\Atext\/plain/,
+
+      # Images
+      /\Aimage\/jpeg/,
+      /\Aimage\/png/,
+
+      # Word Documents
+      /\Aapplication\/msword/,
+      /\Aapplication\/vnd.openxmlformats-officedocument.wordprocessingml.document/,
+
+      # Excel files
+      /\Aapplication\/vnd.ms-excel/,
+      /\Aapplication\/vnd.openxmlformats-officedocument.spreadsheetml.sheet/,
+
+      # Powerpoint presentations
+      /\Aapplication\/vnd.ms-powerpoint/,
+      /\Aapplication\/vnd.openxmlformats-officedocument.presentationml.presentation/,
+    ]
   end
 
 end
