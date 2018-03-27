@@ -9,9 +9,7 @@ Rails.application.routes.draw do
   resources :timecards
 
   # Routes for the document library
-  resources :documents do
-    get 'download', on: :member
-  end
+  resources :documents
 
   # Routes for lessons
   resources :completions, only: :destroy
@@ -22,10 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # Show a specific bulletin
-  # resources :bulletins, only: [:show]
-
-  # Administration related routes for managing other users:
+  # Administration related routes:
   scope '/admin' do
     resources :users, except: [:new, :create] do
       member do
