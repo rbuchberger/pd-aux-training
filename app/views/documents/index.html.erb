@@ -1,0 +1,9 @@
+<h4 class="dixplay-4 text-center my-4">Document Library</h4>
+
+<% @documents.each do |d| %>
+  <div>
+    <p>d.name</p>
+    <p>d.description</p>
+    <%= link_to "Download file", download_document_path(d) %>
+  </div>
+<% end %>
