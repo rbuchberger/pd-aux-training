@@ -54,6 +54,13 @@ class DocumentsController < ApplicationController
 
   def destroy
     @document = get_document
+
+    if @document.destroy
+      flash[:success] = "Document Deleted!"
+      redirect_to documents_path
+    else 
+      flash.now[:danger] = "Could not delete document."
+    end
   end
 
   private 
