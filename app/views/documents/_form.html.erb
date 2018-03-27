@@ -1,9 +1,12 @@
+<%= validation_fails @document %>
 <%= form_for @document do |f| %>
-  <p>Name</p>
-  <%= f.text_field :name %>
-  <p>Description</p>
-  <%= f.text_field :description %>
-  <p>File</p>
-  <%= f.file_field :file %>
-  <%= f.submit %>
+  <%= f.label :name %>
+  <small class="text-muted form-text">Optional, leave blank to use filename</small>
+  <%= f.text_field :name, class: 'form-control' %>
+  <%= f.label :description %>
+  <%= f.text_field :description, class: 'form-control' %>
+  <small class="text-muted form-text">Optional</small>
+  <%= f.label :file %>
+  <%= f.file_field :file, class: 'form-control' %>
+  <%= f.submit "Save", class: 'btn btn-primary' %>
 <% end %>
