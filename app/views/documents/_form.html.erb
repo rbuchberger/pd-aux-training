@@ -1,0 +1,9 @@
+<%= form_for @document do |f| %>
+  <p>Name</p>
+  <%= f.text_field :name %>
+  <p>Description</p>
+  <%= f.text_field :description %>
+  <p>File</p>
+  <%= f.file_field :file %>
+  <%= f.submit %>
+<% end %>
