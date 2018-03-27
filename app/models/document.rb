@@ -4,20 +4,20 @@ class Document < ApplicationRecord
   # Associations:
 
   # These are the parameters required by the paperclip gem. 
-  has_attached_file :file,          # Name of the attachment. Could be more original I suppose
-    storage: :s3,                   # Uses AWS s3 for storage
-    s3_credentials: s3_credentials, # Defined below.
-    s3_permissions: :private,       # Files uploaded will be accessible only with this access ID & key
-    s3_region: 'us-east-2',         # Paperclip needs to know which region the bucket is kept in.
-    s3_protocol: 'https'            # Use HTTPS to upload files
+  has_attached_file :file,                                      # Name of the attachment. Could be more original I suppose
+    storage: :s3,                                               # Uses AWS s3 for storage
+    s3_credentials: Proc.new{ |a| a.instance.s3_access_creds }, # Defined below.
+    s3_permissions: :private,                                   # Files uploaded will be accessible only with this access ID & key
+    s3_region: 'us-east-2',                                     # Paperclip needs to know which region the bucket is kept in.
+    s3_protocol: 'https'                                        # Use HTTPS to upload files
 
   # Validations:
   # Ensure attachment is present:
   validates_with AttachmentPresenceValidator, attributes: :file
   # Ensure attachment is an acceptable filetype, defined below:
   validates_with AttachmentContentTypeValidator,
-    attributes: file,
-    content_type: allowed_file_types,
+    attributes: :file,
+    content_type: Proc.new{ |a| a.instance.allowed_file_types },
     message: "That is not an allowed file type. Currently you can upload .pdf,
     word, powerpoint, excel, image, and text files. It's simple to enable new file
     types; send me an email and I'll take care of it! rbuchberger@gmail.com"
@@ -30,9 +30,8 @@ class Document < ApplicationRecord
   # Scopes:
 
   # Custom Methods:
-  private
 
-  def s3_credentials
+  def s3_access_creds
     {
       bucket:  Rails.application.secrets.aws_bucket, 
       access_key_id: Rails.application.secrets.aws_acces_key_id,
