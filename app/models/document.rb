@@ -31,6 +31,8 @@ class Document < ApplicationRecord
 
   # Custom Methods:
 
+  private
+
   def s3_access_creds
     {
       bucket:  Rails.application.secrets.aws_bucket, 
