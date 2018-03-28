@@ -1,3 +1,23 @@
 // Place all the styles related to the documents controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.card .document-grid {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: title description buttons;
+
+  .document-title {
+    grid-area: title;
+  }
+
+  .document-description {
+    grid-area: description;
+  }
+
+
+  .document-buttons {
+    grid-area: buttons;
+  }
+}

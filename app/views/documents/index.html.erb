@@ -1,13 +1,4 @@
-<h4 class="dixplay-4 text-center my-4">Document Library</h4>
-<%= button_to "Upload new document", new_document_path, method: :get, class: 'btn btn-primary my-3' %>
+<h4 class="display-4 text-center my-4">Document Library</h4>
+<%= button_to "Upload new document", new_document_path, method: :get, class: 'text-center btn-lg btn btn-primary mx-auto my-3' %>
+<%= render partial: 'document', collection: @documents %>
 
-<% @documents.each do |d| %>
-  <div class="card">
-    <p><%= d.name %></p>
-    <p><%= d.description %></p>
-    <p><%= d.file_file_name %></p>
-    <p><%= d.file_content_type %></p>
-    <%= link_to "Download file", document_path(d) %>
-    <%= button_to "Delete", document_path(d), method: :delete, class: 'btn btn-danger' %>
-  </div>
-<% end %>

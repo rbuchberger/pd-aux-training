@@ -11,7 +11,7 @@ class DocumentsController < ApplicationController
 
     if @document.save 
       flash[:success] = "Document created!"
-      redirect_to document_path(@document)
+      redirect_to documents_path
     else
       flash.now[:danger] = "Could not create document."
       render :new 
@@ -39,7 +39,7 @@ class DocumentsController < ApplicationController
 
     if @document.save
       flash[:success] = "Document updated!"
-      redirect_to document_path(@document)
+      redirect_to documents_path
     else
       flash.now[:danger] = "Could not update document"
       render :edit

@@ -54,6 +54,8 @@ class Document < ApplicationRecord
 
   # Callbacks:
 
+  before_save :set_name
+
   # Scopes:
 
   # Custom Methods:
@@ -64,6 +66,13 @@ class Document < ApplicationRecord
       secret_access_key: Rails.application.secrets.aws_secret_key,
       bucket: Rails.application.secrets.aws_bucket 
     }
+  end
+
+  # If the custom name field is blank, use the filename
+  def set_name
+    if self.name.blank?
+      self.name = self.file_file_name
+    end
   end
 
 end
