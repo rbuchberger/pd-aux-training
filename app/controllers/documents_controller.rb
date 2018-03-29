@@ -23,7 +23,8 @@ class DocumentsController < ApplicationController
 
     # This is required because we have our documents set to private on the S3
     # server. It generates a download URL which expires in 10 seconds, allowing
-    # us to use link_to helpers to make download buttons. 
+    # us to redirect to it with the show action after authentication and policy
+    # verification.
 
     # More info here: 
     # https://github.com/thoughtbot/paperclip/wiki/Restricting-Access-to-Objects-Stored-on-Amazon-S3

@@ -1,14 +1,16 @@
 <%= validation_fails @document %>
-<%= form_for @document do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name, class: 'form-control' %>
-  <small class="text-muted form-text text-right">Leave blank to use filename</small>
-  <%= f.label :description %>
-  <%= f.text_area :description, class: 'form-control', rows: 6 %>
-  <small class="text-muted form-text">Formatted with markdown. Google knows all about it, and wordpress has a pretty good quick reference <a href="https://en.support.wordpress.com/markdown-quick-reference/">here</a>. Links will be automatically linkified, and it'll even render HTML (if you're into that sort of thing).</small>
-  <div class="my-4 custom-file">
-    <%= f.label :file, class: 'custom-file-label' %>
-    <%= f.file_field :file, class: 'custom-file-input' %>
-  </div>
-  <%= f.submit "Save", class: 'btn btn-primary btn-block my-2' %>
-<% end %>
+<div class="document-form">
+  <%= form_for @document do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+    <small class="text-muted form-text text-right">Leave blank to use filename</small>
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control', rows: 6 %>
+    <small class="text-muted form-text">Formatted with markdown. Google knows all about it, and wordpress has a pretty good quick reference <a href="https://en.support.wordpress.com/markdown-quick-reference/">here</a>. Links will be automatically linkified, and it'll even render HTML (if you're into that sort of thing).</small>
+    <div class="my-4 custom-file">
+      <%= f.label :file, class: 'custom-file-label' %>
+      <%= f.file_field :file, class: 'custom-file-input' %>
+    </div>
+    <%= f.submit "Save", class: 'btn btn-primary btn-block my-2' %>
+  <% end %>
+</div>
