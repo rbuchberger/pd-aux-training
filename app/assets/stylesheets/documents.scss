@@ -2,22 +2,63 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.card .document-grid {
-  display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
-  grid-template-rows: auto;
-  grid-template-areas: title description buttons;
+.document-list{
+  margin: 0 auto;
+  max-width: 900px;
+}
 
-  .document-title {
-    grid-area: title;
+.card {
+    margin: .5rem 0;
+
+    h6, .card-body p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+  .card-header {
+
+    h6 {
+      display: inline;
+    }
+
+    small {
+      display: inline;
+      float: right;
+    } 
   }
 
-  .document-description {
-    grid-area: description;
-  }
+  .document-grid {
+    padding: .5rem 1rem;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: auto;
+    grid-template-areas: "description download";
 
+    .document-description {
+      grid-area: description;
+      text-align: left;
+    }
 
-  .document-buttons {
-    grid-area: buttons;
+    .document-download {
+      grid-area: download;
+      text-align: right;
+
+      p {
+        margin: 0;
+      }
+    }
   }
+}
+
+@media (max-width: 700px) {
+  .card {
+    .document-grid {
+      grid-template-columns: 100%;
+      grid-template-rows: auto auto;
+      grid-template-areas: "description"
+                           "download";
+      grid-gap: 1rem;
+    }
+  }
+  
 }

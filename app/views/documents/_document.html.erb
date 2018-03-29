@@ -1,18 +1,20 @@
 <div class="card">
+  <div class="card-header">
+    <h6><%= document.name %></h6>
+    <small class="text-muted"><%= document.updated_at.strftime("%b %d, %Y") %></small>
+  </div>
   <div class="card-body document-grid">
-    <div class="document-title">
-      <h5 class="card-title"><%= document.name %></h5>
-      <h6 class="card-subtitle text-muted"><%= document.file_file_name %></h6>
-    </div>
     <div class="document-description">
       <p class="card-text"><%= document.description %></p>
     </div>
-    <div class="document-buttons">
-      <%= button_to "Download", document_path(document), class: "btn btn-primary" %>
+    <div class="document-download">
+      <p>
+        <%= link_to "Edit Details", edit_document_path(document), class: "mr-3" if policy(document).edit? %>
+        <%= link_to File.extname(document.file_file_name), document_path(document), class: "btn btn-sm btn-primary" %>
+      </p>
       <p>
         <small class='text-muted'><%= number_to_human_size(document.file.size) %></small>
       </p>
-      <%= link_to "Edit Details", edit_document_path(document), class: "m-1" if policy(document).edit? %>
     </div>
   </div>
 </div>
