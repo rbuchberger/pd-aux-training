@@ -46,11 +46,14 @@ class Document < ApplicationRecord
     attributes: :file,
     content_type: ALLOWED_FILE_TYPES,
     message: "That is not an allowed file type. Currently you can upload .pdf,
-    word, powerpoint, excel, image, and text files. It's simple to enable new file
+    word, powerpoint, excel, image, and text files. It's simple to enable new
     types; send me an email and I'll take care of it! rbuchberger@gmail.com"
 
   # Make sure they don't blow up my S3 account:
-  validates_with AttachmentSizeValidator, attributes: :file, less_than: 100.megabytes
+  # validates_with AttachmentSizeValidator, attributes: :file, less_than: 100.megabytes
+
+  validates :name, length: { maximum: 1000 }
+  validates :description, length: { maximum: 50000 }
 
   # Callbacks:
 
