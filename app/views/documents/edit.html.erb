@@ -1,2 +1,3 @@
 <h4 class="display-4 text-center my-4">Edit Document</h4>
 <%= render 'form' %>
+<%= link_to "Delete", document_path(@document), method: :delete, class: "btn btn-danger my-3", data: { confirm: "Are you sure you want to delete this file?" } %>

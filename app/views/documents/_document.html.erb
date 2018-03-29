@@ -5,7 +5,7 @@
   </div>
   <div class="card-body document-grid">
     <div class="document-description">
-      <p class="card-text"><%= document.description %></p>
+      <p class="card-text"><%= render inline: markdown.render(document.description) %></p>
     </div>
     <div class="document-download">
       <p>
