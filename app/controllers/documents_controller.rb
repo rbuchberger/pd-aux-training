@@ -37,7 +37,7 @@ class DocumentsController < ApplicationController
   def update
     @document = get_document
 
-    if @document.save
+    if @document.update(document_params)
       flash[:success] = "Document updated!"
       redirect_to documents_path
     else
