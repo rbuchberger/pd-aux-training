@@ -10,63 +10,51 @@ module DocumentsPresenter
 
     # List is the list of documents, page is the current page number, total
     # pages is the total number of pages. 
-    attr_reader :list, :page, :total_pages, :sort_by
+    attr_reader :list, :page, :total_pages, :sort_by, :query
 
     def initialize(params)
 
-      # per_page is the number of documents to display per page; it's hard-coded
-      # to 30 for now but I may decide to make this user-selectable in the
-      # future.
+      @query = params[:query]
 
-      if params[:query].blank?
-        @query = false
-      else
-        @query = "%#{sanitize_sql_like(params[:query])}%"
-      end
+      @sort_by = params[:sort_by]
+      @sort_by = sort_default if @sort_by.blank?
 
-      @page    = params[:page].blank?    ?  1             : params[:page].to_i
-
+      @page = params[:page].blank? ? 1 : params[:page].to_i
       @per_page = 30
       @offset = ( @page - 1 ) * @per_page
-
-      if params[:sort_by].blank?
-        @sort_by = sort_options["Newest"]
-      else
-        @sort_by = sort_options[params[:sort_by]]
-      end
 
       @list = build_list
 
     end
 
     # .order() is vulnerable to SQL injection, so I'm abstracting its argument
-    # from the form with this hash. 
+    # from the form with this hash: 
     def sort_options
       {
-        "Newest": "created_at DESC",
-        "Oldest": "created_at ASC",
-        "Alphabetic": "name"
+        "Newest"     => "created_at DESC",
+        "Oldest"     => "created_at ASC",
+        "Alphabetic" => "name"
       }
     end
 
-    # Default sorting method
     def sort_default
       "Newest"
     end
 
-
     private
 
     def build_list
-      if @query
-        query_string = "file_file_name LIKE :query OR
-                        name LIKE :query OR
-                        description LIKE :query"
-
-        Document.where(query_string, {query: @query}
-                      ).order(@sort_by).limit(@per_page).offset(@offset)
+      sort_by_sql = sort_options[@sort_by]
+      if @query.blank?
+        Document.order(sort_by_sql).limit(@per_page).offset(@offset)
       else
-        Document.order(@sort_by).limit(@per_page).offset(@offset)
+        query_sql = "%#{sanitize_sql_like(@query)}%" 
+        query_arg = "file_file_name LIKE :query OR
+                     name LIKE :query OR
+                     description LIKE :query"
+
+        Document.where(query_arg, {query: query_sql}
+                      ).order(sort_by_sql).limit(@per_page).offset(@offset)
       end
     end
 
