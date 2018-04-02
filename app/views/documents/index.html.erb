@@ -1,10 +1,11 @@
 <h4 class="display-4 text-center my-4">Document Library</h4>
 <div class="row justify-content-center my-3">
   <%= form_tag documents_path, method: :get, class: 'form-inline' do %>
-    <%= text_field_tag :query, "", class: 'form-control m-1', placeholder: "This doesn't work yet.", disabled: true %>
-    <%= submit_tag "Search", class: 'btn m-1 btn-outline-primary', disabled: true %>
+    <%= select_tag :sort_by, options_for_select(@documents.sort_options.keys, @documents.sort_default), class: 'form-control m-1' %>
+    <%= text_field_tag :query, "", class: 'form-control m-1', placeholder: "This doesn't work yet." %>
+    <%= submit_tag "Search", class: 'btn m-1 btn-outline-primary' %>
   <% end %>
 </div>
 <div class="document-list">
-  <%= render partial: 'document', collection: @documents %>
+  <%= render partial: 'document', collection: @documents.list %>
 </div>
