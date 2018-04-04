@@ -50,7 +50,7 @@ module DocumentsPresenter
       sort_by_sql = sort_options[@sort_by]
       if @query.blank?
         @list = Document.order(sort_by_sql).limit(@per_page).offset(@offset)
-        @total_pages = Document.count
+        @total_pages = (Document.count / @per_page).ceil
       else
         query_sql = "%#{sanitize_sql_like(@query)}%" 
         query_arg = "file_file_name LIKE :query OR
@@ -58,7 +58,7 @@ module DocumentsPresenter
                      description LIKE :query"
         @list = Document.where(query_arg, {query: query_sql}
                       ).order(sort_by_sql).limit(@per_page).offset(@offset)
-        @total_pages = Document.where(query_arg, {query: query_sql}).count
+        @total_pages =( Document.where(query_arg, {query: query_sql}).count / @per_page ).ceil
       end
     end
 
