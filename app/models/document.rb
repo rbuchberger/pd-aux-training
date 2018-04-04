@@ -44,7 +44,8 @@ class Document < ApplicationRecord
   # Ensure attachment is an acceptable filetype, defined in the constant above
   validates_with AttachmentContentTypeValidator,
     attributes: :file,
-    content_type: ALLOWED_FILE_TYPES
+    content_type: ALLOWED_FILE_TYPES,
+    message: "not allowed. Check the list below."
 
   # Make sure they don't blow up my S3 account:
   validates_with AttachmentSizeValidator, attributes: :file, less_than: 100.megabytes

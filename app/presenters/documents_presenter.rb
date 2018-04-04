@@ -20,7 +20,7 @@ module DocumentsPresenter
       @sort_by = sort_default if @sort_by.blank?
 
       @page = params[:page].blank? ? 1 : params[:page].to_i
-      @per_page = 30
+      @per_page = 1
       @offset = ( @page - 1 ) * @per_page
 
       # For the pager
