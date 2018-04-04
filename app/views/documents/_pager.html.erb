@@ -1,0 +1,13 @@
+<div class="page-controls row justify-content-center">
+  <p>
+    <% unless is_first %>
+      <%= link_to 'Last Page', documents_path(last_page_params), class: "m-2"  %>
+    <% end %>
+    <span class="text-muted">
+      <%= current_page  %> of <%= total_pages %>
+    </span>
+    <% unless is_last %>
+      <%= link_to 'Next Page', documents_path(next_page_params), class: "m-2"  %>
+    <% end %>
+  </p>
+</div>

@@ -1,4 +1,5 @@
 class DocumentsController < ApplicationController
+  include DocumentsPresenter
 
   def new
     @document = Document.new
@@ -49,8 +50,8 @@ class DocumentsController < ApplicationController
   end
 
   def index
-    @documents = Document.all
-    authorize @documents
+    @documents = ProcessedDocuments.new(index_params)
+    authorize Document
   end
 
   def destroy
@@ -74,6 +75,10 @@ class DocumentsController < ApplicationController
 
   def document_params
     params.require(:document).permit(:name, :description, :file)
+  end
+
+  def index_params
+    params.permit(:query, :sort_by, :page)
   end
 
 end
