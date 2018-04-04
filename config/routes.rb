@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :timecards
 
   # Routes for the document library
-  resources :documents, only: [:index, :show]
+  resources :documents, only: [:index, :show, :create]
 
   # Routes for lessons
   resources :completions, only: :destroy
