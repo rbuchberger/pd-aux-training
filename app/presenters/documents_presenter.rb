@@ -10,7 +10,7 @@ module DocumentsPresenter
 
     # List is the list of documents, page is the current page number, total
     # pages is the total number of pages. 
-    attr_reader :list, :page, :total_pages, :sort_by, :query
+    attr_reader :list, :page, :total_pages, :sort_by, :query, :params
 
     def initialize(params)
 
@@ -23,7 +23,10 @@ module DocumentsPresenter
       @per_page = 30
       @offset = ( @page - 1 ) * @per_page
 
-      @list = build_list
+      # For the pager
+      @params = {sort_by: @sort_by, query: @query}
+
+      build_list
 
     end
 
@@ -46,15 +49,16 @@ module DocumentsPresenter
     def build_list
       sort_by_sql = sort_options[@sort_by]
       if @query.blank?
-        Document.order(sort_by_sql).limit(@per_page).offset(@offset)
+        @list = Document.order(sort_by_sql).limit(@per_page).offset(@offset)
+        @total_pages = Document.count
       else
         query_sql = "%#{sanitize_sql_like(@query)}%" 
         query_arg = "file_file_name LIKE :query OR
                      name LIKE :query OR
                      description LIKE :query"
-
-        Document.where(query_arg, {query: query_sql}
+        @list = Document.where(query_arg, {query: query_sql}
                       ).order(sort_by_sql).limit(@per_page).offset(@offset)
+        @total_pages = Document.where(query_arg, {query: query_sql}).count
       end
     end
 

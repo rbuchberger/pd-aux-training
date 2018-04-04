@@ -9,3 +9,5 @@
 <div class="document-list">
   <%= render partial: 'document', collection: @documents.list %>
 </div>
+<%# path, current page, total pages, params  %>
+<%= page_controls(@documents) %>
