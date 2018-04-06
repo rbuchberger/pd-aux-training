@@ -63,6 +63,14 @@ class ActiveSupport::TestCase
       body: "I have a body."
     }
   end
+
+  def valid_document_params
+    {
+      name: "Valid Document",
+      description: "I'm a document!",
+      file: fixture_file_upload('files/test.txt', 'text/plain')
+    }
+  end
   
   def blank_timecard_presenter_params
     {
