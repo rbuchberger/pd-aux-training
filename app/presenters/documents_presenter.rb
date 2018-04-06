@@ -12,7 +12,9 @@ module DocumentsPresenter
     # pages is the total number of pages. 
     attr_reader :list, :page, :total_pages, :sort_by, :query, :params
 
-    def initialize(params)
+    def initialize(params = {})
+      # Params can include sort_by, query, and page. If not specified, default
+      # values are assumed. 
 
       @query = params[:query]
 
@@ -34,8 +36,8 @@ module DocumentsPresenter
     # from the form with this hash: 
     def sort_options
       {
-        "Newest"     => "created_at DESC",
-        "Oldest"     => "created_at ASC",
+        "Newest"     => "file_updated_at DESC",
+        "Oldest"     => "file_updated_at ASC",
         "Alphabetic" => "name"
       }
     end
@@ -50,7 +52,7 @@ module DocumentsPresenter
       sort_by_sql = sort_options[@sort_by]
       if @query.blank?
         @list = Document.order(sort_by_sql).limit(@per_page).offset(@offset)
-        @total_pages = (Document.count / @per_page).ceil
+        @total_pages = (Document.count.to_f / @per_page).ceil
       else
         query_sql = "%#{sanitize_sql_like(@query)}%" 
         query_arg = "file_file_name LIKE :query OR
