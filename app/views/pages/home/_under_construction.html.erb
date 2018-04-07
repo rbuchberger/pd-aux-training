@@ -1,9 +1,37 @@
 <div class="card border-warning my-3">
-  <h4 class="card-header">Under Construction</h4>
+  <h4 class="card-header">Security Warning</h4>
 
   <div class="card-body">
     <h6 class="card-subtitle text-muted mb-3">Robert Buchberger, Site Builder</h6>
-    <p class="card-text">This site is under active development; currently it's very barebones and likely to break as I update and change things.</p>
-    <p>There is no SSL encryption (https://) yet, which means that any information sent between your computer and the webserver can be read by people in between. The biggest threat here is public wifi, so I'd advise you only access it from wifi networks which have a password, and where you know everyone on them (<i>especially</i> if you are a trainer or an administrator).</p>
+    <p>
+      This site does not have https encryption. 
+      <strong>
+        Anybody in between you and the webserver can easily and undetectably
+        read all your communications with it, including passwords, personal
+        information, and files.
+      </strong> 
+      'Anybody in between' includes everyone on your wifi network (as well as
+      many, many others). Think of it like talking on an unencrypted radio
+      channel.
+    </p>
+    <p>
+      The biggest threat here is public wifi, so I advise you only connect from
+      networks which have a password, and where you know everyone on them
+      (<i>especially</i> if you are a trainer or an administrator).
+      I also strongly discourage you from using the same password here as you do
+      anywhere remotely important, which is good practice generally, but
+      especially so here.
+    </p>
+    <p>
+      The entire database is backed up daily, so if some kid with a packet
+      sniffer gets hold of an admin's password and deletes everything, damage is
+      somewhat limited. This doesn't change the fact that they'd get access to
+      all information here.
+    </p>
+    <p>
+      Encryption is not a feature offered by the free hosting we are currently
+      using. There is no such thing as 'security through obscurity' on the
+      internet.  
+    </p>
   </div>
 </div>
