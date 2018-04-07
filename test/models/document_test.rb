@@ -8,11 +8,11 @@ class DocumentTest < ActiveSupport::TestCase
 
   # I don't want to stub s3 responses globally in the test environment, because I'd like to use real s3 requests
   setup do
-    Aws.config[:s3] = {stub_responses: true}
+    stub_aws
   end
 
   teardown do
-    Aws.config[:s3] = {stub_responses: false}
+    unstub_aws
   end
 
   # Successfully create a new one 

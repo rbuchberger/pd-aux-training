@@ -85,6 +85,14 @@ class ActiveSupport::TestCase
     }
   end
 
+  def stub_aws
+    Aws.config[:s3] = {stub_responses: true}
+  end
+
+  def unstub_aws
+    Aws.config[:s3] = {stub_responses: false}
+  end
+
 end
 
 class ActionDispatch::IntegrationTest
