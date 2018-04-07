@@ -36,7 +36,8 @@ gem 'redcarpet'
 # Paperclip gem for file uploads
 gem 'paperclip', '~> 6.0.0'
 # Amazon AWS S3 for library file storage
-gem 'aws-sdk-s3'
+gem 'aws-sdk-core', '~> 3'
+gem 'aws-sdk-s3', '~> 1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -46,7 +47,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
-  gem 'aws-sdk'
+  # gem 'aws-sdk'
 end
 
 group :development do

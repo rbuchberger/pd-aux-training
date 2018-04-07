@@ -1,5 +1,4 @@
 require 'test_helper'
-require "aws-sdk"
 
 class DocumentTest < ActiveSupport::TestCase
   #This model relies heavily on paperclip. I'll test my logic, but I won't be
