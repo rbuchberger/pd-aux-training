@@ -4,16 +4,20 @@ require 'capybara/rails'
 require 'capybara/minitest'
 
 class ActiveSupport::TestCase
+  # Required for fixture_file_upload
+  include ActionDispatch::TestProcess
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  # I'm sure there's some built in way to do this, but I couldn't find one that
+  # worked well. 
   def compare_datetimes(a,b)
     are_equal = true
-    are_equal = false unless a.year == b.year
+    are_equal = false unless a.year  == b.year
     are_equal = false unless a.month == b.month
-    are_equal = false unless a.day == b.day
-    are_equal = false unless a.hour == b.hour
-    are_equal = false unless a.min== b.min
+    are_equal = false unless a.day   == b.day
+    are_equal = false unless a.hour  == b.hour
+    are_equal = false unless a.min   == b.min
     return are_equal
   end
   
@@ -46,7 +50,8 @@ class ActiveSupport::TestCase
     description: "I know someone who's into this stuff.", 
     video_attributes: {
     url: "https://www.youtube.com/watch?v=PdDu9T1EbWM", 
-    }}
+    }
+    }
   end
   
   def valid_completion_params
@@ -79,6 +84,7 @@ class ActiveSupport::TestCase
       range_end: "",
     }
   end
+
 end
 
 class ActionDispatch::IntegrationTest
@@ -87,6 +93,7 @@ class ActionDispatch::IntegrationTest
   # Make `assert_*` methods behave like Minitest assertions
   include Capybara::Minitest::Assertions
   include Warden::Test::Helpers
+
   # Reset sessions and driver between tests
   # Use super wherever this method is redefined in your individual test classes
   def teardown
