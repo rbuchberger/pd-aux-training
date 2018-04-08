@@ -41,7 +41,7 @@ module PagesHelper
 
   def weekly_timecard_stats
     last_week = (Time.zone.now - 7.days .. Time.zone.now )
-    query = Timecard.select(:clock_in, :clock_out, :user_id).where(clock_in: last_week)
+    query = Timecard.where(clock_in: last_week)
     user_count = query.group(:user_id, :clock_in).count.count
     total_time = 0
     query.each { |t| total_time += t.duration_hours }
