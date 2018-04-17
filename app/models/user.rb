@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   # Associations:
+  has_one  :preference, dependent: :destroy
   has_many :timecards, dependent: :destroy
   has_many :completions, dependent: :destroy
   has_many :lessons, through: :completions
