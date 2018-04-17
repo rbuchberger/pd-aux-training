@@ -1,11 +1,13 @@
 class User < ApplicationRecord
 
   # Associations:
-  has_one  :preference, dependent: :destroy
+  has_one  :preference, dependent: :destroy, autosave: true, inverse_of: :User 
   has_many :timecards, dependent: :destroy
   has_many :completions, dependent: :destroy
   has_many :lessons, through: :completions
   has_many :bulletins
+
+  accepts_nested_attributes_for :preference
   
   # Validations:
   # (Devise handles most of them. I only need to validate my custom fields)
