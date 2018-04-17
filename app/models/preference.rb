@@ -14,10 +14,9 @@ class Preference < ApplicationRecord
     self.user_deactivate_notify = trainer
     self.bulletin_notify = true
     self.document_notify = false
-
   end
 
-  def disable_all_emails
+  def disable_all_email
     self.user_signup_notify     = false
     self.user_deactivate_notify = false
     self.bulletin_notify        = false

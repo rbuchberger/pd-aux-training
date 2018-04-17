@@ -95,10 +95,41 @@ class UsersController < ApplicationController
 	# Index training requirements by completion status, based on a particular user
 	def lessons
 	  @user = get_user
-    authorize @user
     @lessons_complete = @user.lessons.all.order(:title)
     @lessons_incomplete = (Lesson.all.order(:title).to_a - @lessons_complete.to_a)  
 	end
+
+  def disable_all_email
+
+    @user = current_user
+    authorize @user
+
+    current_user.disable_all_email
+    if current_user.save
+      flash[:success] = "You will no longer receive any email from this website."
+      redirect_to edit_user_registration_path(@user)
+    else
+      flash[:alert] = "Could not deactivate email notifications. Contact the site admin, he'll fix it."
+      redirect_to edit_user_registration_path(@user)
+    end
+
+  end
+
+  def set_defaults
+
+    @user = current_user
+    authorize @user
+
+    current_user.set_defaults
+    if current_user.save
+      flash[:success] = "You will no longer receive any email from this website."
+      redirect_to edit_user_registration_path(@user)
+    else
+      flash[:alert] = "Could not deactivate email notifications. Contact the site admin, he'll fix it."
+      redirect_to edit_user_registration_path(@user)
+    end
+
+  end
 	
 	private
 	
