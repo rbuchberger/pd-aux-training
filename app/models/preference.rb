@@ -7,13 +7,11 @@ class Preference < ApplicationRecord
 
   belongs_to :user, inverse_of: :preference
 
-  def set_defaults(role)
+  def set_defaults
 
-    if role == 'admin' || 'trainer'
-      self.user_signup_notify = true
-      self.user_deactivate_notify = true
-    end
-
+    trainer = self.user.trainer?
+    self.user_signup_notify = trainer
+    self.user_deactivate_notify = trainer
     self.bulletin_notify = true
     self.document_notify = false
 
