@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :timecards
 
   # Routes for the document library
-  resources :documents, only: [:index, :show, :create]
+  resources :documents, except: [:new, :edit]
 
   # Routes for lessons
   resources :completions, only: :destroy
@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     resources :bulletins, except: [:show, :index]
 
     # Document library 
-    resources :documents, except: [:index, :show]
+    resources :documents, only: [:new, :edit]
   end
   
 end
