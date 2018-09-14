@@ -20,12 +20,14 @@
     <%= render "/application/navigation/navbar" %>
     <%= render "/application/flash" %>
 
-    <!-- Here comes the main content! -->
     <main class="container">
 
       <%= yield %>
 
-    </div>
-  </main>
+    </main>
+    <footer class="main">
+      <%= link_to "About", about_path, class: 'text-muted d-block text-center my-4' %>
+    </footer>
+  </body>
 
 </html>
