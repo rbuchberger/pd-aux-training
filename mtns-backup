@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This is a quick and dirty backup script. It creates and downloads a backup on heroku, encrypts it,
+# and uploads it to an S3 bucket.
+
+# You need both AWS and Heroku installed and configured, as well as the public key you'd like to use
+# to encrypt. 
+
+# For convenience, create the following link to add it to the path, while keeping it in this repo:
+# ln mtns-backup ~/bin/mtns-backup
+
+# Set where we'll keep the file (temporarily)
+output_location="$HOME/production_db_$(date -u +"%y-%m-%d_%H%M").dump"
+
+# Create backup
+heroku pg:backups:capture --app mtns-aux-production
+
+# Download the backup
+heroku pg:backups:download --output $output_location --app mtns-aux-production 
+
+# Encrypt the file:
+if [ -e $output_location ]; then
+  echo "File successfuly downloaded"
+  gpg --output="$output_location.gpg" \
+    --recipient robert@robert-buchberger.com \
+    --encrypt $output_location
+else
+  echo "Did not successfully download file. Terminating."
+  exit 1
+fi
+
+# Upload to AWS
+if [ -e $output_location.gpg ]; then
+  echo "Successfully Downloaded backup"
+  aws s3 cp $output_location.gpg s3://mtns-aux-officer-tools/db_backups/
+else
+  echo "Did not successfully encrypt file. Terminating."
+fi
+
+# Destroy the evidence
+rm $output_location $output_location.gpg
