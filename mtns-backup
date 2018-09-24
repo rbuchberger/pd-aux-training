@@ -20,18 +20,16 @@ heroku pg:backups:download --output $output_location --app mtns-aux-production
 
 # Encrypt the file:
 if [ -e $output_location ]; then
-  echo "File successfuly downloaded"
   gpg --output="$output_location.gpg" \
     --recipient robert@robert-buchberger.com \
     --encrypt $output_location
 else
-  echo "Did not successfully download file. Terminating."
+  echo "Did not successfully download file. Backup Terminating."
   exit 1
 fi
 
 # Upload to AWS
 if [ -e $output_location.gpg ]; then
-  echo "Successfully Downloaded backup"
   aws s3 cp $output_location.gpg s3://mtns-aux-officer-tools/db_backups/
 else
   echo "Did not successfully encrypt file. Terminating."
@@ -39,3 +37,5 @@ fi
 
 # Destroy the evidence
 rm $output_location $output_location.gpg
+
+echo "Backup successful."
