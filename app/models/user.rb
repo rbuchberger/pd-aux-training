@@ -28,7 +28,7 @@ class User < ApplicationRecord
 
   # Scopes:
   def self.default_scope
-    User.where(deleted_at: nil).order(:last_name)
+    User.order(:last_name)
   end
 
   # Enumerate roles for convenience. They're stored in the database as
