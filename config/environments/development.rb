@@ -63,6 +63,9 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Fixing a deprecation warning
+  config.active_record.sqlite3.represent_boolean_as_integer = true
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
