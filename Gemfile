@@ -26,7 +26,7 @@ gem 'bcrypt', '~> 3.1', platforms: :ruby
 # Use devise for user registration
 gem 'devise', '~>4'
 # Use Pundit for access control
-gem 'pundit', '~>1'
+gem 'pundit', '~>2'
 # Twitter bootstrap for to make it pretty
 gem 'bootstrap', '~> 4.0'
 # jQuery for javascript
