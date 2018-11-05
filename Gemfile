@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
-# Lock in current version of ruby. 
+# Lock in current version of ruby.
 ruby '2.5.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.5'
@@ -17,7 +19,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Turbolinks for pseudo-javascript front-end.
 gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. 
+# Build JSON APIs with ease.
 gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1', platforms: :ruby
@@ -27,7 +29,7 @@ gem 'devise', '~>4'
 gem 'pundit', '~>1'
 # Twitter bootstrap for to make it pretty
 gem 'bootstrap', '~> 4.0'
-# jQuery for javascript 
+# jQuery for javascript
 gem 'jquery-rails', '4.3.1'
 # Hirb gem for database convenience
 gem 'hirb', '~> 0.7.3'
@@ -40,8 +42,6 @@ gem 'aws-sdk-core', '~> 3'
 gem 'aws-sdk-s3', '~> 1'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
@@ -51,7 +51,8 @@ group :development, :test do
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  # Access an IRB console on exception pages or by using <%= console %> anywhere
+  # in the code.
   gem 'web-console', '>= 3.3.0'
 end
 
@@ -59,4 +60,3 @@ group :production, :staging do
   # Heroku needs postgres
   gem 'pg', '~> 0.18.4'
 end
-
