@@ -42,12 +42,10 @@ gem 'aws-sdk-core', '~> 3'
 gem 'aws-sdk-s3', '~> 1'
 
 group :development, :test do
-  # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.3.6'
-  # gem 'aws-sdk'
+  gem 'solargraph'
 end
 
 group :development do
