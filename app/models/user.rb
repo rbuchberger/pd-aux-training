@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Are you happy, rubocop?
 class User < ApplicationRecord
   # Associations:
   has_many :timecards, dependent: :destroy
@@ -145,6 +146,6 @@ class User < ApplicationRecord
     # Strip leading 0s from X-Badges (i.e. X-01 -> X-1):
     badge = badge.gsub(/X-0(?<num>\d)/, 'X-\k<num>')
     # Change NA to N/A for consistency:
-    badge = badge.gsub(/NA/, 'N/A')
+    badge.gsub(/NA/, 'N/A')
   end
 end
