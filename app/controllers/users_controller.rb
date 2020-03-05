@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     @users_active =
       User.where(role: %i[deputy trainer admin], deleted_at: nil)
-          .order(:role, :last_name)
+          .order(role: :desc, last_name: :asc)
     @users_pending =
       User.where(role: :pending, deleted_at: nil)
           .order(:last_name)
