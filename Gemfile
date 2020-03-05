@@ -44,13 +44,14 @@ gem 'aws-sdk-s3', '~> 1'
 group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  gem 'sqlite3', '~> 1.3.6'
   gem 'solargraph'
+  gem 'sqlite3', '~> 1.3.6'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere
   # in the code.
+  gem 'rubocop', require: false
   gem 'web-console', '>= 3.3.0'
 end
 
