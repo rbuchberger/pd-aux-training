@@ -1,5 +1,4 @@
 module PagesHelper
-
   def dynamic_homepage_content
     if user_signed_in?
       render 'pages/home/logged_in'
@@ -14,11 +13,11 @@ module PagesHelper
     else
       message = "
       Your most recent timecard was #{@last_workday.duration_hours} hours, on
-      #{@last_workday.clock_in.strftime("%A, %b %d")}
+      #{@last_workday.clock_in.strftime('%A, %b %d')}
       "
     end
 
-    render partial: 'pages/home/last_workday', locals: {message: message}
+    render partial: 'pages/home/last_workday', locals: { message: message }
   end
 
   def pending_users
@@ -40,12 +39,12 @@ module PagesHelper
   end
 
   def weekly_timecard_stats
-    last_week = (Time.zone.now - 7.days .. Time.zone.now )
+    last_week = (Time.zone.now - 7.days..Time.zone.now)
     query = Timecard.where(clock_in: last_week)
     user_count = query.group(:user_id, :clock_in).count.count
     total_time = 0
     query.each { |t| total_time += t.duration_hours }
 
-    render partial: 'pages/home/timecard_stats', locals: {user_count: user_count, total_time: total_time}
+    render partial: 'pages/home/timecard_stats', locals: { user_count: user_count, total_time: total_time }
   end
 end

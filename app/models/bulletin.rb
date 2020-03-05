@@ -3,7 +3,7 @@ class Bulletin < ApplicationRecord
   belongs_to :user
 
   # Validations:
-  validates :title, presence: true, length: {maximum: 50}
+  validates :title, presence: true, length: { maximum: 50 }
   validates :body, presence: true
 
   # Callbacks:
@@ -11,10 +11,10 @@ class Bulletin < ApplicationRecord
 
   # Scopes:
   default_scope { order(updated_at: :desc) }
-  
+
   # Cached list of bulletins for the front page:
   def self.all_cached
-    Rails.cache.fetch('bulletins') {Bulletin.includes(:user).last(30)}
+    Rails.cache.fetch('bulletins') { Bulletin.includes(:user).last(30) }
   end
 
   private
@@ -22,5 +22,4 @@ class Bulletin < ApplicationRecord
   def clear_cache
     Rails.cache.delete('bulletins')
   end
-
 end

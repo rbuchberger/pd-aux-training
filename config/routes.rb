@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
   get 'about', to: 'pages#about'
-  
+
   # Routes for users to register and edit their logins & profiles
-  devise_for :users, controllers: {registrations: 'users/registrations'}
-  
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+
   # Routes for users to CRUD their own timecards:
   resources :timecards
 
   # Routes for the document library
-  resources :documents, except: [:new, :edit]
+  resources :documents, except: %i[new edit]
 
   # Routes for lessons
   resources :completions, only: :destroy
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   # Administration related routes:
   scope '/admin' do
-    resources :users, except: [:new, :create] do
+    resources :users, except: %i[new create] do
       member do
         get 'lessons'
         patch 'deactivate'
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
         delete 'reject'
       end
     end
-    
+
     # Training completions index
     resources :completions, only: :index
 
@@ -39,10 +39,9 @@ Rails.application.routes.draw do
     get 'timecards/(:user_id)', to: 'timecards#admindex', as: 'admin_timecards'
 
     # Bulletin management
-    resources :bulletins, except: [:show, :index]
+    resources :bulletins, except: %i[show index]
 
-    # Document library 
-    resources :documents, only: [:new, :edit]
+    # Document library
+    resources :documents, only: %i[new edit]
   end
-  
 end

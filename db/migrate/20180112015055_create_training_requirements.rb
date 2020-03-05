@@ -7,12 +7,11 @@ class CreateTrainingRequirements < ActiveRecord::Migration[5.1]
       t.boolean :required?
       t.timestamps
     end
-    
+
     # Rename training record foreign key
     rename_column :training_records, :training_video_id, :training_requirement_id
 
     # Add foreign key to training videos
     add_foreign_key :training_videos, :training_requirements
-        
   end
 end

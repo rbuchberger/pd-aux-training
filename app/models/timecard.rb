@@ -37,7 +37,7 @@ class Timecard < ApplicationRecord
   end
 
   # Assembles virtual attributes for the database values
-  def set_db_values 
+  def set_db_values
     in_date  = clock_in_date
     in_time  = clock_in_time
     out_date = in_date

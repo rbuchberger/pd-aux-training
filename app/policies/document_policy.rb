@@ -1,10 +1,9 @@
 class DocumentPolicy < ApplicationPolicy
-
   def index?
     true
   end
 
-  def show? 
+  def show?
     true
   end
 
@@ -12,12 +11,11 @@ class DocumentPolicy < ApplicationPolicy
     @user.trainer?
   end
 
-  def update? 
+  def update?
     @user.trainer?
   end
 
-  def destroy? 
+  def destroy?
     @user.trainer?
   end
-
 end

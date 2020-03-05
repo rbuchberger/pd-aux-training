@@ -12,7 +12,7 @@ class BulletinsController < ApplicationController
       redirect_to root_path
     else
       flash.now[:alert] = 'Could not save bulletin.'
-      render :new 
+      render :new
     end
   end
 
@@ -46,8 +46,8 @@ class BulletinsController < ApplicationController
   end
 
   # def show
-    # @bulletin = get_bulletin
-    # authorize @bulletin
+  # @bulletin = get_bulletin
+  # authorize @bulletin
   # end
 
   private
@@ -59,5 +59,4 @@ class BulletinsController < ApplicationController
   def bulletin_params
     params.require(:bulletin).permit(:title, :body)
   end
-
 end
