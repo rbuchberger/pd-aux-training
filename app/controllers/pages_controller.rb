@@ -9,7 +9,5 @@ class PagesController < ApplicationController
     end
   end
 
-  def about
-    
-  end
+  def about; end
 end

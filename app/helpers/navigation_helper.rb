@@ -8,7 +8,6 @@ module NavigationHelper
   end
 
   def admin_links
-      render 'application/navigation/admin_links' if current_user.trainer?
+    render 'application/navigation/admin_links' if current_user.trainer?
   end
-
 end

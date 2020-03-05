@@ -1,5 +1,4 @@
 class BulletinPolicy < ApplicationPolicy
-
   def index?
     true
   end
@@ -15,5 +14,4 @@ class BulletinPolicy < ApplicationPolicy
   def destroy?
     @user.trainer?
   end
-
 end

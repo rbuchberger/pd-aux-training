@@ -6,7 +6,7 @@ class DocumentsControllerDeputyTest < ActionDispatch::IntegrationTest
 
   setup do
     stub_aws
-    sign_in users( :deputy )
+    sign_in users(:deputy)
   end
 
   teardown do
@@ -14,21 +14,21 @@ class DocumentsControllerDeputyTest < ActionDispatch::IntegrationTest
   end
 
   # index
-  test "index" do
+  test 'index' do
     get documents_path
 
     assert_response :success
   end
 
   # show
-  test "show" do
+  test 'show' do
     get document_path(documents(:one))
 
     assert_response :redirect
   end
 
   # new
-  test "new" do
+  test 'new' do
     get new_document_path
 
     assert flash[:alert]
@@ -36,9 +36,9 @@ class DocumentsControllerDeputyTest < ActionDispatch::IntegrationTest
   end
 
   # create
-  test "create" do
+  test 'create' do
     assert_no_difference 'Document.count' do
-      post documents_path, params: {document: valid_document_params} 
+      post documents_path, params: { document: valid_document_params }
     end
 
     assert flash[:alert]
@@ -46,7 +46,7 @@ class DocumentsControllerDeputyTest < ActionDispatch::IntegrationTest
   end
 
   # edit
-  test "edit" do
+  test 'edit' do
     get edit_document_path(documents(:one))
 
     assert flash[:alert]
@@ -54,11 +54,11 @@ class DocumentsControllerDeputyTest < ActionDispatch::IntegrationTest
   end
 
   # update
-  test "update" do
-    t = documents( :one )
+  test 'update' do
+    t = documents(:one)
 
-    patch document_path(documents( :one )),
-      params: {document: {name: "new name!"}}
+    patch document_path(documents(:one)),
+          params: { document: { name: 'new name!' } }
 
     assert_equal t.name, Document.find(t.id).name
     assert flash[:alert]
@@ -66,15 +66,14 @@ class DocumentsControllerDeputyTest < ActionDispatch::IntegrationTest
   end
 
   # destroy
-  test "destroy" do
+  test 'destroy' do
     assert_no_difference 'Document.count' do
-      delete document_path(documents( :one ))
+      delete document_path(documents(:one))
     end
 
     assert flash[:alert]
     assert_redirected_to root_path
   end
-
 end
 
 # Trainer tests
@@ -83,7 +82,7 @@ class DocumentsControllerTrainerTest < ActionDispatch::IntegrationTest
 
   setup do
     stub_aws
-    sign_in users( :trainer )
+    sign_in users(:trainer)
   end
 
   teardown do
@@ -91,7 +90,7 @@ class DocumentsControllerTrainerTest < ActionDispatch::IntegrationTest
   end
 
   # new
-  test 'new' do 
+  test 'new' do
     get new_document_path
 
     assert_response :success
@@ -100,7 +99,7 @@ class DocumentsControllerTrainerTest < ActionDispatch::IntegrationTest
   # create
   test 'create' do
     assert_difference 'Document.count', 1 do
-      post documents_path, params: {document: valid_document_params}
+      post documents_path, params: { document: valid_document_params }
     end
 
     assert flash[:success]
@@ -108,17 +107,17 @@ class DocumentsControllerTrainerTest < ActionDispatch::IntegrationTest
 
   # edit
   test 'edit' do
-    get edit_document_path(documents( :one ))
+    get edit_document_path(documents(:one))
 
     assert_response :success
   end
 
   # update
   test 'update' do
-    t = documents( :one )
+    t = documents(:one)
 
-    patch document_path(documents( :one )),
-      params: {document: {name: 'new name!'}}
+    patch document_path(documents(:one)),
+          params: { document: { name: 'new name!' } }
 
     assert_equal Document.find(t.id).name, 'new name!'
     assert flash[:success]
@@ -127,12 +126,11 @@ class DocumentsControllerTrainerTest < ActionDispatch::IntegrationTest
   # destroy
   test 'destroy' do
     assert_difference 'Document.count', -1 do
-      delete document_path(documents( :one ))
+      delete document_path(documents(:one))
     end
 
     assert flash[:success]
   end
-
 end
 
 # Not logged in tests
@@ -157,14 +155,14 @@ class DocumentsControllerGuestTest < ActionDispatch::IntegrationTest
 
   # show
   test 'show' do
-    get document_path(documents( :one ))
+    get document_path(documents(:one))
 
     assert_redirected_to new_user_session_path
     assert flash[:alert]
   end
 
   # new
-  test "new" do
+  test 'new' do
     get new_document_path
 
     assert_redirected_to new_user_session_path
@@ -172,7 +170,7 @@ class DocumentsControllerGuestTest < ActionDispatch::IntegrationTest
   end
 
   # create
-  test "create" do
+  test 'create' do
     assert_no_difference 'Document.count' do
       post documents_path, params: valid_document_params
     end
@@ -182,7 +180,7 @@ class DocumentsControllerGuestTest < ActionDispatch::IntegrationTest
   end
 
   # edit
-  test "edit" do
+  test 'edit' do
     get edit_document_path(documents(:one))
 
     assert_redirected_to new_user_session_path
@@ -190,10 +188,10 @@ class DocumentsControllerGuestTest < ActionDispatch::IntegrationTest
   end
 
   # update
-  test "update" do
-    t = documents( :one )
+  test 'update' do
+    t = documents(:one)
 
-    patch document_path(documents( :one )), params: {name: "new name!"}
+    patch document_path(documents(:one)), params: { name: 'new name!' }
 
     assert_equal t.name, Document.find(t.id).name
     assert_redirected_to new_user_session_path
@@ -201,13 +199,12 @@ class DocumentsControllerGuestTest < ActionDispatch::IntegrationTest
   end
 
   # destroy
-  test "destroy" do
+  test 'destroy' do
     assert_no_difference 'Document.count' do
-      delete document_path(documents( :one ))
+      delete document_path(documents(:one))
     end
 
     assert_redirected_to new_user_session_path
     assert flash[:alert]
   end
-
 end

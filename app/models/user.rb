@@ -10,12 +10,12 @@ class User < ApplicationRecord
   # Validations:
   # (Devise handles most of them. I only need to validate my custom fields)
   # Validates first and last names, 30 characters, a-z/A-Z, hyphens, and spaces.
-  NAME_REGEX = /\A[a-z,\-, ]{1,30}\z/i
+  NAME_REGEX = /\A[a-z,\-, ]{1,30}\z/i.freeze
   validates_format_of :first_name, with: NAME_REGEX
   validates_format_of :last_name,  with: NAME_REGEX
   # Validates badge number, Either X-(2 digits) with or without dash. If no
   # dash, add it later.
-  validates_format_of :badge_number, with: /\A(x\-?\d{1,2}|7\d{2}|N\/?A)\z/i
+  validates_format_of :badge_number, with: %r{\A(x\-?\d{1,2}|7\d{2}|N/?A)\z}i
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

@@ -8,12 +8,12 @@ class TimecardsPresenterTest < ActionDispatch::IntegrationTest
 
   # none, none, false
   # Should throw an error
-    test 'bad arguments' do
+  test 'bad arguments' do
     p = blank_timecard_presenter_params
-      assert_raises ArgumentError do
-        FilteredTimecards.new(params: p, user: nil, admindex: false)
-      end
+    assert_raises ArgumentError do
+      FilteredTimecards.new(params: p, user: nil, admindex: false)
     end
+  end
 
   # none, none, true
   # Should return all users, last 30 days
@@ -22,10 +22,10 @@ class TimecardsPresenterTest < ActionDispatch::IntegrationTest
     t = FilteredTimecards.new(params: p, user: nil, admindex: true)
 
     assert_equal t.user.first_last, 'All Users'
-    assert_equal t.range_start, 
-      Time.zone.now.to_date.beginning_of_day - 30.days
-    assert_equal t.range_end, 
-      Time.zone.now.to_date.end_of_day
+    assert_equal t.range_start,
+                 Time.zone.now.to_date.beginning_of_day - 30.days
+    assert_equal t.range_end,
+                 Time.zone.now.to_date.end_of_day
   end
 
   # none, user, false
@@ -55,10 +55,10 @@ class TimecardsPresenterTest < ActionDispatch::IntegrationTest
   # Should return all users, given dates
   test 'admindex range specified' do
     s = Date.today - 20.days
-    s = s.strftime("%Y-%m-%d")
+    s = s.strftime('%Y-%m-%d')
     f = Date.today - 10.days
-    f = f.strftime("%Y-%m-%d")
-    p = {range_start: s, range_end: f, user_id: ''}
+    f = f.strftime('%Y-%m-%d')
+    p = { range_start: s, range_end: f, user_id: '' }
     t = FilteredTimecards.new(params: p, user: nil, admindex: true)
 
     assert_equal t.user.first_last, AllUsers.new.first_last
@@ -83,7 +83,5 @@ class TimecardsPresenterTest < ActionDispatch::IntegrationTest
     assert_difference 't.list.size', 1 do
       t.add(u)
     end
-
   end
-
 end

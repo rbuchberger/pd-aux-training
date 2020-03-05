@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class DocumentTest < ActiveSupport::TestCase
-  #This model relies heavily on paperclip. I'll test my logic, but I won't be
-  #heavily testing core paperclip features, or core rails functionality. I'll
-  #also save S3 calls for system tests rather than putting them here. 
+  # This model relies heavily on paperclip. I'll test my logic, but I won't be
+  # heavily testing core paperclip features, or core rails functionality. I'll
+  # also save S3 calls for system tests rather than putting them here.
 
   # I don't want to stub s3 responses globally in the test environment, because I'd like to use real s3 requests
   setup do
@@ -14,8 +14,8 @@ class DocumentTest < ActiveSupport::TestCase
     unstub_aws
   end
 
-  # Successfully create a new one 
-  test "create" do
+  # Successfully create a new one
+  test 'create' do
     t = Document.new(valid_document_params)
 
     assert t.valid?
@@ -23,7 +23,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   # No file
-  test "no_file" do
+  test 'no_file' do
     p = valid_document_params
     p[:file] = nil
 
@@ -33,7 +33,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   # Bad file type, bad extension
-  test "bad file" do
+  test 'bad file' do
     p = valid_document_params
     p[:file] = fixture_file_upload('files/badfile.tar.gz', 'text/plain')
 
@@ -43,7 +43,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   # Bad file type, good extension
-  test "bad file type" do
+  test 'bad file type' do
     p = valid_document_params
     p[:file] = fixture_file_upload('files/badfile.txt', 'text/plain')
 
@@ -53,7 +53,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   # Good file type, bad extension
-  test "bad extension" do
+  test 'bad extension' do
     p = valid_document_params
     p[:file] = fixture_file_upload('files/badfile2.tar.gz', 'text/plain')
 
@@ -62,15 +62,14 @@ class DocumentTest < ActiveSupport::TestCase
     assert_not t.save
   end
 
-  # Set name if filename is missing: 
-  test "no_name" do
+  # Set name if filename is missing:
+  test 'no_name' do
     p = valid_document_params
-    p[:name] = ""
+    p[:name] = ''
 
     t = Document.new(p)
     t.save
 
-    assert_equal t.name, "test.txt"
+    assert_equal t.name, 'test.txt'
   end
-
 end

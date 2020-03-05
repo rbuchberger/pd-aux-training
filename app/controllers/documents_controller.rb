@@ -10,12 +10,12 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
     authorize @document
 
-    if @document.save 
-      flash[:success] = "Document created!"
+    if @document.save
+      flash[:success] = 'Document created!'
       redirect_to documents_path
     else
-      flash.now[:danger] = "Could not create document."
-      render :new 
+      flash.now[:danger] = 'Could not create document.'
+      render :new
     end
   end
 
@@ -27,7 +27,7 @@ class DocumentsController < ApplicationController
     # us to redirect to it with the show action after authentication and policy
     # verification.
 
-    # More info here: 
+    # More info here:
     # https://github.com/thoughtbot/paperclip/wiki/Restricting-Access-to-Objects-Stored-on-Amazon-S3
     redirect_to @document.file.expiring_url(10)
   end
@@ -40,13 +40,12 @@ class DocumentsController < ApplicationController
     @document = get_document
 
     if @document.update(document_params)
-      flash[:success] = "Document updated!"
+      flash[:success] = 'Document updated!'
       redirect_to documents_path
     else
-      flash.now[:danger] = "Could not update document"
+      flash.now[:danger] = 'Could not update document'
       render :edit
     end
-
   end
 
   def index
@@ -58,15 +57,15 @@ class DocumentsController < ApplicationController
     @document = get_document
 
     if @document.destroy
-      flash[:success] = "Document Deleted!"
+      flash[:success] = 'Document Deleted!'
       redirect_to documents_path
-    else 
-      flash.now[:danger] = "Could not delete document."
+    else
+      flash.now[:danger] = 'Could not delete document.'
     end
   end
 
-  private 
-  
+  private
+
   def get_document
     d = Document.find(params[:id])
     authorize d
@@ -80,5 +79,4 @@ class DocumentsController < ApplicationController
   def index_params
     params.permit(:query, :sort_by, :page)
   end
-
 end

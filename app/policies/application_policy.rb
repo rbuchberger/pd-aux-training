@@ -2,8 +2,8 @@ class ApplicationPolicy
   attr_reader :user, :record
 
   # Policies are required by the pundit gem to control access to various
-  # resources. 
-  
+  # resources.
+
   def initialize(user, record)
     @user = user
     @record = record
@@ -50,16 +50,12 @@ class ApplicationPolicy
     end
 
     def resolve
-      if @user.trainer?
-        scope.all
-      else
-        #
-      end
+      scope.all if @user.trainer?
     end
   end
-  
+
   protected
-  
+
   def own_record?
     if @record.class == User
       @record == @user
@@ -67,5 +63,4 @@ class ApplicationPolicy
       @record.user == @user
     end
   end
-  
 end
