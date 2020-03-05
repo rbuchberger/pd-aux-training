@@ -3,9 +3,16 @@ class UsersController < ApplicationController
 
   def index
     authorize User
-    @users_active = User.where.not(role: :pending).order(:role, :last_name)
-    @users_pending = User.unscoped.where(role: :pending).order(:last_name)
-    @users_deactivated = User.unscoped.where.not(deleted_at: nil).order(:last_name)
+
+    @users_active =
+      User.where(role: %i[deputy trainer admin], deleted_at: nil)
+          .order(:role, :last_name)
+    @users_pending =
+      User.where(role: :pending, deleted_at: nil)
+          .order(:last_name)
+    @users_deactivated =
+      User.where.not(deleted_at: nil)
+          .order(:last_name)
   end
 
   def show
