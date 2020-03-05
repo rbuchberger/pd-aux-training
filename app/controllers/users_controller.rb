@@ -1,5 +1,7 @@
+# Handles user management for admins
 class UsersController < ApplicationController
-  # All of these actions are part of the admin menu. Normal account management is handled by Devise.
+  # All of these actions are part of the admin menu. Normal account management
+  # is handled by Devise.
 
   def index
     authorize User
@@ -16,15 +18,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = get_user
+    @user = user
   end
 
   def edit
-    @user = get_user
+    @user = user
   end
 
   def update
-    @user = get_user
+    @user = user
     if @user.update(user_params)
       flash[:success] = 'User updated!'
       redirect_to user_path(@user)
@@ -35,34 +37,34 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = get_user
+    @user = user
     if @user.destroy
       flash[:success] = 'User deleted!'
       redirect_to users_path
     else
       flash[:danger] =
-        'Could not delete user. Please create another administrator account first.'
+        'Cannot delete the last administrator. Please create another first!'
       redirect_to user_path(@user)
     end
   end
 
   # Custom action allowing trainers to approve pending users
   def approve
-    @user = get_user
+    @user = user
     if @user.approve
       flash[:success] =
         "User approved! Their role has been set to deputy, and they can now
         log in."
-      redirect_to user_path(@user)
     else
       flash[:danger] = 'Could not approve user.'
-      redirect_to user_path(@user)
     end
+
+    redirect_to user_path(@user)
   end
 
   # Custom action allowing trainers to reject pending users.
   def reject
-    @user = get_user
+    @user = user
     if @user.reject
       flash[:success] =
         "User rejected! Their account has been deleted, and they will not be
@@ -76,7 +78,7 @@ class UsersController < ApplicationController
 
   # Preferred method for turning people off:
   def deactivate
-    @user = get_user
+    @user = user
     if @user.deactivate
       flash[:success] = 'User deactivated.'
       redirect_to user_path(@user)
@@ -89,7 +91,7 @@ class UsersController < ApplicationController
 
   # because it lets you turn them back on again.
   def reactivate
-    @user = get_user
+    @user = user
     if @user.reactivate
       flash[:success] = 'User reactivated! Their role has been set to deputy.'
       redirect_to user_path(@user)
@@ -101,21 +103,22 @@ class UsersController < ApplicationController
 
   # Index training requirements by completion status, based on a particular user
   def lessons
-    @user = get_user
+    @user = user
     authorize @user
     @lessons_complete = @user.lessons.all.order(:title)
-    @lessons_incomplete = (Lesson.all.order(:title).to_a - @lessons_complete.to_a)
+    @lessons_incomplete = Lesson.all.order(:title).to_a - @lessons_complete.to_a
   end
 
   private
 
-  def get_user
+  def user
     user = User.unscoped.find(params[:id])
     authorize user
     user
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :badge_number, :role, :email)
+    params.require(:user)
+          .permit(:first_name, :last_name, :badge_number, :role, :email)
   end
 end
