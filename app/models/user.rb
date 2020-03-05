@@ -27,11 +27,6 @@ class User < ApplicationRecord
   before_save :format_string_fields
   after_create :set_default_role
 
-  # Scopes:
-  def self.default_scope
-    User.order(:last_name)
-  end
-
   # Enumerate roles for convenience. They're stored in the database as
   # integers.
   enum role: %i[pending deputy trainer admin]
