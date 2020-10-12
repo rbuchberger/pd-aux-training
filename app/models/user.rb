@@ -71,7 +71,7 @@ class User < ApplicationRecord
     if admin? && User.where(role: :admin).count <= 1
       false
     else
-      update_attributes(deleted_at: Time.zone.now, role: :deputy)
+      update(deleted_at: Time.zone.now, role: :deputy)
     end
   end
 
