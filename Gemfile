@@ -49,7 +49,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rubocop', require: false
+  gem 'rubocop-rails', '~> 2.9.1', require: false
   gem 'web-console', '>= 3.3'
 end
 

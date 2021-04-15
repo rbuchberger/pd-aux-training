@@ -1,0 +1,11 @@
+require: rubocop-rails
+
+# Disabled Cops
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/StringConcatenation:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
