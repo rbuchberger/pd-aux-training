@@ -72,7 +72,7 @@ class ActiveSupport::TestCase
     {
       name: 'Valid Document',
       description: "I'm a document!",
-      file: fixture_file_upload('files/test.txt', 'text/plain')
+      file: fixture_file_upload('test.txt', 'text/plain')
     }
   end
 

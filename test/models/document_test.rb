@@ -35,7 +35,7 @@ class DocumentTest < ActiveSupport::TestCase
   # Bad file type, bad extension
   test 'bad file' do
     p = valid_document_params
-    p[:file] = fixture_file_upload('files/badfile.tar.gz', 'text/plain')
+    p[:file] = fixture_file_upload('badfile.tar.gz', 'text/plain')
 
     t = Document.new(p)
     assert_not t.valid?
@@ -45,7 +45,7 @@ class DocumentTest < ActiveSupport::TestCase
   # Bad file type, good extension
   test 'bad file type' do
     p = valid_document_params
-    p[:file] = fixture_file_upload('files/badfile.txt', 'text/plain')
+    p[:file] = fixture_file_upload('badfile.txt', 'text/plain')
 
     t = Document.new(p)
     assert_not t.valid?
@@ -55,7 +55,7 @@ class DocumentTest < ActiveSupport::TestCase
   # Good file type, bad extension
   test 'bad extension' do
     p = valid_document_params
-    p[:file] = fixture_file_upload('files/badfile2.tar.gz', 'text/plain')
+    p[:file] = fixture_file_upload('badfile2.tar.gz', 'text/plain')
 
     t = Document.new(p)
     assert_not t.valid?
