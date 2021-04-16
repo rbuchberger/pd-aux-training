@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_15_173404) do
+ActiveRecord::Schema.define(version: 2021_04_16_171623) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -59,10 +59,6 @@ ActiveRecord::Schema.define(version: 2021_04_15_173404) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.string "file_file_name"
-    t.string "file_content_type"
-    t.integer "file_file_size"
-    t.datetime "file_updated_at"
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
