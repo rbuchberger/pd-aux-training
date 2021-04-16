@@ -10,10 +10,10 @@
     <div class="document-download">
       <p>
         <%= link_to "Edit Details", edit_document_path(document), class: "mr-3" if policy(document).edit? %>
-        <%= link_to File.extname(document.file_file_name), document_path(document), class: "btn btn-sm btn-primary" %>
+        <%= link_to 'extension name', '#', class: "btn btn-sm btn-primary" %>
       </p>
       <p>
-        <small class='text-muted'><%= number_to_human_size(document.file.size) %></small>
+        <small class='text-muted'><%= number_to_human_size(999) %></small>
       </p>
     </div>
   </div>

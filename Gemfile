@@ -34,8 +34,6 @@ gem 'jquery-rails', '4.3'
 gem 'hirb', '~> 0.7'
 # Redcarpet to enable markdown rendering
 gem 'redcarpet'
-# Paperclip gem for file uploads
-gem 'paperclip', '~> 6.0'
 # Amazon AWS S3 for library file storage
 gem 'aws-sdk-core', '~> 3'
 gem 'aws-sdk-s3', '~> 1'

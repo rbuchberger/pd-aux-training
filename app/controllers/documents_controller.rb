@@ -29,7 +29,7 @@ class DocumentsController < ApplicationController
 
     # More info here:
     # https://github.com/thoughtbot/paperclip/wiki/Restricting-Access-to-Objects-Stored-on-Amazon-S3
-    redirect_to @document.file.expiring_url(10)
+    # redirect_to @document.file.expiring_url(10)
   end
 
   def edit

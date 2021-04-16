@@ -34,8 +34,10 @@ module DocumentsPresenter
     # from the form with this hash:
     def sort_options
       {
-        'Newest' => 'file_updated_at DESC',
-        'Oldest' => 'file_updated_at ASC',
+        # 'Newest' => 'file_updated_at DESC',
+        # 'Oldest' => 'file_updated_at ASC',
+        'Newest' => 'name',
+        'Oldest' => 'name',
         'Alphabetic' => 'name'
       }
     end
