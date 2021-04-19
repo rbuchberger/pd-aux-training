@@ -27,3 +27,6 @@ config/secrets.yml.key
 
 # Ignore vscode files
 .vscode/
+
+# ActiveStorage local files
+/storage/*
