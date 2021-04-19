@@ -47,6 +47,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'byebug'
   gem 'rubocop-rails', '~> 2.9.1', require: false
   gem 'web-console', '>= 3.3'
 end
