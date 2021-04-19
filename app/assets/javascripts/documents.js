@@ -1,2 +1,9 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+// Auto-update the page when changing the sort setting
+function addSortListener() {
+  form = document.querySelector('form[action="/documents"]')
+  select = document.querySelector('select[name="sort_by"]')
+
+  select.addEventListener('change', () => form.submit())
+}
+
+document.addEventListener('DOMContentLoaded', addSortListener)
