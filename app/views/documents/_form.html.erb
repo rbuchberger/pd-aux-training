@@ -3,10 +3,18 @@
   <%= form_for @document do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
-    <small class="text-muted form-text text-right">Leave blank to use filename</small>
+    <small class="text-muted form-text text-right">
+      Leave blank to use filename
+    </small>
     <%= f.label :description %>
     <%= f.text_area :description, class: 'form-control', rows: 6 %>
-    <small class="text-muted form-text">Optional, and formatted with markdown. Google knows all about it, and wordpress has a pretty good quick reference <a href="https://en.support.wordpress.com/markdown-quick-reference/">here</a>. Links will be automatically linkified, and it'll even render HTML (if you're into that sort of thing).</small>
+    <small class="text-muted form-text">
+      Optional, and formatted with markdown. Google knows all about it, and
+      wordpress has a pretty good quick reference <a
+      href="https://en.support.wordpress.com/markdown-quick-reference/">here</a>.
+    Links will be automatically linkified, and it'll even render HTML (if you're
+    into that sort of thing).
+    </small>
     <div class="my-4 custom-file">
       <%= f.label :file, class: 'custom-file-label' %>
       <%= f.file_field :file, class: 'custom-file-input' %>
@@ -14,18 +22,8 @@
     <%= f.submit "Save", class: 'btn btn-primary btn-block my-2' %>
   <% end %>
 
-  <p>Files are limited to 100mb each, and must be one of the following:</p>
-  <ul>
-    <li>pdf</li>
-    <li>Word Document (doc/docx)</li>
-    <li>Powerpoint Presentation (ppt/pptx)</li>
-    <li>Excel spreadsheet (xls/xlsx)</li>
-    <li>Image (png, jpeg, gif, etc)</li>
-    <li>Plain text file (.txt and many others)</li>
-  </ul>
-  <p>These rules can be changed, just send me an email! 
-    <a href="mailto:robert@buchberger.cc">robert@buchberger.cc</a>
+  <p>
+    Files can be any type, but they are limited to 100mb each (mostly to make
+    sure y'all don't blow up the AWS bill). Let me know if that is a problem.
   </p>
 </div>
-
-

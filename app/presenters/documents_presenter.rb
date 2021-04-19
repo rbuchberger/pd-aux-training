@@ -3,64 +3,79 @@ module DocumentsPresenter
     include ActiveRecord::Sanitization::ClassMethods
     # This is a class designed to handle document library presentation. It
     # stands between the model and controller; it sorts, pageinates, and
-    # searches documents to make the index page more manageable and useful. This
-    # logic doesn't belong in the controller, or the model, so it gets its own
-    # class.
-
-    # List is the list of documents, page is the current page number, total
-    # pages is the total number of pages.
-    attr_reader :list, :page, :total_pages, :sort_by, :query, :params
+    # searches documents.
+    attr_reader :list, :page, :total_pages, :sort_by, :query
 
     def initialize(params = {})
-      # Params can include sort_by, query, and page. If not specified, default
-      # values are assumed.
-
       @query = params[:query]
-
-      @sort_by = params[:sort_by]
-      @sort_by = sort_default if @sort_by.blank?
-
+      @sort_by = params[:sort_by].blank? ? sort_default : params[:sort_by]
       @page = params[:page].blank? ? 1 : params[:page].to_i
-      @per_page = 30
-      @offset = (@page - 1) * @per_page
-
-      # For the pager
-      @params = { sort_by: @sort_by, query: @query }
-
-      build_list
     end
 
-    # .order() is vulnerable to SQL injection, so I'm abstracting its argument
-    # from the form with this hash:
+    def params
+      { sort_by: @sort_by, query: @query }
+    end
+
+    def sort_keys
+      sort_options.keys
+    end
+
     def sort_options
       {
-        # 'Newest' => 'file_updated_at DESC',
-        # 'Oldest' => 'file_updated_at ASC',
-        'Newest' => 'name',
-        'Oldest' => 'name',
+        'Newest' =>  'updated_at DESC',
+        'Oldest' => 'updated_at ASC',
         'Alphabetic' => 'name'
       }
+    end
+
+    def page_count
+      @page_count ||= (document_count / per_page).ceil
+    end
+
+    def list
+      @list ||= current_page(query.blank? ? documents : query_documents)
+    end
+
+    private
+
+    def per_page
+      30.0
+    end
+
+    def offset
+      (page - 1) * per_page
     end
 
     def sort_default
       'Newest'
     end
 
-    private
+    def sanitized_query
+      "%#{sanitize_sql_like(query)}%"
+    end
 
-    def build_list
-      sort_by_sql = sort_options[@sort_by]
-      if @query.blank?
-        @list = Document.order(sort_by_sql).limit(@per_page).offset(@offset)
-        @total_pages = (Document.count.to_f / @per_page).ceil
-      else
-        query_sql = "%#{sanitize_sql_like(@query)}%"
-        query_arg = "file_file_name LIKE :query OR
-                     name LIKE :query OR
-                     description LIKE :query"
-        @list = Document.where(query_arg, { query: query_sql }).order(sort_by_sql).limit(@per_page).offset(@offset)
-        @total_pages = (Document.where(query_arg, { query: query_sql }).count / @per_page).ceil
-      end
+    def sort_by_val
+      sort_options[sort_by]
+    end
+
+    def query_arg
+      "name LIKE :query OR description LIKE :query"
+    end
+
+    def documents
+      Document.includes(file_attachment: :blob)
+    end
+
+    def current_page(list)
+      list.order(sort_by_val).limit(per_page).offset(offset)
+    end
+
+    def query_documents
+      documents.where(query_arg, {query: sanitized_query})
+    end
+
+    def document_count
+      query.blank? ? documents.count : query_documents.count
     end
   end
 end
