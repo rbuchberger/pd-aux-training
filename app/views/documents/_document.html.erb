@@ -10,7 +10,7 @@
     <div class="document-download">
       <p>
         <%= link_to "Edit Details", edit_document_path(document), class: "mr-3" if policy(document).edit? %>
-        <%= link_to document.ext, rails_blob_path(document.file), class: "btn btn-sm btn-primary" %>
+        <%= link_to document.ext, rails_blob_path(document.file, disposition: "attachment"), class: "btn btn-sm btn-primary" %>
       </p>
       <p>
         <small class='text-muted'><%= number_to_human_size(document.file.byte_size) %></small>
