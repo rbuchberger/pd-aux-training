@@ -23,6 +23,6 @@ class Document < ApplicationRecord
   def acceptable_file_size
     return unless file.attached? && file.byte_size > MAXIMUM_FILE_SIZE
 
-    errors.add(:file, "cannot be larger than 100 megabytes.")
+    errors.add(:file, 'cannot be larger than 100 megabytes.')
   end
 end

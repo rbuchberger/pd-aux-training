@@ -4,11 +4,11 @@ module DocumentsPresenter
     # This is a class designed to handle document library presentation. It
     # stands between the model and controller; it sorts, pageinates, and
     # searches documents.
-    attr_reader :list, :page, :total_pages, :sort_by, :query
+    attr_reader :page, :total_pages, :sort_by, :query
 
     def initialize(params = {})
       @query = params[:query]
-      @sort_by = params[:sort_by].blank? ? sort_default : params[:sort_by]
+      @sort_by = params[:sort_by].presence || sort_default
       @page = params[:page].blank? ? 1 : params[:page].to_i
     end
 
@@ -22,7 +22,7 @@ module DocumentsPresenter
 
     def sort_options
       {
-        'Newest' =>  'updated_at DESC',
+        'Newest' => 'updated_at DESC',
         'Oldest' => 'updated_at ASC',
         'Alphabetic' => 'name'
       }
@@ -59,7 +59,7 @@ module DocumentsPresenter
     end
 
     def query_arg
-      "name LIKE :query OR description LIKE :query"
+      'name LIKE :query OR description LIKE :query'
     end
 
     def documents
@@ -71,7 +71,7 @@ module DocumentsPresenter
     end
 
     def query_documents
-      documents.where(query_arg, {query: sanitized_query})
+      documents.where(query_arg, { query: sanitized_query })
     end
 
     def document_count

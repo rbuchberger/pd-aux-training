@@ -39,12 +39,13 @@ class TimecardTest < ActiveSupport::TestCase
 
   # should not save if overlaps another timecard
   test 'Timecard overlap' do
-    t1 = Timecard.create({
-                           clock_in: Time.zone.now - 30.days,
-                           clock_out: Time.zone.now - 30.days + 8.hours,
-                           description: 'Test 1',
-                           user_id: 1
-                         })
+    Timecard.create({
+                      clock_in: Time.zone.now - 30.days,
+                      clock_out: Time.zone.now - 30.days + 8.hours,
+                      description: 'Test 1',
+                      user_id: 1
+                    })
+
     t2 = Timecard.new({
                         clock_in: Time.zone.now - 30.days + 1.hour,
                         clock_out: Time.zone.now - 30.days + 7.hours,
@@ -67,7 +68,7 @@ class TimecardTest < ActiveSupport::TestCase
   test 'timecard duration' do
     t = timecards(:deputy).duration
 
-    assert t.class == Float
+    assert t.instance_of?(Float)
     assert (30.minutes..24.hours).include? t
   end
 

@@ -20,7 +20,7 @@ module ApplicationHelper
   # Validation fails
   def validation_fails(record)
     if record.errors.any?
-      render partial: 'application/validation_fails.html.erb', locals: { record: record }
+      render partial: 'application/validation_fails', locals: { record: record }
     end
   end
 end
