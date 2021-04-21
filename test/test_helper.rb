@@ -9,6 +9,11 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def after_teardown
+    super
+    cleanup_local_storage
+  end
+
   # I'm sure there's some built in way to do this, but I couldn't find one that
   # worked well.
   def compare_datetimes(a, b)
@@ -19,6 +24,11 @@ class ActiveSupport::TestCase
     are_equal = false unless a.hour  == b.hour
     are_equal = false unless a.min   == b.min
     are_equal
+  end
+
+  # Remove files created during ActiveStorage tests
+  def cleanup_local_storage
+    FileUtils.rm_rf(Rails.root.join('/tmp/storage'))
   end
 
   def valid_user_params
