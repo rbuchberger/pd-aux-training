@@ -52,6 +52,6 @@ group :development do
   gem 'web-console', '>= 3.3'
 end
 
-group :production, :staging do
-  gem 'pg', '~> 0.18'
+group :production do
+  gem 'pg', '~> 1.1'
 end
