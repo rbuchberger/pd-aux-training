@@ -1,0 +1,8 @@
+one:
+  key: 111
+  filename: test.txt
+  content_type: 'text/plain'
+  metadata: '{"identified":true}'
+  byte_size: 123456
+  checksum: 2762291f51b091599161bf0734d53dea
+  service_name: test

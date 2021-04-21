@@ -1,14 +1,3 @@
-one: 
-  name: "Test file One"
-  description: "I am test File One."
-  # file_file_name: "test.txt"
-
-two: 
-  name: "Test file Two"
-  description: "I am test File Two."
-  # file_file_name: "test.txt"
-
-three: 
-  name: "Test file Three"
-  description: "I am test File Three."
-  # file_file_name: "test.txt"
+one:
+  name: I am a document
+  description: I have a description

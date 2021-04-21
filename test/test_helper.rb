@@ -69,10 +69,12 @@ class ActiveSupport::TestCase
   end
 
   def valid_document_params
+    file = fixture_file_upload('test.txt')
+
     {
       name: 'Valid Document',
-      description: "I'm a document!"
-      # file: fixture_file_upload('test.txt', 'text/plain')
+      description: "I'm a document!",
+      file: file
     }
   end
 

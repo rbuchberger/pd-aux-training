@@ -1,0 +1,4 @@
+one:
+  name: 'test file'
+  record: one (Document)
+  blob: one
