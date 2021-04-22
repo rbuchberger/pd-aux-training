@@ -37,7 +37,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   # Use encrypted secrets file
-  config.read_encrypted_secrets = true
+  config.read_encrypted_secrets = false
 
   config.action_mailer.perform_caching = false
   # Setting the default_url
