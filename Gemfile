@@ -38,6 +38,9 @@ gem 'redcarpet'
 gem 'aws-sdk-core', '~> 3'
 gem 'aws-sdk-s3', '~> 1'
 
+# Mailgun API
+gem 'mailgun-ruby', '~> 1.2'
+
 group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'listen'
