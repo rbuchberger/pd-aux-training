@@ -30,8 +30,6 @@ gem 'pundit', '~>2'
 gem 'bootstrap', '~> 4.0'
 # jQuery for javascript
 gem 'jquery-rails', '4.3'
-# Hirb gem for database convenience
-gem 'hirb', '~> 0.7'
 # Redcarpet to enable markdown rendering
 gem 'redcarpet'
 # Amazon AWS S3 for library file storage
@@ -51,6 +49,7 @@ end
 
 group :development do
   gem 'byebug'
+  gem 'hirb', '~> 0.7'
   gem 'rubocop-rails', '~> 2.9.1', require: false
   gem 'web-console', '>= 3.3'
 end
